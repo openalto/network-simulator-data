@@ -1,0 +1,351 @@
+---
+nodes:
+  core:
+    id: 1
+    prefixes: 272
+  sum-cr5:
+    id: 2
+    prefixes: 25
+    ip: "134.55.200.146"
+  amst-cr5:
+    id: 3
+    prefixes: 113
+    ip: "134.55.200.243"
+  land-cr5:
+    id: 4
+    prefixes: 111
+    ip: "134.55.200.240"
+  wash-cr5:
+    id: 5
+    prefixes: 123
+    ip: "134.55.200.147"
+  oern-513-cr5:
+    id: 6
+    prefixes: 108
+    ip: "134.55.200.241"
+  oerh-272-cr5:
+    id: 7
+    prefixes: 5
+    ip: "134.55.200.242"
+  pnwg-cr5:
+    id: 8
+    prefixes: 13
+    ip: "134.55.200.143"
+  acfa-cr5:
+    id: 9
+    ip: "134.55.200.132"
+  rswy-cr5:
+    id: 10
+    prefixes: 6
+    ip: "134.55.200.141"
+  star-cr5:
+    id: 11
+    prefixes: 41
+    ip: "134.55.200.145"
+  chio-cr5:
+    id: 12
+    prefixes: 47
+    ip: "134.55.200.134"
+  crrl-cr5:
+    id: 13
+    prefixes: 3
+    ip: "134.55.200.142"
+  rash-cr5:
+    id: 14
+    prefixes: 3
+    ip: "134.55.200.139"
+  atla-cr5:
+    id: 15
+    prefixes: 4
+    ip: "134.55.200.133"
+  hous-cr5:
+    id: 16
+    prefixes: 5
+    ip: "134.55.200.137"
+  anl-mr2:
+    id: 17
+    prefixes: 2
+    ip: "134.55.200.114"
+  SLAC:
+    id: 18
+    asn: 3671
+  OPTIPUTER:
+    id: 19
+    asn: 26397
+  SINET:
+    id: 20
+    asn: 2907
+  ULTRALIGHT:
+    id: 21
+    asn: 32361
+  UCSB:
+    id: 22
+    asn: 131
+  NORDUNET:
+    id: 23
+    asn: 2603
+    vrf: true
+  GEANT:
+    id: 24
+    asn: 20965
+    vrf: true
+  CERN:
+    id: 25
+    asn: 513
+  AARNET:
+    id: 26
+    asn: 7575
+  Internet2:
+    id: 27
+    asn: 11537
+  BOSTONU:
+    id: 28
+    asn: 111
+  BNL-AS:
+    id: 29
+    asn: 43
+  INDIANA-UNIV:
+    id: 30
+    asn: 19782
+  ANL:
+    id: 31
+    asn: 683
+  KREONET:
+    id: 32
+    asn: 17579
+    vrf: true
+  ASGC:
+    id: 33
+    asn: 24167
+    vrf: true
+  UChicago:
+    id: 34
+    asn: 160
+  FNAL:
+    id: 35
+    asn: 3152
+  AGLT2:
+    id: 36
+    asn: 229
+  Oklahoma-Univ:
+    id: 37
+    asn: 25776
+  WISC-MADISON:
+    id: 38
+    asn: 59
+  UNL:
+    id: 39
+    asn: 7896
+  ORNL:
+    id: 40
+    asn: 50
+  Vanderbilt-UNIV:
+    id: 41
+    asn: 7212
+  NDGF:
+    id: 42
+    asn: 39590
+  RU-VRF:
+    id: 43
+    asn: 57383
+    vrf: true
+  RNP:
+    id: 44
+    asn: 1916
+    vrf: true
+  Pionier:
+    id: 45
+    asn: 8501
+    vrf: true
+  RedIRIS:
+    id: 46
+    asn: 766
+    vrf: true
+  Imperial-College:
+    id: 47
+    asn: 786
+  DFN:
+    id: 48
+    asn: 680
+  GARR:
+    id: 49
+    asn: 137
+    vrf: true
+  NL-SARA:
+    id: 50
+    asn: 1162
+  CESNET:
+    id: 51
+    asn: 2852
+  RoEduNet:
+    id: 52
+    asn: 2614
+  BELNET:
+    id: 53
+    asn: 2611
+  Univ-Ioannina:
+    id: 54
+    asn: 8581
+  Renater:
+    id: 55
+    asn: 2091
+  TIFR:
+    id: 56
+    asn: 2697
+  CANARIE:
+    id: 57
+    asn: 6509
+  MIT:
+    id: 58
+    asn: 3
+  Purdue-CMS:
+    id: 59
+    asn: 17
+  RRC-KI:
+    id: 60
+    asn: 59624
+  ITEP:
+    id: 61
+    asn: 2148
+  PNPI:
+    id: 62
+    asn: 29493
+  JINR:
+    id: 63
+    asn: 2875
+  IHEP:
+    id: 64
+    asn: 2643
+  CBPF-Brazil:
+    id: 65
+    asn: 2715
+  SAMPA-Brazil:
+    id: 66
+    asn: 28571
+  Cyfronet-AGH:
+    id: 67
+    asn: 8267
+  UNIV-Warsaw:
+    id: 68
+    asn: 8664
+  PIC-IFAE:
+    id: 69
+    asn: 43115
+  DE-KIT:
+    id: 70
+    asn: 58069
+  DESY:
+    id: 71
+    asn: 1754
+  NSCKIPT:
+    id: 72
+    asn: 35296
+  NIKHEF:
+    id: 73
+    asn: 1104
+  IN2P3:
+    id: 74
+    asn: 789
+  CEA-IRFU:
+    id: 75
+    asn: 777
+  Toronto-Univ:
+    id: 76
+    asn: 239
+  UVIC:
+    id: 77
+    asn: 16462
+  SFU:
+    id: 78
+    asn: 11105
+  BCNet:
+    id: 79
+    asn: 271
+links:
+- [1, 2]
+- [1, 3]
+- [1, 4]
+- [1, 5]
+- [1, 6]
+- [1, 7]
+- [1, 8]
+- [1, 9]
+- [1, 10]
+- [1, 11]
+- [1, 12]
+- [1, 13]
+- [1, 14]
+- [1, 15]
+- [1, 16]
+- [1, 17]
+- [2, 18]
+- [2, 19]
+- [2, 20]
+- [2, 21]
+- [2, 22]
+- [3, 23]
+- [4, 23]
+- [5, 23]
+- [9, 23]
+- [3, 24]
+- [4, 24]
+- [5, 24]
+- [6, 24]
+- [9, 24]
+- [6, 25]
+- [7, 25]
+- [8, 26]
+- [5, 27]
+- [9, 27]
+- [12, 27]
+- [9, 28]
+- [11, 30]
+- [11, 31]
+- [11, 32]
+- [11, 33]
+- [11, 34]
+- [12, 34]
+- [11, 35]
+- [12, 35]
+- [11, 36]
+- [12, 36]
+- [12, 37]
+- [12, 38]
+- [12, 39]
+- [13, 40]
+- [14, 40]
+- [13, 41]
+- [14, 41]
+- [23, 42]
+- [23, 43]
+- [24, 44]
+- [24, 45]
+- [24, 46]
+- [24, 47]
+- [24, 48]
+- [24, 49]
+- [24, 50]
+- [24, 51]
+- [24, 52]
+- [24, 53]
+- [24, 54]
+- [24, 55]
+- [24, 56]
+- [43, 60]
+- [43, 61]
+- [43, 62]
+- [43, 63]
+- [43, 64]
+- [44, 65]
+- [44, 66]
+- [45, 67]
+- [45, 68]
+- [46, 69]
+- [48, 70]
+- [48, 71]
+- [50, 73]
+- [55, 74]
+- [55, 75]
+- [57, 77]
+- [57, 78]
+- [57, 79]
