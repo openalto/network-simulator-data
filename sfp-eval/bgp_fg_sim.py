@@ -85,8 +85,10 @@ def check_reachability(G, flows):
         #         break
         # if not block:
         #     cnt += 1
-    print 'total', 'drop', 'loop', 'reachability_rate'
-    print len(flows), drop_cnt, loop_cnt, 1 - float(drop_cnt + loop_cnt)/len(flows)
+    print 'block_policies', 'deflection_policies'
+    print '%d\t%d' % policy_summary(G)
+    print 'total\tdrop\tloop\treachability_rate'
+    print '%d\t%d\t%d\t%f' % (len(flows), drop_cnt, loop_cnt, 1 - float(drop_cnt + loop_cnt)/len(flows))
 
 def check_path(f, paths, G):
     loop_remover = {}
@@ -114,6 +116,19 @@ def check_path(f, paths, G):
     if d != dst:
         return 1
     return 0
+
+def policy_summary(G):
+    block_cnt = 0
+    deflection_cnt = 0
+    for d in G.nodes():
+        p = G.node[d].get('policy', {})
+        for srv in p:
+            for dst in p[srv]:
+                if p[srv][dst]:
+                    deflection_cnt += 1
+                else:
+                    block_cnt += 1
+    return block_cnt, deflection_cnt
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
