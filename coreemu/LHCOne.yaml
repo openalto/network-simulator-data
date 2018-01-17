@@ -237,9 +237,6 @@ nodes:
   DESY:
     id: 71
     asn: 1754
-  NSCKIPT:
-    id: 72
-    asn: 35296
   NIKHEF:
     id: 73
     asn: 1104
