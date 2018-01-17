@@ -10,7 +10,7 @@ import yaml
 import networkx
 
 SERVICE_TYPES = 7
-MAX_BLOCK_TYPES = 1
+MAX_BLOCK_TYPES = 2
 RATIO = 0.9
 
 def read_topo(filename):
@@ -117,10 +117,20 @@ def check_path(f, paths, G):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print "%s topo_file" % sys.argv[0]
+        print "%s topo_file [flow_num [ratio [max_block_types [service_types]]]]" % sys.argv[0]
         sys.exit(0)
+    flow_num = 100000
+    if len(sys.argv) > 2:
+        flow_num = int(sys.argv[2])
+    if len(sys.argv) > 3:
+        RATIO = float(sys.argv[3])
+    if len(sys.argv) > 4:
+        MAX_BLOCK_TYPES = int(sys.argv[4])
+    if len(sys.argv) > 5:
+        SERVICE_TYPES = int(sys.argv[5])
+
     G = read_topo(sys.argv[1])
     set_random_policy(G)
-    flows = gen_random_flow(G, 100000)
+    flows = gen_random_flow(G, flow_num)
     # print G.node
     check_reachability(G, flows)
