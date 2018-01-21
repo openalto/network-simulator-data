@@ -9,8 +9,13 @@ import yaml
 
 import networkx
 
+import datetime
+import random
+
 ip_prefixes = pytricia.PyTricia()
 
+seed = hash(datetime.datetime.now())
+global_policy = {}
 
 def read_topo(filename, local_policy=None):
     data = yaml.load(open(filename))
@@ -34,6 +39,8 @@ def read_topo(filename, local_policy=None):
 bgp_general_policy = networkx.shortest_path
 
 
+# FIXME: The generation algorithm does not make sense
+# Refer to the evaluation part of SDX and SIDR
 def generate_local_policy(G, **args):
     """
     Generate the local policy for each node in G.
@@ -46,7 +53,82 @@ def generate_local_policy(G, **args):
         The mapping from node id to a local_policy table.
         local_policy_table ::= Trie<prefix, Map<port, next_hop>>
     """
-    pass
+    global global_policy
+    random.seed(seed)
+    policies = dict()
+    max_ports = 30
+    for node in G.nodes():
+        if node not in policies:
+            policies[node] = pytricia.PyTricia()
+        # FIXME: select prefix by following a distribution
+        for prefix in G.node[node]["ip-prefix"]:
+            # FIXME: select ports by following a distribution
+            ports = set([random.randint(10000, 60000) for _ in range(randint(1, max_ports))])
+            policies[node][port] = random.choice([i for i in G.neighbors(node)] + [None])
+    global_policy = policies
+
+
+DEFAULT_SERVICE_TYPES = [21, 80, 2801]
+
+# TODO: Some key points
+# - What's the distribution for policy type (blackhole/deflection) selection
+# - What's the distribution for node selection
+# - How many network we need to fwd
+# - What's the distribution for the tcp port selection
+def generate_random_policy(G, service_types=DEFAULT_SERVICE_TYPES, network_ratio=0.5, prefix_ratio=0.2,
+                           policy_place='transit', policy_type='both', **args):
+    """
+    Randomly setup black-hole or deflection policies in transit network
+
+    Args:
+        G: Topology
+        service_types: supported service port list.
+        network_ratio: how many networks is selected. default 0.5
+        prefix_ratio: how many prefix is seleted. default: 0.2
+        policy_place: transit, edge or both. default: 'transit'
+        policy_type: blackhole, deflection or both. default: 'both'
+        args: additional arguments.
+
+    Returns:
+        global local policy table.
+    """
+    edge_networks = [n for n in G.nodes() if G.node[n].get('type', '') == 'edge']
+    transit_networks = [n for n in G.nodes() if G.node[n].get('type', '') == 'transit']
+    policies = {}
+    if policy_place == 'transit':
+        policy_networks = transit_networks
+    elif policy_place == 'edge':
+        policy_networks = edge_networks
+    else:
+        policy_networks = G.nodes()
+    for d in policy_networks:
+        if d not in policies:
+            policies[d] = pytricia.PyTricia()
+        for dest in random.sample([n for n in edge_networks if n != d],
+                                  int(len(edge_networks)*network_ratio)):
+            node_prefixes = G.node[dest]['ip-prefix']
+            for prefix in random.sample(node_prefixes, int(len(node_prefixes)*prefix_ratio)):
+                policies[d][prefix] = {port: gen_single_policy(G, d, dest, policy_type)
+                                       for port in random.sample(range(service_types), random.randint(1, 4))}
+    return policies
+
+
+def gen_single_policy(G, d, dest, policy_type):
+    if policy_type == 'both':
+        return random.choice([None, random_deflection(G, d, dest)])
+    elif policy_type == 'deflection':
+        return random_deflection(G, d, dest)
+    return None
+
+
+def random_deflection(G, d, dest):
+    next_hop = networkx.shortest_path(G, d, dest)[1]
+    subG = G.copy()
+    subG.remove_edge(d, next_hop)
+    if dest not in networkx.descendants(subG, d):
+        return None
+    else:
+        return networkx.shortest_path(subG, d, dest)[1]
 
 
 def local_policy(node):
@@ -57,9 +139,8 @@ def local_policy(node):
 
     local_policy ::= Trie<prefix, Map<port, next_hop>>
     """
-    policies = pytricia.PyTricia()
-    # TODO
-    return policies
+    global global_policy
+    return global_policy.get(node, pytricia.PyTricia())
 
 
 def default_routing_policy(node, dst_ip, dst_port=None, src_ip=None, src_port=None, protocol='tcp', **args):
@@ -133,7 +214,8 @@ def correct_bgp_convergence(G):
             paths = networkx.shortest_path(H)
             for src in H.nodes:
                 if src != dst:
-                    path = paths[src][dst]
+                    # path = paths[src][dst]
+                    path = paths[src].get(dst, [])
                     for hop, next_hop in zip(path[:-1], path[1:]):
                         hop["routing"][prefix] = next_hop
 
@@ -155,7 +237,8 @@ def find_fine_grained_routes(G, prefix_port):
             for src in H.nodes:
                 dst = H.node[ip_prefixes[prefix]]
                 if src != dst:
-                    path = paths[src][dst]
+                    # path = paths[src][dst]
+                    path = paths[src].get(dst, [])
                     for hop, next_hop in zip(path[:-1], path[1:]):
                         if prefix not in hop["fine_grained"]:
                             hop["fine_grained"][prefix] = dict()
@@ -164,7 +247,8 @@ def find_fine_grained_routes(G, prefix_port):
     for src in G.node:
         for dst in G.node:
             if src != dst:
-                path = paths[src][dst]
+                # path = paths[src][dst]
+                path = paths[src].get(dst, [])
                 prefixes = G.node[dst]['ip-prefix']
                 for hop, next_hop in zip(path[:-1], path[1:]):
                     for prefix in prefixes:
@@ -196,6 +280,7 @@ def read_flows(filename):
     data = yaml.load(open(filename))
     return data
 
+statistic_as_length = {}
 
 def coarse_grained_correct_bgp(G, F):
     """
@@ -208,13 +293,22 @@ def coarse_grained_correct_bgp(G, F):
     """
     for flow in F:
         node = G.node[ip_prefixes[flow["src-ip"]]]
-        while node is not None:
-            bgp = bgp_policy(node=node, src_ip=flow["src-ip"], dst_ip=flow["dst-ip"],
-                             src_port=flow["src-port"], dst_port=flow["dst-port"])
-            local = local_policy(node=node, src_ip=flow["src-ip"], dst_ip=flow["dst-ip"],
-                                 src_port=flow["src-port"], dst_port=flow["dst-port"])
-            if bgp == local and bgp is not None:
-                node["routing"][]
+        if node is not None:
+            as_length = [node]
+            while ip_address(flow["dst-ip"]) not in ip_network(node["ip-prefix"]):
+                if len(node["fine_grained"]) > 0:
+                    try:
+                        next_hop = node["fine_grained"][flow["dst-ip"]]["dst-port"]
+                        in_fg = True # In fine grained policy
+                    except KeyError:
+                        in_fg = False
+                if not in_fg:
+                    next_hop = node["routing"][flow["dst-ip"]]
+                as_length.append(next_hop)
+        print("AS Length: %d" % len(as_length))
+        if len(as_length) not in statistic_as_length:
+            statistic_as_length[len(as_length)] = 0
+        statistic_as_length[len(as_length)] += 1
 
 # def match(ip, prefix):
 #     return ip in prefix
@@ -273,13 +367,19 @@ if __name__ == '__main__':
         print("%s topo-filename flow-filename mode" % sys.argv[0])
     topo_filename = sys.argv[1]
     flow_filename = sys.argv[2]
-    mode = sys.argv[3]
-    if mode == '1':
-        mode = 1  # Coarse-grained correct BGP
-    elif mode == '2':
-        mode = 2  # Coarse-grained BGP with false-positive
-    else:
-        mode = 3  # fine-grained announcement
 
     G = read_topo(topo_filename)
     F = read_flows(flow_filename)
+    generate_local_policy(G)
+
+    mode = sys.argv[3]
+
+    if mode == '1':
+        fp_bgp_convergence(G)
+    elif mode == '2':
+        correct_bgp_convergence(G)
+    else:
+        fine_grained_announcement(G)
+
+    coarse_grained_correct_bgp(G, F)
+    print("AS Length statistics: %d" % statistic_as_length)
