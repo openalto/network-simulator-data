@@ -1,0 +1,502 @@
+links:
+- [1, 2]
+- [1, 3]
+- [1, 4]
+- [1, 5]
+- [1, 6]
+- [1, 7]
+- [1, 8]
+- [1, 9]
+- [1, 10]
+- [1, 11]
+- [1, 12]
+- [1, 13]
+- [1, 14]
+- [1, 15]
+- [1, 16]
+- [1, 17]
+- [2, 18]
+- [2, 19]
+- [2, 20]
+- [2, 21]
+- [2, 22]
+- [3, 23]
+- [4, 23]
+- [5, 23]
+- [9, 23]
+- [3, 24]
+- [4, 24]
+- [5, 24]
+- [6, 24]
+- [9, 24]
+- [6, 25]
+- [7, 25]
+- [8, 26]
+- [5, 27]
+- [9, 27]
+- [12, 27]
+- [9, 28]
+- [9, 29]
+- [10, 29]
+- [11, 30]
+- [11, 31]
+- [11, 32]
+- [11, 33]
+- [11, 34]
+- [12, 34]
+- [11, 35]
+- [12, 35]
+- [11, 36]
+- [12, 36]
+- [12, 37]
+- [12, 38]
+- [12, 39]
+- [13, 40]
+- [14, 40]
+- [13, 41]
+- [14, 41]
+- [23, 42]
+- [23, 43]
+- [24, 44]
+- [24, 45]
+- [24, 46]
+- [24, 47]
+- [24, 48]
+- [24, 49]
+- [24, 50]
+- [24, 51]
+- [24, 52]
+- [24, 53]
+- [24, 54]
+- [24, 55]
+- [24, 56]
+- [8, 57]
+- [27, 57]
+- [27, 58]
+- [30, 59]
+- [43, 60]
+- [43, 61]
+- [43, 62]
+- [43, 63]
+- [43, 64]
+- [44, 65]
+- [44, 66]
+- [45, 67]
+- [45, 68]
+- [46, 69]
+- [48, 70]
+- [48, 71]
+- [50, 73]
+- [55, 74]
+- [55, 75]
+- [57, 76]
+- [57, 77]
+- [57, 78]
+- [57, 79]
+nodes:
+  AARNET:
+    asn: 7575
+    id: 26
+    vrf: true
+    type: transit
+  AGLT2:
+    asn: 229
+    id: 36
+    ip-prefix:
+      - 192.41.230.0/23
+      - 192.41.236.0/23
+      - 192.41.238.0/28
+    type: edge
+  ANL:
+    asn: 683
+    id: 31
+    ip-prefix:
+      - 140.221.68.0/24
+      - 140.221.69.0/24
+      - 140.221.96.0/24
+    type: edge
+  ASGC: {asn: 24167, id: 33, type: transit, vrf: true}
+  BCNet:
+    asn: 271
+    id: 79
+    ip-prefix:
+      - 206.12.15.0/24
+      - 206.199.48.0/23
+      - 206.199.185.0/24
+    type: edge
+  BELNET:
+    asn: 2611
+    id: 53
+    ip-prefix:
+      - 193.12.15.0/24
+      - 193.199.48.0/23
+      - 193.199.185.0/24
+    type: edge
+  BNL:
+    asn: 43
+    id: 29
+    ip-prefix:
+      - 192.12.15.0/24
+      - 130.199.48.0/23
+      - 130.199.185.0/24
+    type: edge
+  BOSTONU:
+    asn: 111
+    id: 28
+    ip-prefix:
+      - 128.197.24.0/21
+    type: edge
+  CANARIE:
+    asn: 6509
+    id: 57
+    ip-prefix:
+      - 192.84.86.0/24
+      - 198.32.43.0/24
+      - 198.32.44.0/24
+    type: edge
+  CBPF-Brazil:
+    asn: 2715
+    id: 65
+    ip-prefix:
+      - 152.84.101.0/24
+    type: edge
+  CEA-IRFU:
+    asn: 777
+    id: 75
+    ip-prefix:
+      - 100.84.101.0/24
+    type: edge
+  CERN:
+    asn: 513
+    id: 25
+    ip-prefix:
+      - 128.142.0.0/16
+      - 188.184.128.0/17
+      - 188.185.48.0/20
+      - 188.185.128.0/17
+    type: edge
+  CESNET:
+    asn: 2852
+    id: 51
+    ip-prefix:
+      - 195.113.219.0/25
+    type: edge
+  Cyfronet-AGH:
+    asn: 8267
+    id: 67
+    ip-prefix:
+      - 149.156.5.192/27
+    type: edge
+  DE-KIT:
+    asn: 58069
+    id: 70
+    ip-prefix:
+      - 192.108.45.0/24
+      - 192.108.46.0/23
+      - 192.106.68.0/24
+    type: edge
+  DESY:
+    asn: 1754
+    id: 71
+    ip-prefix:
+      - 131.169.80.0/24
+      - 131.169.98.0/24
+      - 131.169.160.0/21
+      - 131.169.191.0/24
+      - 131.169.192.0/24
+      - 141.34.192.0/21
+      - 141.34.200.0/24
+    type: edge
+  DFN:
+    asn: 680
+    id: 48
+    ip-prefix:
+      - 90.169.80.0/24
+      - 90.169.98.0/24
+      - 90.169.160.0/21
+      - 90.169.191.0/24
+      - 90.169.192.0/24
+      - 90.34.192.0/21
+      - 90.34.200.0/24
+    type: edge
+  FNAL:
+    asn: 3152
+    id: 35
+    ip-prefix:
+      - 131.255.160.0/24
+      - 131.225.184.0/22
+      - 131.225.188.0/22
+      - 131.225.204.0/22
+    type: edge
+  GARR: {asn: 137, id: 49, type: transit, vrf: true}
+  GEANT: {asn: 20965, id: 24, type: transit, vrf: true}
+  IHEP:
+    asn: 2643
+    id: 64
+    ip-prefix:
+      - 194.190.165.0/24
+    type: edge
+  IN2P3:
+    asn: 789
+    id: 74
+    ip-prefix:
+      - 134.158.83.0/24
+      - 134.158.104.0/21
+      - 134.158.168.0/21
+      - 134.158.208.0/21
+      - 134.158.238.0/24
+      - 134.158.239.0/24
+      - 134.158.247.0/24
+      - 193.48.99.0/24
+      - 193.48.100.0/24
+      - 134.158.20.0/23
+    type: edge
+  INDIANA-UNIV:
+    asn: 19782
+    id: 30
+    ip-prefix:
+      - 80.158.83.0/24
+      - 80.158.104.0/21
+      - 80.158.168.0/21
+      - 80.158.208.0/21
+      - 80.158.238.0/24
+      - 80.158.239.0/24
+      - 80.158.247.0/24
+      - 80.48.99.0/24
+      - 80.48.100.0/24
+      - 80.158.20.0/23
+    type: edge
+  ITEP:
+    asn: 2148
+    id: 61
+    ip-prefix:
+      - 194.85.68.0/23
+      - 194.85.66.0/24
+    type: edge
+  Imperial-College:
+    asn: 786
+    id: 47
+    ip-prefix:
+      - 146.179.244.0/24
+    type: edge
+  Internet2:
+    asn: 11537
+    id: 27
+    vrf: true
+    type: transit
+  JINR:
+    asn: 2875
+    id: 63
+    ip-prefix:
+      - 159.93.228.0/22
+      - 159.93.39.0/24
+      - 159.93.224.0/22
+    type: edge
+  KREONET: {asn: 17579, id: 32, type: transit, vrf: true}
+  MIT:
+    asn: 3
+    id: 58
+    ip-prefix:
+      - 18.12.0.0/20
+    type: edge
+  NDGF:
+    asn: 39590
+    id: 42
+    ip-prefix:
+      - 109.105.124.0/22
+    type: edge
+  NIKHEF:
+    asn: 1104
+    id: 73
+    ip-prefix:
+      - 194.171.96.128/25
+    type: edge
+  NL-SARA:
+    asn: 1162
+    id: 50
+    ip-prefix:
+      - 145.100.17.0/28
+      - 145.100.32.0/22
+    type: edge
+  NORDUNET: {asn: 2603, id: 23, type: transit, vrf: true}
+  OPTIPUTER:
+    asn: 26397
+    id: 19
+    ip-prefix:
+      - 132.239.160.0/19
+    type: edge
+  ORNL:
+    asn: 50
+    id: 40
+    ip-prefix:
+      - 192.12.68.0/24
+      - 192.188.182.0/24
+    type: edge
+  Oklahoma-Univ:
+    asn: 25776
+    id: 37
+    ip-prefix:
+      - 129.15.40.0/23
+    type: edge
+  PIC-IFAE:
+    asn: 43115
+    id: 69
+    ip-prefix:
+      - 193.109.172.0/24
+    type: edge
+  PNPI:
+    asn: 29493
+    id: 62
+    ip-prefix:
+      - 212.193.96.0/26
+      - 144.206.131.0/24
+    type: edge
+  Pionier: {asn: 8501, id: 45, type: transit, vrf: true}
+  Purdue-CMS:
+    asn: 17
+    id: 59
+    ip-prefix:
+      - 128.211.128.0/19
+    type: edge
+  RNP: {asn: 1916, id: 44, type: transit, vrf: true}
+  RRC-KI:
+    asn: 59624
+    id: 60
+    ip-prefix:
+      - 144.206.224.0/24
+      - 144.206.236.0/24
+      - 144.206.237.0/24
+      - 144.206.255.128/26
+    type: edge
+  RU-VRF: {asn: 57383, id: 43, type: transit, vrf: true}
+  RedIRIS: {asn: 766, id: 46, type: transit, vrf: true}
+  Renater:
+    asn: 2091
+    id: 55
+    vrf: true
+    type: transit
+  RoEduNet:
+    asn: 2614
+    id: 52
+    ip-prefix:
+      - 81.180.86.0/24
+    type: edge
+  SAMPA-Brazil:
+    asn: 28571
+    id: 66
+    ip-prefix:
+      - 200.17.30.0/24
+    type: edge
+  SFU:
+    asn: 11105
+    id: 78
+    ip-prefix:
+      - 206.12.24.0/25
+    type: edge
+  SINET:
+    asn: 2907
+    id: 20
+    vrf: true
+    type: transit
+  SLAC:
+    asn: 3671
+    id: 18
+    ip-prefix:
+      - 134.79.0.0/16
+    type: edge
+  TIFR:
+    asn: 2697
+    id: 56
+    ip-prefix:
+      - 144.16.111.0/24
+      - 144.16.112.0/24
+    type: edge
+  Toronto-Univ:
+    asn: 239
+    id: 76
+    ip-prefix:
+      - 142.150.188.0/24
+    type: edge
+  UCSB:
+    asn: 131
+    id: 22
+    ip-prefix:
+      - 128.111.120.96/28
+    type: edge
+  UChicago:
+    asn: 160
+    id: 34
+    ip-prefix:
+      - 192.170.224.0/19
+    type: edge
+  ULTRALIGHT:
+    asn: 32361
+    id: 21
+    ip-prefix:
+      - 192.84.86.0/24
+      - 198.32.43.0/24
+      - 198.32.44.0/24
+    type: edge
+  UNIV-Warsaw:
+    asn: 8664
+    id: 68
+    ip-prefix:
+      - 213.135.54.0/26
+    type: edge
+  UNL:
+    asn: 7896
+    id: 39
+    ip-prefix:
+      - 129.93.182.0/23
+      - 129.93.239.128/26
+      - 129.93.241.0/26
+      - 129.93.244.192/26
+    type: edge
+  UVIC:
+    asn: 16462
+    id: 77
+    ip-prefix:
+      - 206.12.48.136/29
+      - 206.12.48.224/27
+    type: edge
+  Univ-Ioannina:
+    asn: 8581
+    id: 54
+    ip-prefix:
+      - 195.251.201.128/26
+    type: edge
+  Vanderbilt-UNIV:
+    asn: 7212
+    id: 41
+    ip-prefix:
+      - 129.59.177.96/27
+      - 129.59.197.0/24
+      - 192.111.108.0/24
+    type: edge
+  WISC-MADISON:
+    asn: 59
+    id: 38
+    ip-prefix:
+      - 128.104.227.0/24
+      - 144.92.180.0/23
+    type: edge
+  acfa-cr5:
+    id: 9
+    ip: 134.55.200.132
+    type: transit
+  amst-cr5: {id: 3, ip: 134.55.200.243, prefixes: 113, type: transit}
+  anl-mr2: {id: 17, ip: 134.55.200.114, prefixes: 2, type: transit}
+  atla-cr5: {id: 15, ip: 134.55.200.133, prefixes: 4, type: transit}
+  chio-cr5: {id: 12, ip: 134.55.200.134, prefixes: 47, type: transit}
+  core: {id: 1, prefixes: 272, type: transit}
+  crrl-cr5: {id: 13, ip: 134.55.200.142, prefixes: 3, type: transit}
+  hous-cr5: {id: 16, ip: 134.55.200.137, prefixes: 5, type: transit}
+  land-cr5: {id: 4, ip: 134.55.200.240, prefixes: 111, type: transit}
+  oerh-272-cr5: {id: 7, ip: 134.55.200.242, prefixes: 5, type: transit}
+  oern-513-cr5: {id: 6, ip: 134.55.200.241, prefixes: 108, type: transit}
+  pnwg-cr5: {id: 8, ip: 134.55.200.143, prefixes: 13, type: transit}
+  rash-cr5: {id: 14, ip: 134.55.200.139, prefixes: 3, type: transit}
+  rswy-cr5: {id: 10, ip: 134.55.200.141, prefixes: 6, type: transit}
+  star-cr5: {id: 11, ip: 134.55.200.145, prefixes: 41, type: transit}
+  sum-cr5: {id: 2, ip: 134.55.200.146, prefixes: 25, type: transit}
+  wash-cr5: {id: 5, ip: 134.55.200.147, prefixes: 123, type: transit}
