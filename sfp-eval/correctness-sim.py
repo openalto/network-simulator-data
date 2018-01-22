@@ -450,6 +450,7 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
     as_length_dist = {}
     success_volume = 0
     unsuccess_volume = 0
+    R_F = []
     for f in F:
         if debug:
             global debug_dict
@@ -465,6 +466,7 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
             unsuccess_volume += f['volume']
         elif result > 1:
             success_volume += f['volume']
+            R_F.append(f)
     # print 'block_policies', 'deflection_policies'
     # print '%d\t%d' % policy_summary(G)
     if debug:
@@ -474,15 +476,16 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
         as_length_dist[math.nan] = as_len_nan
         print('\t'.join([str(l) for l in as_lens]))
         print('\t'.join([str(as_length_dist[l]) for l in as_lens]))
-    as_len_cdf = [0]
+    as_len_pdf = []
     for al in range(max_len - 1):
-        as_len_cdf.append(as_len_cdf[al] + as_length_dist.get(al + 2, 0))
-    as_len_cdf.append(as_length_dist.get(math.inf, 0))
-    as_len_cdf.append(as_length_dist.get(math.nan, 0))
-    as_len_cdf.append(success_volume)
-    as_len_cdf.append(unsuccess_volume)
+        as_len_pdf.append(as_length_dist.get(al + 2, 0))
+    as_len_pdf.append(as_length_dist.get(math.inf, 0))
+    as_len_pdf.append(as_length_dist.get(math.nan, 0))
+    as_len_pdf.append(success_volume)
+    as_len_pdf.append(unsuccess_volume)
     # Format: flow_num from 2 to max_len, inf, nan, success_volume, unsuccess_volume
-    print('\t'.join([str(a) for a in as_len_cdf[1:]]))
+    print('\t'.join([str(a) for a in as_len_pdf]))
+    return R_F
 
 
 if __name__ == '__main__':
@@ -503,7 +506,7 @@ if __name__ == '__main__':
         H = G.copy()
         fp_bgp_convergence(H)
         # print("FP_BGP:")
-        check_reachability(H, F)
+        R_F = check_reachability(H, F)
     if '2' in mode:
         H = G.copy()
         correct_bgp_convergence(H)
@@ -514,6 +517,11 @@ if __name__ == '__main__':
         H = fine_grained_announcement(H)
         # print("SFP:")
         check_reachability(H, F, debug=False, debug_num=3)
+    if '4' in mode:
+        H = G.copy()
+        H = fine_grained_announcement(H)
+        # print("Reachable-SFP:")
+        check_reachability(H, R_F, debug=False, debug_num=4)
 
     if len(debug_dict) > 0:
         flow_diff = list()
