@@ -162,6 +162,9 @@ def default_routing_policy(node, dst_ip, dst_port=None, src_ip=None, src_port=No
     Returns:
         The next hop of the give flow spec from this node.
     """
+    for prefix in node.get('ip-prefix', []):
+        if ip_address(dst_ip) in ip_network(prefix):
+            return None
     local_policy = get_local_policy(node['id'])
     if dst_ip in local_policy:
         local_policy_for_ip = local_policy[dst_ip]
@@ -364,14 +367,18 @@ def check_path(flow, G, routing_policy=default_routing_policy):
     loop_remover = {}
     src = ip_prefixes[flow['src_ip']]
     dst = ip_prefixes[flow['dst_ip']]
-    d = routing_policy(G.node[src], **flow)
+    if src == dst:
+        return 1
+    d = src
+    dn = routing_policy(G.node[src], **flow)
     path_len = 1
-    while d:
+    while dn:
         loop_remover[d] = loop_remover.get(d, 0) + 1
         # print d, p, loop_remover
         if loop_remover[d] > 1:
             return math.inf
-        d = routing_policy(G.node[d], **flow)
+        d = dn
+        dn = routing_policy(G.node[d], **flow)
         path_len += 1
     if d != dst:
         return math.nan
@@ -399,6 +406,7 @@ if __name__ == '__main__':
     G = read_topo(topo_filename)
     F = read_flows(flow_filename)
     # generate_local_policy(G)
+    # global_policy = generate_random_policy(G, network_ratio=0.1, prefix_ratio=0.1, policy_type='blackhole')
     global_policy = generate_random_policy(G)
 
     mode = sys.argv[3]
