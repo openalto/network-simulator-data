@@ -5,9 +5,11 @@ import sys
 from ipaddress import ip_address, ip_network
 
 import pytricia
+import json
 import yaml
 
 import networkx
+import numpy as np
 
 import datetime
 import random
@@ -26,10 +28,10 @@ def read_topo(filename, local_policy=None):
         nid = nodes[n]['id']
         G.add_node(nid, name=n, **nodes[n])
         G.node[nid]['type'] = nodes[n]['type']
-        G.node[nid]['ip-prefix'] = nodes[n]['ip-prefix']
+        G.node[nid]['ip-prefix'] = nodes[n].get('ip-prefix', [])
         G.node[nid]['routing'] = pytricia.PyTricia()
         G.node[nid]['fine_grained'] = pytricia.PyTricia()
-        for prefix in nodes[n]['ip-prefix']:
+        for prefix in nodes[n].get('ip-prefix', []):
             ip_prefixes[prefix] = nid
     for l in links:
         G.add_edge(*l)
@@ -63,12 +65,13 @@ def generate_local_policy(G, **args):
         # FIXME: select prefix by following a distribution
         for prefix in G.node[node]["ip-prefix"]:
             # FIXME: select ports by following a distribution
-            ports = set([random.randint(10000, 60000) for _ in range(randint(1, max_ports))])
-            policies[node][port] = random.choice([i for i in G.neighbors(node)] + [None])
+            ports = set([random.randint(10000, 60000) for _ in range(random.randint(1, max_ports))])
+            for port in ports:
+                policies[node][port] = random.choice([i for i in G.neighbors(node)] + [None])
     global_policy = policies
 
 
-DEFAULT_SERVICE_TYPES = [21, 80, 2801]
+DEFAULT_SERVICE_TYPES = {21: 0.1, 80: 0.1, 2801: 0.2, 8444: 0.3, 8445: 0.3}
 
 # TODO: Some key points
 # - What's the distribution for policy type (blackhole/deflection) selection
@@ -82,7 +85,7 @@ def generate_random_policy(G, service_types=DEFAULT_SERVICE_TYPES, network_ratio
 
     Args:
         G: Topology
-        service_types: supported service port list.
+        service_types: supported service port distribution.
         network_ratio: how many networks is selected. default 0.5
         prefix_ratio: how many prefix is seleted. default: 0.2
         policy_place: transit, edge or both. default: 'transit'
@@ -105,11 +108,11 @@ def generate_random_policy(G, service_types=DEFAULT_SERVICE_TYPES, network_ratio
         if d not in policies:
             policies[d] = pytricia.PyTricia()
         for dest in random.sample([n for n in edge_networks if n != d],
-                                  int(len(edge_networks)*network_ratio)):
+                                  math.ceil(len(edge_networks)*network_ratio)):
             node_prefixes = G.node[dest]['ip-prefix']
-            for prefix in random.sample(node_prefixes, int(len(node_prefixes)*prefix_ratio)):
+            for prefix in random.sample(node_prefixes, math.ceil(len(node_prefixes)*prefix_ratio)):
                 policies[d][prefix] = {port: gen_single_policy(G, d, dest, policy_type)
-                                       for port in random.sample(range(service_types), random.randint(1, 4))}
+                                       for port in random.sample(service_types.keys(), random.randint(1, 4))}
     return policies
 
 
@@ -131,7 +134,7 @@ def random_deflection(G, d, dest):
         return networkx.shortest_path(subG, d, dest)[1]
 
 
-def local_policy(node):
+def get_local_policy(node):
     """
     local_policy is not a simple prefix based routing.
 
@@ -159,7 +162,7 @@ def default_routing_policy(node, dst_ip, dst_port=None, src_ip=None, src_port=No
     Returns:
         The next hop of the give flow spec from this node.
     """
-    local_policy = node['local_policy']
+    local_policy = get_local_policy(node['id'])
     if dst_ip in local_policy:
         local_policy_for_ip = local_policy[dst_ip]
         if dst_port in local_policy_for_ip:
@@ -185,7 +188,7 @@ def fp_bgp_convergence(G):
                 prefixes = G.node[dst]['ip-prefix']
                 for hop, next_hop in zip(path[:-1], path[1:]):
                     for prefix in prefixes:
-                        hop["routing"][prefix] = next_hop
+                        G.node[hop]["routing"][prefix] = next_hop
 
 
 def all_fg_nodes(G, prefix):
@@ -195,7 +198,7 @@ def all_fg_nodes(G, prefix):
     # FIXME: If the granularity of prefixes in local_policy is different from ones in node, it will conduct error.
     fg_nodes = []
     for node in G.nodes:
-        local = local_policy(node)
+        local = get_local_policy(node)
         if local.get(prefix):
             fg_nodes.append(node)
     return fg_nodes
@@ -226,7 +229,7 @@ def find_fine_grained_routes(G, prefix_port):
         for port in ports:
             H = G.copy()
             for node in H.nodes:
-                action = local_policy(node)[prefix][port]
+                action = get_local_policy(node)[prefix][port]
                 if action is None:
                     H.remove_node(node)
                 else:
@@ -257,9 +260,9 @@ def find_fine_grained_routes(G, prefix_port):
 
 def fine_grained_announcement(G):
     G = G.to_directed()
-    prefix_port = dict{}
+    prefix_port = dict()
     for node in G.nodes:
-        local = local_policy(node)
+        local = get_local_policy(node)
         for prefix in local:
             ports_actions = local[prefix]
             if prefix not in prefix_port:
@@ -269,15 +272,27 @@ def fine_grained_announcement(G):
     find_fine_grained_routes(G, prefix_port)
 
 
-def read_flows(filename):
-    # [{
-    #     "src-ip": "10.0.0.1",
-    #     "src-port": 22,
-    #     "dst-ip": "10.0.10.1",
-    #     "dst-port": 80,
-    #     "protocol": "http"
-    # }]
-    data = yaml.load(open(filename))
+def read_flows(filename, port_dist=DEFAULT_SERVICE_TYPES):
+    """
+    Examples:
+        [{
+            "src_ip": "10.0.0.1",
+            "src_port": 22,
+            "dst_ip": "10.0.10.1",
+            "dst_port": 80,
+            "protocol": "tcp",
+            "start_time": 1516292713,
+            "end_time": 1516313885,
+            "volume": 4089456904
+        }]
+
+        required: src_ip, dst_ip, start_time, end_time, volume
+        optional: src_port, dst_port, protocol
+    """
+    data = json.load(open(filename))
+    for d in data:
+        if not d.get('dst_port', None):
+            d['dst_port'] = np.random.choice(list(port_dist.keys()), p=list(port_dist.values()))
     return data
 
 statistic_as_length = {}
@@ -292,18 +307,19 @@ def coarse_grained_correct_bgp(G, F):
     The Correct BGP MUST guarantee the local_policy NEVER be triggered.
     """
     for flow in F:
-        node = G.node[ip_prefixes[flow["src-ip"]]]
+        node = G.node[ip_prefixes[flow["src_ip"]]]
         if node is not None:
             as_length = [node]
-            while ip_address(flow["dst-ip"]) not in ip_network(node["ip-prefix"]):
+            prefixes = [ip_network(p) for p in node['ip-prefix']]
+            while ip_address(flow["dst_ip"]) not in prefixes:
                 if len(node["fine_grained"]) > 0:
                     try:
-                        next_hop = node["fine_grained"][flow["dst-ip"]]["dst-port"]
+                        next_hop = node["fine_grained"][flow["dst_ip"]]["dst_port"]
                         in_fg = True # In fine grained policy
                     except KeyError:
                         in_fg = False
                 if not in_fg:
-                    next_hop = node["routing"][flow["dst-ip"]]
+                    next_hop = node["routing"][flow["dst_ip"]]
                 as_length.append(next_hop)
         print("AS Length: %d" % len(as_length))
         if len(as_length) not in statistic_as_length:
@@ -332,7 +348,7 @@ def coarse_grained_correct_bgp(G, F):
 #     return None
 
 
-def check_path(flow, G, routing_policy=bgp_policy):
+def check_path(flow, G, routing_policy=default_routing_policy):
     """
     Check the path of a given flow in the topology.
 
@@ -362,6 +378,18 @@ def check_path(flow, G, routing_policy=bgp_policy):
     return path_len
 
 
+def check_reachability(G, F):
+    as_length_dist = {}
+    for f in F:
+        result = check_path(f, G)
+        as_length_dist[result] = as_length_dist.get(result, 0) + 1
+    # print 'block_policies', 'deflection_policies'
+    # print '%d\t%d' % policy_summary(G)
+    as_lens = sorted(as_length_dist.keys())
+    print('\t'.join([str(l) for l in as_lens]))
+    print('\t'.join([str(as_length_dist[l]) for l in as_lens]))
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("%s topo-filename flow-filename mode" % sys.argv[0])
@@ -370,7 +398,8 @@ if __name__ == '__main__':
 
     G = read_topo(topo_filename)
     F = read_flows(flow_filename)
-    generate_local_policy(G)
+    # generate_local_policy(G)
+    global_policy = generate_random_policy(G)
 
     mode = sys.argv[3]
 
@@ -381,5 +410,6 @@ if __name__ == '__main__':
     else:
         fine_grained_announcement(G)
 
-    coarse_grained_correct_bgp(G, F)
-    print("AS Length statistics: %d" % statistic_as_length)
+    # coarse_grained_correct_bgp(G, F)
+    check_reachability(G, F)
+    # print("AS Length statistics: %d" % statistic_as_length)
