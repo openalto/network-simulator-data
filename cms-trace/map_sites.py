@@ -10,7 +10,7 @@ import numpy as np
 
 def random_ip(prefixes):
     prefix_list = [ipaddress.ip_network(p) for p in prefixes]
-    nums = [p.num_addresses for p in prefix_list]
+    nums = [p.num_addresses - 1 for p in prefix_list]
     n = random.randint(0, sum(nums) - 1)
     for i in range(len(nums)):
         if n >= nums[i]:
@@ -37,9 +37,11 @@ if __name__ == '__main__':
                 i = dists.argmin()
                 site_map[s] = nets[i]
 
-            for fl in flows:
-                fl[0] = random_ip(topo['nodes'][site_map[fl[0]]]['ip-prefix'])
-                fl[1] = random_ip(topo['nodes'][site_map[fl[1]]]['ip-prefix'])
+            traffic_flows = [{'src_ip': random_ip(topo['nodes'][site_map[fl[0]]]['ip-prefix']),
+                              'dst_ip': random_ip(topo['nodes'][site_map[fl[1]]]['ip-prefix']),
+                              'start_time': fl[2],
+                              'end_time': fl[3],
+                              'volume': fl[4]} for fl in flows]
 
             with open('ip-flows.json', 'w') as ipf:
-                ipf.write(json.dumps(flows, indent=4, sort_keys=True))
+                ipf.write(json.dumps(traffic_flows, indent=4, sort_keys=True))
