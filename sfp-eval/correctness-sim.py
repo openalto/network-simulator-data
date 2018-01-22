@@ -1,23 +1,23 @@
 #!/usr/bin/env python
 
+import datetime
+import json
 import math
+import random
 import sys
 from ipaddress import ip_address, ip_network
 
+import numpy as np
 import pytricia
-import json
 import yaml
 
 import networkx
-import numpy as np
-
-import datetime
-import random
 
 ip_prefixes = pytricia.PyTricia()
 
 seed = hash(datetime.datetime.now())
 global_policy = {}
+
 
 def read_topo(filename, local_policy=None):
     data = yaml.load(open(filename))
@@ -65,21 +65,31 @@ def generate_local_policy(G, **args):
         # FIXME: select prefix by following a distribution
         for prefix in G.node[node]["ip-prefix"]:
             # FIXME: select ports by following a distribution
-            ports = set([random.randint(10000, 60000) for _ in range(random.randint(1, max_ports))])
+            ports = set([
+                random.randint(10000, 60000)
+                for _ in range(random.randint(1, max_ports))
+            ])
             for port in ports:
-                policies[node][port] = random.choice([i for i in G.neighbors(node)] + [None])
+                policies[node][port] = random.choice(
+                    [i for i in G.neighbors(node)] + [None])
     global_policy = policies
 
 
 DEFAULT_SERVICE_TYPES = {21: 0.1, 80: 0.1, 2801: 0.2, 8444: 0.3, 8445: 0.3}
+
 
 # TODO: Some key points
 # - What's the distribution for policy type (blackhole/deflection) selection
 # - What's the distribution for node selection
 # - How many network we need to fwd
 # - What's the distribution for the tcp port selection
-def generate_random_policy(G, service_types=DEFAULT_SERVICE_TYPES, network_ratio=0.5, prefix_ratio=0.2,
-                           policy_place='transit', policy_type='both', **args):
+def generate_random_policy(G,
+                           service_types=DEFAULT_SERVICE_TYPES,
+                           network_ratio=0.5,
+                           prefix_ratio=0.2,
+                           policy_place='transit',
+                           policy_type='both',
+                           **args):
     """
     Randomly setup black-hole or deflection policies in transit network
 
@@ -95,8 +105,12 @@ def generate_random_policy(G, service_types=DEFAULT_SERVICE_TYPES, network_ratio
     Returns:
         global local policy table.
     """
-    edge_networks = [n for n in G.nodes() if G.node[n].get('type', '') == 'edge']
-    transit_networks = [n for n in G.nodes() if G.node[n].get('type', '') == 'transit']
+    edge_networks = [
+        n for n in G.nodes() if G.node[n].get('type', '') == 'edge'
+    ]
+    transit_networks = [
+        n for n in G.nodes() if G.node[n].get('type', '') == 'transit'
+    ]
     policies = {}
     if policy_place == 'transit':
         policy_networks = transit_networks
@@ -108,11 +122,17 @@ def generate_random_policy(G, service_types=DEFAULT_SERVICE_TYPES, network_ratio
         if d not in policies:
             policies[d] = pytricia.PyTricia()
         for dest in random.sample([n for n in edge_networks if n != d],
-                                  math.ceil(len(edge_networks)*network_ratio)):
+                                  math.ceil(
+                                      len(edge_networks) * network_ratio)):
             node_prefixes = G.node[dest]['ip-prefix']
-            for prefix in random.sample(node_prefixes, math.ceil(len(node_prefixes)*prefix_ratio)):
-                policies[d][prefix] = {port: gen_single_policy(G, d, dest, policy_type)
-                                       for port in random.sample(service_types.keys(), random.randint(1, 4))}
+            for prefix in random.sample(
+                    node_prefixes, math.ceil(
+                        len(node_prefixes) * prefix_ratio)):
+                policies[d][prefix] = {
+                    port: gen_single_policy(G, d, dest, policy_type)
+                    for port in random.sample(service_types.keys(),
+                                              random.randint(1, 4))
+                }
     return policies
 
 
@@ -146,7 +166,13 @@ def get_local_policy(node):
     return global_policy.get(node, pytricia.PyTricia())
 
 
-def default_routing_policy(node, dst_ip, dst_port=None, src_ip=None, src_port=None, protocol='tcp', **args):
+def default_routing_policy(node,
+                           dst_ip,
+                           dst_port=None,
+                           src_ip=None,
+                           src_port=None,
+                           protocol='tcp',
+                           **args):
     """
     Default routing policy for networks.
 
@@ -170,7 +196,6 @@ def default_routing_policy(node, dst_ip, dst_port=None, src_ip=None, src_port=No
         local_policy_for_ip = local_policy[dst_ip]
         if dst_port in local_policy_for_ip:
             return local_policy_for_ip[dst_port]
-    print(node)
     fg_routing = node['fine_grained']
     if dst_ip in fg_routing:
         fg_routing_for_ip = fg_routing[dst_ip]
@@ -228,57 +253,66 @@ def correct_bgp_convergence(G):
 
 
 def find_fine_grained_routes(G, prefix_port):
-    for prefix in prefix_port.keys():
-        ports = prefix_port[prefix]
+    for prefix, ports in prefix_port.items():
         for port in ports:
             delete_nodes = set()
             delete_links = set()
-            H = G.copy()
+            H = G.copy()  # A copy of directed graph to modify links and nodes
+            # Step 1: Remove unused links for <prefix, port>
             for node in H.nodes:
                 action = get_local_policy(node).get(prefix)
                 if action is not None:
                     if port in action:
                         action = action[port]
+                        for neig in H.neighbors(node):
+                            if action != neig:
+                                delete_links.add((node, neig))
                     else:
-                        action = None
-                if action is None:
-                    delete_nodes.add(node)
-                else:
-                    for neig in H.neighbors(node):
-                        if action != neig:
-                            delete_links.add((node, neig))
+                        delete_nodes.add(node)
             for edge in delete_links:
                 H.remove_edge(*edge)
             for node in delete_nodes:
                 H.remove_node(node)
+            # Step 2: Find shortest path (Is it possible to be not found?)
             paths = networkx.shortest_path(H)
+            # Step 3: Traverse the shortest path
             for src in H.nodes:
                 dst = ip_prefixes[prefix]
                 if src != dst:
                     # path = paths[src][dst]
                     path = paths[src].get(dst, [])
                     for hop, next_hop in zip(path[:-1], path[1:]):
-                        if prefix not in hop["fine_grained"]:
-                            hop["fine_grained"][prefix] = dict()
-                        hop["fine_grained"][prefix][port] = next_hop
+                        if prefix not in G.node[hop]["fine_grained"]:
+                            G.node[hop]["fine_grained"][prefix] = dict()
+                        G.node[hop]["fine_grained"][prefix][port] = next_hop
+
+    # Step 4: BGP shortest path in all nodes
     paths = networkx.shortest_path(G)
-    for src in G.node:
-        for dst in G.node:
+    for src in G.nodes:
+        for dst in G.nodes:
             if src != dst:
-                # path = paths[src][dst]
-                path = paths[src].get(dst, [])
-                prefixes = G.node[dst]['ip-prefix']
-                for hop, next_hop in zip(path[:-1], path[1:]):
-                    for prefix in prefixes:
-                        G.node[hop]["routing"][prefix] = next_hop
+                try:
+                    path = paths[src].get(dst)
+                except KeyError:
+                    path = None
+                if path:
+                    prefixes = G.node[dst]['ip-prefix']
+                    for hop, next_hop in zip(path[:-1], path[1:]):
+                        for prefix in prefixes:
+                            G.node[hop]["routing"][prefix] = next_hop
+
+    return G
 
 
 def fine_grained_announcement(G):
+    for node in G.nodes:
+        del G.node[node]["routing"]
+        del G.node[node]["fine_grained"]
     G = G.to_directed()
-    for node in G:
+    for node in G.nodes:
         G.node[node]["routing"] = pytricia.PyTricia()
         G.node[node]["fine_grained"] = pytricia.PyTricia()
-    prefix_port = dict()
+    prefix_port = dict()  # type: dict{str, set{int}}
     for node in G.nodes:
         local = get_local_policy(node)
         for prefix in local:
@@ -287,7 +321,7 @@ def fine_grained_announcement(G):
                 prefix_port[prefix] = set()
             for port in ports_actions:
                 prefix_port[prefix].add(port)
-    find_fine_grained_routes(G, prefix_port)
+    return find_fine_grained_routes(G, prefix_port)
 
 
 def read_flows(filename, port_dist=DEFAULT_SERVICE_TYPES):
@@ -310,10 +344,13 @@ def read_flows(filename, port_dist=DEFAULT_SERVICE_TYPES):
     data = json.load(open(filename))
     for d in data:
         if not d.get('dst_port', None):
-            d['dst_port'] = np.random.choice(list(port_dist.keys()), p=list(port_dist.values()))
+            d['dst_port'] = np.random.choice(
+                list(port_dist.keys()), p=list(port_dist.values()))
     return data
 
+
 statistic_as_length = {}
+
 
 def coarse_grained_correct_bgp(G, F):
     """
@@ -332,8 +369,9 @@ def coarse_grained_correct_bgp(G, F):
             while ip_address(flow["dst_ip"]) not in prefixes:
                 if len(node["fine_grained"]) > 0:
                     try:
-                        next_hop = node["fine_grained"][flow["dst_ip"]]["dst_port"]
-                        in_fg = True # In fine grained policy
+                        next_hop = node["fine_grained"][flow["dst_ip"]][
+                            "dst_port"]
+                        in_fg = True  # In fine grained policy
                     except KeyError:
                         in_fg = False
                 if not in_fg:
@@ -344,9 +382,9 @@ def coarse_grained_correct_bgp(G, F):
             statistic_as_length[len(as_length)] = 0
         statistic_as_length[len(as_length)] += 1
 
+
 # def match(ip, prefix):
 #     return ip in prefix
-
 
 # TODO: No need, merge it with routing_policy
 # def compute_next_hop(flow, rib):
@@ -431,10 +469,7 @@ if __name__ == '__main__':
     elif mode == '2':
         correct_bgp_convergence(G)
     else:
-        for node in G.nodes:
-            del G.node[node]["routing"]
-            del G.node[node]["fine_grained"]
-        fine_grained_announcement(G)
+        G = fine_grained_announcement(G)
 
     # coarse_grained_correct_bgp(G, F)
     check_reachability(G, F)
