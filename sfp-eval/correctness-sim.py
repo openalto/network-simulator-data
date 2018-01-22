@@ -167,6 +167,7 @@ def default_routing_policy(node, dst_ip, dst_port=None, src_ip=None, src_port=No
         local_policy_for_ip = local_policy[dst_ip]
         if dst_port in local_policy_for_ip:
             return local_policy_for_ip[dst_port]
+    print(node)
     fg_routing = node['fine_grained']
     if dst_ip in fg_routing:
         fg_routing_for_ip = fg_routing[dst_ip]
@@ -209,7 +210,7 @@ def correct_bgp_convergence(G):
     Correct BGP Convergence
     """
     for dst in G.nodes:
-        prefixes = dst['ip-prefix']
+        prefixes = G.node[dst]['ip-prefix']
         for prefix in prefixes:
             H = G.copy()
             for node in all_fg_nodes(G, prefix):
@@ -220,25 +221,36 @@ def correct_bgp_convergence(G):
                     # path = paths[src][dst]
                     path = paths[src].get(dst, [])
                     for hop, next_hop in zip(path[:-1], path[1:]):
-                        hop["routing"][prefix] = next_hop
+                        G.node[hop]["routing"][prefix] = next_hop
 
 
 def find_fine_grained_routes(G, prefix_port):
     for prefix in prefix_port.keys():
         ports = prefix_port[prefix]
         for port in ports:
+            delete_nodes = set()
+            delete_links = set()
             H = G.copy()
             for node in H.nodes:
-                action = get_local_policy(node)[prefix][port]
+                action = get_local_policy(node).get(prefix)
+                if action is not None:
+                    if port in action:
+                        action = action[port]
+                    else:
+                        action = None
                 if action is None:
-                    H.remove_node(node)
+                    delete_nodes.add(node)
                 else:
                     for neig in H.neighbors(node):
                         if action != neig:
-                            H.remove_edge(node, neig)
+                            delete_links.add((node, neig))
+            for edge in delete_links:
+                H.remove_edge(*edge)
+            for node in delete_nodes:
+                H.remove_node(node)
             paths = networkx.shortest_path(H)
             for src in H.nodes:
-                dst = H.node[ip_prefixes[prefix]]
+                dst = ip_prefixes[prefix]
                 if src != dst:
                     # path = paths[src][dst]
                     path = paths[src].get(dst, [])
@@ -255,11 +267,14 @@ def find_fine_grained_routes(G, prefix_port):
                 prefixes = G.node[dst]['ip-prefix']
                 for hop, next_hop in zip(path[:-1], path[1:]):
                     for prefix in prefixes:
-                        hop["routing"][prefix] = next_hop
+                        G.node[hop]["routing"][prefix] = next_hop
 
 
 def fine_grained_announcement(G):
     G = G.to_directed()
+    for node in G:
+        G.node[node]["routing"] = pytricia.PyTricia()
+        G.node[node]["fine_grained"] = pytricia.PyTricia()
     prefix_port = dict()
     for node in G.nodes:
         local = get_local_policy(node)
@@ -408,6 +423,9 @@ if __name__ == '__main__':
     elif mode == '2':
         correct_bgp_convergence(G)
     else:
+        for node in G.nodes:
+            del G.node[node]["routing"]
+            del G.node[node]["fine_grained"]
         fine_grained_announcement(G)
 
     # coarse_grained_correct_bgp(G, F)
