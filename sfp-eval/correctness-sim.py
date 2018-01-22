@@ -123,11 +123,11 @@ def generate_random_policy(G,
             policies[d] = pytricia.PyTricia()
         for dest in random.sample([n for n in edge_networks if n != d],
                                   math.ceil(
-                                      len(edge_networks) * network_ratio)):
+                                      len(edge_networks) * float(network_ratio))):
             node_prefixes = G.node[dest]['ip-prefix']
             for prefix in random.sample(
                     node_prefixes, math.ceil(
-                        len(node_prefixes) * prefix_ratio)):
+                        len(node_prefixes) * float(prefix_ratio))):
                 policies[d][prefix] = {
                     port: gen_single_policy(G, d, dest, policy_type)
                     for port in random.sample(service_types.keys(),
@@ -209,15 +209,19 @@ def fp_bgp_convergence(G):
     """
     False-positive BGP Convergence. node["routing"] is the table of  {ip-prefix -> next hop node}
     """
-    paths = bgp_general_policy(G)
-    for src in G.node:
-        for dst in G.node:
+    paths = networkx.shortest_path(G)
+    for src in G.nodes:
+        for dst in G.nodes:
             if src != dst:
-                path = paths[src][dst]
-                prefixes = G.node[dst]['ip-prefix']
-                for hop, next_hop in zip(path[:-1], path[1:]):
-                    for prefix in prefixes:
-                        G.node[hop]["routing"][prefix] = next_hop
+                try:
+                    path = paths[src].get(dst)
+                except KeyError:
+                    path = None
+                if path:
+                    prefixes = G.node[dst]['ip-prefix']
+                    for hop, next_hop in zip(path[:-1], path[1:]):
+                        for prefix in prefixes:
+                            G.node[hop]["routing"][prefix] = next_hop
 
 
 def all_fg_nodes(G, prefix):
@@ -261,9 +265,9 @@ def find_fine_grained_routes(G, prefix_port):
             # Step 1: Remove unused links for <prefix, port>
             for node in H.nodes:
                 action = get_local_policy(node).get(prefix)
-                if action is not None:
-                    if port in action:
-                        action = action[port]
+                if action and (port in action):
+                    action = action[port]
+                    if action:
                         for neig in H.neighbors(node):
                             if action != neig:
                                 delete_links.add((node, neig))
@@ -274,33 +278,20 @@ def find_fine_grained_routes(G, prefix_port):
             for node in delete_nodes:
                 H.remove_node(node)
             # Step 2: Find shortest path (Is it possible to be not found?)
-            paths = networkx.shortest_path(H)
+            dst = ip_prefixes[prefix]
+            paths = networkx.shortest_path(H, target=dst)
             # Step 3: Traverse the shortest path
             for src in H.nodes:
-                dst = ip_prefixes[prefix]
                 if src != dst:
-                    # path = paths[src][dst]
-                    path = paths[src].get(dst, [])
-                    for hop, next_hop in zip(path[:-1], path[1:]):
-                        if prefix not in G.node[hop]["fine_grained"]:
-                            G.node[hop]["fine_grained"][prefix] = dict()
-                        G.node[hop]["fine_grained"][prefix][port] = next_hop
+                    path = paths.get(src)
+                    if path:
+                        for hop, next_hop in zip(path[:-1], path[1:]):
+                            if prefix not in G.node[hop]["fine_grained"]:
+                                G.node[hop]["fine_grained"][prefix] = dict()
+                            G.node[hop]["fine_grained"][prefix][port] = next_hop
 
     # Step 4: BGP shortest path in all nodes
-    paths = networkx.shortest_path(G)
-    for src in G.nodes:
-        for dst in G.nodes:
-            if src != dst:
-                try:
-                    path = paths[src].get(dst)
-                except KeyError:
-                    path = None
-                if path:
-                    prefixes = G.node[dst]['ip-prefix']
-                    for hop, next_hop in zip(path[:-1], path[1:]):
-                        for prefix in prefixes:
-                            G.node[hop]["routing"][prefix] = next_hop
-
+    fp_bgp_convergence(G)
     return G
 
 
@@ -404,7 +395,7 @@ def coarse_grained_correct_bgp(G, F):
 #     return None
 
 
-def check_path(flow, G, routing_policy=default_routing_policy):
+def check_path(flow, G, routing_policy=default_routing_policy, debug=False):
     """
     Check the path of a given flow in the topology.
 
@@ -417,37 +408,81 @@ def check_path(flow, G, routing_policy=default_routing_policy):
         nan - no route
         inf - there is a loop
     """
+    if debug:
+        path = []
     loop_remover = {}
     src = ip_prefixes[flow['src_ip']]
     dst = ip_prefixes[flow['dst_ip']]
     if src == dst:
+        if debug:
+            return 1, [src]
         return 1
     d = src
+    if debug:
+        path = [src]
     dn = routing_policy(G.node[src], **flow)
     path_len = 1
     while dn:
         loop_remover[d] = loop_remover.get(d, 0) + 1
         # print d, p, loop_remover
         if loop_remover[d] > 1:
+            if debug:
+                return math.inf, []
             return math.inf
         d = dn
+        if debug:
+            path.append(dn)
         dn = routing_policy(G.node[d], **flow)
         path_len += 1
     if d != dst:
+        if debug:
+            return math.nan, []
         return math.nan
+    if debug:
+        return path_len, path
     return path_len
 
 
-def check_reachability(G, F):
+debug_dict = {}
+
+
+def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
     as_length_dist = {}
+    success_volume = 0
+    unsuccess_volume = 0
     for f in F:
-        result = check_path(f, G)
+        if debug:
+            global debug_dict
+            result, path = check_path(f, G, debug=True)
+            if debug_num not in debug_dict:
+                debug_dict[debug_num] = dict()
+            debug_dict[debug_num][(f["src_ip"], f["dst_ip"], f["start_time"],
+                                   f["end_time"], f["volume"])] = (result, path)
+        else:
+            result = check_path(f, G)
         as_length_dist[result] = as_length_dist.get(result, 0) + 1
+        if type(result) == float:
+            unsuccess_volume += f['volume']
+        elif result > 1:
+            success_volume += f['volume']
     # print 'block_policies', 'deflection_policies'
     # print '%d\t%d' % policy_summary(G)
-    as_lens = sorted(as_length_dist.keys())
-    print('\t'.join([str(l) for l in as_lens]))
-    print('\t'.join([str(as_length_dist[l]) for l in as_lens]))
+    if debug:
+        as_len_nan = as_length_dist.pop(math.nan) if math.nan in as_length_dist else 0
+        as_lens = sorted(as_length_dist.keys())
+        as_lens.append(math.nan)
+        as_length_dist[math.nan] = as_len_nan
+        print('\t'.join([str(l) for l in as_lens]))
+        print('\t'.join([str(as_length_dist[l]) for l in as_lens]))
+    as_len_cdf = [0]
+    for al in range(max_len - 1):
+        as_len_cdf.append(as_len_cdf[al] + as_length_dist.get(al + 2, 0))
+    as_len_cdf.append(as_length_dist.get(math.inf, 0))
+    as_len_cdf.append(as_length_dist.get(math.nan, 0))
+    as_len_cdf.append(success_volume)
+    as_len_cdf.append(unsuccess_volume)
+    # Format: flow_num from 2 to max_len, inf, nan, success_volume, unsuccess_volume
+    print('\t'.join([str(a) for a in as_len_cdf[1:]]))
 
 
 if __name__ == '__main__':
@@ -455,30 +490,38 @@ if __name__ == '__main__':
         print("%s topo-filename flow-filename mode" % sys.argv[0])
     topo_filename = sys.argv[1]
     flow_filename = sys.argv[2]
+    mode = sys.argv[3]
+    args = dict([tuple(k.split('=')) for k in sys.argv[4:]])
 
     G = read_topo(topo_filename)
     F = read_flows(flow_filename)
     # generate_local_policy(G)
     # global_policy = generate_random_policy(G, network_ratio=0.1, prefix_ratio=0.1, policy_type='blackhole')
-    global_policy = generate_random_policy(G, policy_type='blackhole')
-
-    mode = sys.argv[3]
+    global_policy = generate_random_policy(G, **args)
 
     if '1' in mode:
         H = G.copy()
         fp_bgp_convergence(H)
-        print("FP_BGP:")
+        # print("FP_BGP:")
         check_reachability(H, F)
     if '2' in mode:
         H = G.copy()
         correct_bgp_convergence(H)
-        print("C_BGP:")
-        check_reachability(H, F)
+        # print("C_BGP:")
+        check_reachability(H, F, debug=False, debug_num=2)
     if '3' in mode:
         H = G.copy()
         H = fine_grained_announcement(H)
-        print("SFP:")
-        check_reachability(H, F)
+        # print("SFP:")
+        check_reachability(H, F, debug=False, debug_num=3)
+
+    if len(debug_dict) > 0:
+        flow_diff = list()
+        for flow in debug_dict[3]:
+            if debug_dict[3][flow][0] == math.nan and debug_dict[2][flow][0] != math.nan:
+                print(str(flow))
+        with open("debug.json", 'w') as f:
+            f.write(debug_dict.__str__())
 
     # coarse_grained_correct_bgp(G, F)
     # print("AS Length statistics: %d" % statistic_as_length)
