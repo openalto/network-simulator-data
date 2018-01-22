@@ -460,17 +460,25 @@ if __name__ == '__main__':
     F = read_flows(flow_filename)
     # generate_local_policy(G)
     # global_policy = generate_random_policy(G, network_ratio=0.1, prefix_ratio=0.1, policy_type='blackhole')
-    global_policy = generate_random_policy(G)
+    global_policy = generate_random_policy(G, policy_type='blackhole')
 
     mode = sys.argv[3]
 
-    if mode == '1':
-        fp_bgp_convergence(G)
-    elif mode == '2':
-        correct_bgp_convergence(G)
-    else:
-        G = fine_grained_announcement(G)
+    if '1' in mode:
+        H = G.copy()
+        fp_bgp_convergence(H)
+        print("FP_BGP:")
+        check_reachability(H, F)
+    if '2' in mode:
+        H = G.copy()
+        correct_bgp_convergence(H)
+        print("C_BGP:")
+        check_reachability(H, F)
+    if '3' in mode:
+        H = G.copy()
+        H = fine_grained_announcement(H)
+        print("SFP:")
+        check_reachability(H, F)
 
     # coarse_grained_correct_bgp(G, F)
-    check_reachability(G, F)
     # print("AS Length statistics: %d" % statistic_as_length)
