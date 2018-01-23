@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
-import networkx
+from networkx.shortest_paths import all_shortest_paths
 
 import numpy as np
 
 def avg_multihoming(G):
-    path = np.array([[len([p for p in networkx.shortest_paths.all_shortest_paths(G, s, d)])
-                      for s in G.nodes()] for d in G.nodes()])
+    path = np.array([[len([p for p in all_shortest_paths(G, s, d)])
+                      for s in G.nodes() if s != d]
+                     for d in G.nodes()])
     return np.average(path.flatten())
 
 def avg_degree(G):
-    return np.average(list(dict(G.degree(G.nodes())).values()))
+    return np.average([G.degree(n) for n in G.nodes()])
