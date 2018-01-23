@@ -2,8 +2,9 @@
 
 import csv
 import sys
-import networkx
+
 import matplotlib.pyplot as plt
+import networkx
 
 from sfp_eval.utils import graph_params
 
@@ -20,6 +21,21 @@ class Node:
             self.y = y
 
 
+def read_topo(filename):
+    with open(filename) as f:
+        reader = csv.reader(f, delimiter='\t')
+        for row in reader:
+            if len(row) == 3:
+                nodes[row[0]] = Node(data_tuple=tuple(row))
+            elif len(row) == 2:
+                links.append(tuple(row))
+
+    G = networkx.Graph()
+    G.add_nodes_from(nodes.keys())
+    G.add_edges_from(links)
+    return G
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Usage: %s filename" % sys.argv[0])
@@ -30,18 +46,7 @@ if __name__ == '__main__':
     nodes = {}  # type: dict{int, Node}
     links = []  # type: list{tuple{int, int}}
 
-    with open(filename) as f:
-        reader = csv.reader(f, delimiter='\t')
-        for row in reader:
-            if len(row) == 3:
-                nodes[row[0]] = Node(data_tuple=tuple(row))
-            elif len(row) == 2:
-                links.append(tuple(row))
-
-    G = networkx.Graph()
-
-    G.add_nodes_from(nodes.keys())
-    G.add_edges_from(links)
+    G = read_topo(filename)
 
     pos = networkx.spring_layout(G)
 
