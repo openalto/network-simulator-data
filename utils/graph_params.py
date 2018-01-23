@@ -10,4 +10,4 @@ def avg_multihoming(G):
     return np.average(path.flatten())
 
 def avg_degree(G):
-    return np.average(G.degree(G.nodes()).values())
+    return np.average(list(dict(G.degree(G.nodes())).values()))
