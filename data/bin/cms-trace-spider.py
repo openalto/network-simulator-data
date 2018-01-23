@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import sys
 import json
+import sys
 from multiprocessing import Pool
 
 import requests
@@ -95,7 +95,7 @@ def get_all_files(jobs):
 
         if count % 3000 == 0:
             s = json.dumps(files, indent=4, sort_keys=True)
-            with open("files_temp-%d.json" % int(count/3000), 'w') as f:
+            with open("files_temp-%d.json" % int(count / 3000), 'w') as f:
                 f.write(s)
 
         if count == sum:
@@ -106,7 +106,8 @@ def get_all_files(jobs):
 def fetch_file(job):
     files = []
     try:
-        url = "http://dashb-cms-job.cern.ch/dashboard/request.py/fileaccessinfo2?schedulerJobId=%s" % (job["SchedulerJobId"])
+        url = "http://dashb-cms-job.cern.ch/dashboard/request.py/fileaccessinfo2?schedulerJobId=%s" % (
+        job["SchedulerJobId"])
         # params = {"schedulerJobId": job["SchedulerJobId"]}
         # resp = requests.get(url, headers={"Accept": "application/json"}, params=params)
         resp = requests.get(url, headers={"Accept": "application/json"})
@@ -122,6 +123,8 @@ def fetch_file(job):
         return job, files, None
     except Exception as e:
         return job, files, e
+
+
 def get_all_files(jobs):
     count = 0
     sum = len(jobs)
@@ -140,7 +143,7 @@ def get_all_files(jobs):
 
         if count % 3000 == 0:
             s = json.dumps(files, indent=4, sort_keys=True)
-            with open("files_temp-%d.json" % int(count/3000), 'w') as f:
+            with open("files_temp-%d.json" % int(count / 3000), 'w') as f:
                 f.write(s)
 
         if count == sum:
@@ -151,7 +154,8 @@ def get_all_files(jobs):
 def fetch_file(job):
     files = []
     try:
-        url = "http://dashb-cms-job.cern.ch/dashboard/request.py/fileaccessinfo2?schedulerJobId=%s" % (job["SchedulerJobId"])
+        url = "http://dashb-cms-job.cern.ch/dashboard/request.py/fileaccessinfo2?schedulerJobId=%s" % (
+        job["SchedulerJobId"])
         # params = {"schedulerJobId": job["SchedulerJobId"]}
         # resp = requests.get(url, headers={"Accept": "application/json"}, params=params)
         resp = requests.get(url, headers={"Accept": "application/json"})

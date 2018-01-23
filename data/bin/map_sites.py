@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
-import json
-import yaml
-import random
 import ipaddress
+import json
+import random
 
-import stringdist
 import numpy as np
+import stringdist
+import yaml
+
 
 def random_ip(prefixes):
     prefix_list = [ipaddress.ip_network(p) for p in prefixes]

@@ -10,6 +10,7 @@ import numpy as np
 MAX_PATH_LEN = 10
 flows_range = range(2, MAX_PATH_LEN + 1)
 
+
 class Result:
     def __init__(self, data=None):
         self.hop_count = list()
@@ -17,12 +18,12 @@ class Result:
         self.drop_count = 0
         self.success_volume = 0
         self.fail_volume = 0
-        for i in range(0, MAX_PATH_LEN+1):
+        for i in range(0, MAX_PATH_LEN + 1):
             self.hop_count.append(0)
         if data is not None:
             for i in flows_range:
                 self.hop_count[i] = int(data[i - 2])
-            self.loop_count = int(data[MAX_PATH_LEN-1])
+            self.loop_count = int(data[MAX_PATH_LEN - 1])
             self.drop_count = int(data[MAX_PATH_LEN])
             self.success_volume = int(data[MAX_PATH_LEN + 1])
             self.fail_volume = int(data[MAX_PATH_LEN + 2])
@@ -60,12 +61,12 @@ class Result:
         return self.success_volume / (self.success_volume + self.fail_volume)
 
 
-BLACKHOLE_3_3 = "result.0.5.0.5.blackhole.csv"
-BLACKHOLE_5_5 = "result.0.9.0.9.blackhole.csv"
-DEFLECTION_3_3 = "result.0.5.0.5.deflection.csv"
-DEFLECTION_5_5 = "result.0.9.0.9.deflection.csv"
-BOTH_3_3 = "result.0.5.0.5.both.csv"
-BOTH_5_5 = "result.0.9.0.9.both.csv"
+BLACKHOLE_3_3 = "results.0.5.0.5.blackhole.csv"
+BLACKHOLE_5_5 = "results.0.9.0.9.blackhole.csv"
+DEFLECTION_3_3 = "results.0.5.0.5.deflection.csv"
+DEFLECTION_5_5 = "results.0.9.0.9.deflection.csv"
+BOTH_3_3 = "results.0.5.0.5.both.csv"
+BOTH_5_5 = "results.0.9.0.9.both.csv"
 
 
 def generate_plots(data, name, location=None):
@@ -75,7 +76,9 @@ def generate_plots(data, name, location=None):
     cgfp_bgp = tuple([data['CGFP-BGP'].cdf(i) for i in flows_range])
     cgc_bgp = tuple([data['CGC-BGP'].cdf(i) for i in flows_range])
     sfp = tuple([data['SFP'].cdf(i) for i in flows_range])
-    sfp_common = tuple([sum(data['SFP on CGC-BGP Reachable Flows'].hop_count[:i+1]) / data['CGFP-BGP'].sum_flows() for i in flows_range])
+    sfp_common = tuple(
+        [sum(data['SFP on CGC-BGP Reachable Flows'].hop_count[:i + 1]) / data['CGFP-BGP'].sum_flows() for i in
+         flows_range])
     # sfp_common = tuple([data['SFP on CGFP-BGP Reachable Flows'].cdf(i) for i in flows_range])
     print("======== Debug: %s =======" % name)
     print(data['CGFP-BGP'].sum_flows())
@@ -97,10 +100,11 @@ def generate_plots(data, name, location=None):
     ax.set_xticklabels(tuple(flows_range))
     ax.set_ylim([0, 1])
 
-    ax.legend((rects_cgfp_bgp[0], rects_cgc_bgp[0], rects_sfp[0], rects_sfp_common[0]), ('CGFG-BGP', 'CGC-BGP', 'SFP', 'SFP on CGC-BGP Reachable Flows'))
+    ax.legend((rects_cgfp_bgp[0], rects_cgc_bgp[0], rects_sfp[0], rects_sfp_common[0]),
+              ('CGFG-BGP', 'CGC-BGP', 'SFP', 'SFP on CGC-BGP Reachable Flows'))
     # plt.show()
     fig.set_size_inches(6, 3.8)
-    fig.savefig(name+".pdf")
+    fig.savefig(name + ".pdf")
 
 
 if __name__ == '__main__':

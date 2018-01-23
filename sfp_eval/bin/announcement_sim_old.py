@@ -6,12 +6,13 @@ Simulation for the correctness of BGP announcement in fine-grained networks.
 import sys
 from random import randint, sample, choice
 
-import yaml
 import networkx
+import yaml
 
 SERVICE_TYPES = 7
 MAX_BLOCK_TYPES = 2
 RATIO = 0.9
+
 
 def read_topo(filename):
     """
@@ -32,6 +33,7 @@ def read_topo(filename):
         G.add_edge(*l)
     return G
 
+
 def set_random_block_policy(G):
     """
     Randomly setup black-hole policies in transit network
@@ -41,6 +43,7 @@ def set_random_block_policy(G):
             G.node[d]['block'] = [randint(0, SERVICE_TYPES)
                                   for i in range(randint(0, MAX_BLOCK_TYPES))]
 
+
 def set_random_policy(G):
     """
     Randomly setup black-hole or deflection policies in transit network
@@ -49,11 +52,12 @@ def set_random_policy(G):
     transit_networks = [n for n in G.nodes() if G.node[n].get('type', '') == 'transit']
     for d in transit_networks:
         G.node[d]['policy'] = {randint(0, SERVICE_TYPES):
-                               {dest: choice([None, random_deflection(G, d, dest)])
-                                for dest in sample(edge_networks,
-                                                   randint(0, int(len(edge_networks)*RATIO)))}
+                                   {dest: choice([None, random_deflection(G, d, dest)])
+                                    for dest in sample(edge_networks,
+                                                       randint(0, int(len(edge_networks) * RATIO)))}
                                for i in sample(range(MAX_BLOCK_TYPES),
                                                randint(0, MAX_BLOCK_TYPES))}
+
 
 def random_deflection(G, d, dest):
     next_hop = networkx.shortest_path(G, d, dest)[1]
@@ -64,9 +68,11 @@ def random_deflection(G, d, dest):
     else:
         return networkx.shortest_path(subG, d, dest)[1]
 
+
 def gen_random_flow(G, flow_num=2000):
     edge_networks = [n for n in G.nodes() if G.node[n].get('type', '') == 'edge']
     return [(sample(edge_networks, 2), randint(0, SERVICE_TYPES)) for i in range(flow_num)]
+
 
 def check_reachability(G, flows):
     paths = networkx.shortest_path(G)
@@ -85,10 +91,11 @@ def check_reachability(G, flows):
         #         break
         # if not block:
         #     cnt += 1
-    print 'block_policies', 'deflection_policies'
-    print '%d\t%d' % policy_summary(G)
-    print 'total\tdrop\tloop\treachability_rate'
-    print '%d\t%d\t%d\t%f' % (len(flows), drop_cnt, loop_cnt, 1 - float(drop_cnt + loop_cnt)/len(flows))
+    print('block_policies', 'deflection_policies')
+    print('%d\t%d' % policy_summary(G))
+    print('total\tdrop\tloop\treachability_rate')
+    print('%d\t%d\t%d\t%f' % (len(flows), drop_cnt, loop_cnt, 1 - float(drop_cnt + loop_cnt) / len(flows)))
+
 
 def check_path(f, paths, G):
     loop_remover = {}
@@ -117,6 +124,7 @@ def check_path(f, paths, G):
         return 1
     return 0
 
+
 def policy_summary(G):
     block_cnt = 0
     deflection_cnt = 0
@@ -130,9 +138,10 @@ def policy_summary(G):
                     block_cnt += 1
     return block_cnt, deflection_cnt
 
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print "%s topo_file [flow_num [ratio [max_block_types [service_types]]]]" % sys.argv[0]
+        print("%s topo_file [flow_num [ratio [max_block_types [service_types]]]]" % sys.argv[0])
         sys.exit(0)
     flow_num = 100000
     if len(sys.argv) > 2:

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-import sys
 import json
+import sys
+from multiprocessing import Pool
 
 import requests
 
-from multiprocessing import Pool
 
 def get_all_replicas(filenames):
     count = 0
@@ -26,7 +26,7 @@ def get_all_replicas(filenames):
 
         if count % 10000 == 0:
             s = json.dumps(replicas, indent=4, sort_keys=True)
-            with open("replicas-temp-%d.json" % int(count/10000), 'w') as f:
+            with open("replicas-temp-%d.json" % int(count / 10000), 'w') as f:
                 f.write(s)
 
         if count == sum:
@@ -43,6 +43,7 @@ def fetch_replica(filename):
         return filename, content, None
     except Exception as e:
         return filename, None, e
+
 
 def main(filename):
     file_objs = json.load(open(filename))
