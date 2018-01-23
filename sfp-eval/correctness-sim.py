@@ -506,12 +506,12 @@ if __name__ == '__main__':
         H = G.copy()
         fp_bgp_convergence(H)
         # print("FP_BGP:")
-        R_F = check_reachability(H, F)
+        check_reachability(H, F)
     if '2' in mode:
         H = G.copy()
         correct_bgp_convergence(H)
         # print("C_BGP:")
-        check_reachability(H, F, debug=False, debug_num=2)
+        R_F = check_reachability(H, F, debug=False, debug_num=2)
     if '3' in mode:
         H = G.copy()
         H = fine_grained_announcement(H)
