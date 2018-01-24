@@ -31,3 +31,10 @@ def read_topo(filename):
     G.add_nodes_from(nodes.keys())
     G.add_edges_from(links)
     return G
+
+
+def read_max_connected_component(filename):
+    G = read_topo(filename)
+    G_subs = [g for g in networkx.connected_component_subgraphs(G)]
+    G_subs.sort(key=lambda g: len(g), reverse=True)
+    return G_subs[0]
