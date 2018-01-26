@@ -159,7 +159,11 @@ def common_advertise(G, advertise=advertise):
         compose_ribs_in(G, n)
         # Check whether there are local policies can be activated.
         enable_local_policy(G, n)
-    report_rib(G, 63)
+    # report_rib(G, 1)
+    # report_rib(G, 21)
+    # print(dict(G.node[1]['adj-ribs-in'][21]))
+    # print(G.node[1]['rib'].get("192.84.86.0/24"))
+    # print(G.node[1]['rib'].get("192.41.230.0/23"))
 
 
 def report_rib(G, n=None):
