@@ -28,9 +28,8 @@ def default_routing_policy(node,
         return None
     else:
         prefix_actions = node['rib'][dst_ip]
-        print(dst_ip, dst_port, prefix_actions)
-        return get_last_hop(prefix_actions.get(dst_port,
-                                               prefix_actions.get(0, None)))
+        # print(dst_ip, dst_port, prefix_actions)
+        return prefix_actions.get(dst_port, prefix_actions.get(0, None)) or None
 
 
 def check_path(flow, G, routing_policy=default_routing_policy, debug=False):
@@ -64,6 +63,7 @@ def check_path(flow, G, routing_policy=default_routing_policy, debug=False):
         loop_remover[d] = loop_remover.get(d, 0) + 1
         # print d, p, loop_remover
         if loop_remover[d] > 1:
+            print(loop_remover)
             if debug:
                 return math.inf, []
             return math.inf
@@ -89,7 +89,7 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
     success_volume = 0
     unsuccess_volume = 0
     R_F = []
-    cnt = 0
+    # cnt = 0
     for f in F:
         if debug:
             global debug_dict
@@ -103,11 +103,15 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
         as_length_dist[result] = as_length_dist.get(result, 0) + 1
         if type(result) == float:
             unsuccess_volume += f['volume']
-            if cnt < 200:
+            if result == math.inf:
                 src = G.ip_prefixes[f['src_ip']]
                 dst = G.ip_prefixes[f['dst_ip']]
                 print(f, src, dst)
-                cnt += 1
+            # if cnt < 200:
+            #     src = G.ip_prefixes[f['src_ip']]
+            #     dst = G.ip_prefixes[f['dst_ip']]
+            #     print(f, src, dst)
+            #     cnt += 1
         elif result > 1:
             success_volume += f['volume']
             R_F.append(f)

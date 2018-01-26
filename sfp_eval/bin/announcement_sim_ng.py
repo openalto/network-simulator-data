@@ -13,7 +13,6 @@ if __name__ == '__main__':
 
     topo_filepath = sys.argv[1]
     flow_filepath = sys.argv[2]
-    relations_filepath = sys.argv[3]
-    args = dict([arg.split('=') for arg in sys.argv[4:]])  # type: dict[str, str]
+    args = dict([arg.split('=') for arg in sys.argv[3:]])  # type: dict[str, str]
 
-    session_start(topo_filepath, flow_filepath, relations_filepath, *args)
+    session_start(topo_filepath, flow_filepath, **args)

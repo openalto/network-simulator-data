@@ -79,4 +79,11 @@ def random_deflection(G, d, dest):
     if dest not in networkx.descendants(subG, d):
         return None
     else:
-        return networkx.shortest_path(subG, d, dest)[1]
+        # return networkx.shortest_path(subG, d, dest)[1]
+        return random.choice([x for x in subG.neighbors(d)])
+
+
+def manual_policy(G):
+    for prefix in G.node[25]['ip-prefixes']:
+        G.node[29]['local_policy'][prefix] = {8444: 30, 8445: 30, 21: 30, 80: 30, 2801: 30}
+        G.node[30]['local_policy'][prefix] = {8444: 29, 8445: 29, 21: 29, 80: 29, 2801: 29}

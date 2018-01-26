@@ -1,27 +1,14 @@
-from pytricia import PyTricia
 import networkx
+from pytricia import PyTricia
 
 # FIXME: They are global variable and need to be removed
 ip_prefixes = PyTricia()
 global_policy = dict()  # type: dict[str, PyTricia]
 
 
-# FIXME: No need
-def get_local_policy(node):
-    """
-    local_policy is not a simple prefix based routing.
-
-    For simplicity, assume the format of local_policy for each node is:
-
-    local_policy ::= Trie<prefix, Map<port, next_hop>>
-    """
-
-    global global_policy
-    return global_policy.get(node, PyTricia())
-
-
 def update_initial_rib(rib, prefix):
     """
+    Update the initial the rib for a prefix
     """
     if prefix not in rib:
         rib[prefix] = {0: []}
@@ -41,6 +28,22 @@ def initiate_ribs(G):
             #     update_initial_rib(out_ribs[d], prefix, n)
 
 
+def read_local_rib(G, curr, prefix):
+    """
+    Read local rib and return the next hop of a prefix. Return None if it doesn't have hop.
+    """
+    local_rib = G.node[curr]['rib']
+    ribs_in = G.node[curr]['adj-ribs-in']
+    if prefix not in local_rib:
+        return None
+    action = local_rib[prefix][0]
+    if type(action) == list:
+        return action
+    if action in ribs_in:
+        return ribs_in[action][prefix].get(0, None)
+    return None
+
+
 def advertise(G, curr, post, prefix):
     """
     Make curr node advertise routing information accepted from pre node to post node.
@@ -57,8 +60,35 @@ def advertise(G, curr, post, prefix):
     # print(dict(post_rib_in))
     if prefix not in post_rib_in:
         # G.node[curr]['adj-ribs-out'][post][prefix] = {0: G.node[curr]['rib'][prefix] + [curr]}
-        post_rib_in[prefix] = {0: G.node[curr]['rib'][prefix][0] + [curr]}
+        # print(read_local_rib(G, curr, prefix), curr, post, prefix)
+        post_rib_in[prefix] = {0: read_local_rib(G, curr, prefix) + [curr]}
+    else:
+        if prefix not in G.node[curr]['rib']:
+            post_rib_in.delete(prefix)
+        else:
+            post_rib_in[prefix][0] = read_local_rib(G, curr, prefix) + [curr]
     # print(dict(post_rib_in))
+
+
+def withdraw(G, curr, post, prefix):
+    """
+    """
+    post_rib_in = G.node[post]['adj-ribs-in'][curr]
+    if prefix in post_rib_in:
+        # if post == 59 and curr in [29]:
+        #     print('!!!Withdraw:', post, curr, prefix)
+        # post_rib_in.delete(prefix)
+        G.node[post]['adj-ribs-in'][curr].delete(prefix)
+        if prefix in G.node[post]['rib']:
+            if G.node[post]['rib'][prefix][0] == curr:
+                del G.node[post]['rib'][prefix]
+            else:
+                ports = list(G.node[post]['rib'][prefix].keys())
+                for port in ports:
+                    if G.node[post]['rib'][prefix][port] == curr:
+                        del G.node[post]['rib'][prefix][port]
+        # if post == 59 and curr in [29]:
+        #     print('!!!RIB_IN:', dict(G.node[59]['adj-ribs-in'][29]))
 
 
 def correct_bgp_advertise(G):
@@ -67,7 +97,44 @@ def correct_bgp_advertise(G):
         If the internal fine-grained policy differs from the selected best BGP route,
         do not advertise such a destination IP prefix.
     """
-    pass
+    # Update adj-ribs-out (Unnecessary)
+    # Update neighbor's adj-ribs-in
+    for n in G.nodes():
+        local_rib = G.node[n]['rib']
+        # Scan whether prefix in cus tomer neighbors
+        for prefix in local_rib:
+            # If local_rib has internal fine-grained policy differ from port 0, withdraw.
+            if len(set([x if x != [] else () for x in local_rib[prefix].values()])) > 1:
+                for d in G.neighbors(n):
+                    # if n == 29 or n == 30:
+                    #     print("DEBUG:", n, d, prefix)
+                    withdraw(G, n, d, prefix)
+                continue
+            # If so, advertise the local route (w/o fine-grained) to all other neighbors
+            # else only advertise to customers
+            last_hop = local_rib[prefix][0] or None
+            if local_rib[prefix][0] == []:
+                for d in G.neighbors(n):
+                    advertise(G, n, d, prefix)
+            if last_hop in G.node[n]['customers']:
+                for d in G.neighbors(n):
+                    if d != last_hop:
+                        advertise(G, n, d, prefix)
+            else:
+                for c in G.node[n]['customers']:
+                    advertise(G, n, c, prefix)
+    # print('=====>', dict(G.node[59]['adj-ribs-in'][29]))
+    # print(dict(G.node[59]['adj-ribs-in'][30]))
+    # Update local-rib
+    for n in G.nodes():
+        # Compose rib_in into local rib
+        # Principle: customer > provider/peer, shorter_as_path > longer_as_path
+        compose_ribs_in(G, n)
+        # Check whether there are local policies can be activated.
+        enable_local_policy(G, n)
+    # print('<======', dict(G.node[59]['adj-ribs-in'][29]))
+    # print(dict(G.node[59]['adj-ribs-in'][30]))
+    # report_rib(G, 59)
 
 
 def fp_bgp_advertise(G):
@@ -76,7 +143,43 @@ def fp_bgp_advertise(G):
         Always advertise the destination IP prefix based routes regardless of
         the network's internal fine-grained flow based policies.
     """
-    pass
+    # Update adj-ribs-out
+    # Update neighbor's adj-ribs-in
+    for n in G.nodes():
+        local_rib = G.node[n]['rib']
+        # Scan whether prefix in customer neighbors
+        for prefix in local_rib:
+            #   if so, advertise the local route (w/o fine-grained) to all other neighbors
+            #   else only advertise to customers
+            last_hop = local_rib[prefix][0] or None
+            if local_rib[prefix][0] == []:
+                for d in G.neighbors(n):
+                    advertise(G, n, d, prefix)
+            if last_hop in G.node[n]['customers']:
+                for d in G.neighbors(n):
+                    if d != last_hop:
+                        advertise(G, n, d, prefix)
+            else:
+                for c in G.node[n]['customers']:
+                    advertise(G, n, c, prefix)
+    # Update local-rib
+    for n in G.nodes():
+        # Compose rib_in into local rib
+        # Principle: customer > provider/peer, shorter_as_path > longer_as_path
+        compose_ribs_in(G, n)
+        # Check whether there are local policies can be activated.
+        enable_local_policy(G, n)
+
+
+def sfp_advertise(G):
+    """
+    SFP Advertisement:
+        Always advertise valid fine-grained routing information.
+    """
+    for n in G.nodes():
+        local_rib = G.node[n]['rib']
+        for prefix in local_rib:
+            pass
 
 
 def get_last_hop(path):
@@ -84,16 +187,18 @@ def get_last_hop(path):
 
 
 def best_choice(G, n, *actions):
-    best = actions[0]
+    best = 0
     customers = G.node[n]['customers']
-    for act in actions[1:]:
+    for i in range(1, len(actions)):
+        act = actions[i]
+        best_act = actions[best]
         if not act:
             continue
-        if (get_last_hop(act) in customers) > (get_last_hop(best) in customers):
-            best = act
-        elif (get_last_hop(act) in customers) == (get_last_hop(best) in customers):
-            if not best or len(act) < len(best):
-                best = act
+        if (get_last_hop(act) in customers) > (get_last_hop(best_act) in customers):
+            best = i
+        elif (get_last_hop(act) in customers) == (get_last_hop(best_act) in customers):
+            if not best_act or len(act) < len(best_act):
+                best = i
     # print(actions, best)
     return best
 
@@ -112,11 +217,16 @@ def compose_ribs_in(G, n):
         curr_rib_in = ribs_in[d]
         for prefix in curr_rib_in:
             if prefix not in local_rib:
-                local_rib[prefix] = {}
+                local_rib[prefix] = {0: None}
             for port in curr_rib_in[prefix]:
                 # print(n, d)
-                local_rib[prefix][port] = best_choice(G, n, curr_rib_in[prefix][port],
-                                                      local_rib[prefix].get(port, None))
+                # local_rib[prefix][port] = best_choice(G, n, curr_rib_in[prefix][port],
+                #                                       local_rib[prefix].get(port, None))
+                curr_act = curr_rib_in[prefix][port]
+                # print(n, d, prefix, port, curr_act)
+                if not best_choice(G, n, curr_act, read_local_rib(G, n, prefix)) and curr_act:
+                    local_rib[prefix][port] = d
+    # report_rib(G, n)
 
 
 def enable_local_policy(G, n):
@@ -133,8 +243,10 @@ def enable_local_policy(G, n):
                 G.node[n]['rib'][prefix][port] = None
             rib_in = G.node[n]['adj-ribs-in'].get(next_hop, [])
             if prefix in rib_in:
-                G.node[n]['rib'][prefix][port] = rib_in[prefix].get(port,
-                                                                    rib_in[prefix].get(0, None))
+                G.node[n]['rib'][prefix][port] = next_hop
+            #     G.node[n]['rib'][prefix][port] = rib_in[prefix].get(port,
+            #                                                         rib_in[prefix].get(0, None))
+            # G.node[n]['rib'][prefix][port] = next_hop
 
 
 def common_advertise(G, advertise=advertise):
@@ -143,13 +255,10 @@ def common_advertise(G, advertise=advertise):
     for n in G.nodes():
         local_rib = G.node[n]['rib']
         # Scan whether prefix in customer neighbors
-        # print("!!! Scan node: ", n, dict(local_rib))
         for prefix in local_rib:
             #   if so, advertise the local route (w/o fine-grained) to all other neighbors
             #   else only advertise to customers
-            last_hop = get_last_hop(local_rib[prefix][0])
-            # print(prefix, last_hop)
-            # print(G.node[n]['customers'])
+            last_hop = local_rib[prefix][0] or None
             if local_rib[prefix][0] == []:
                 for d in G.neighbors(n):
                     advertise(G, n, d, prefix)
@@ -167,19 +276,23 @@ def common_advertise(G, advertise=advertise):
         compose_ribs_in(G, n)
         # Check whether there are local policies can be activated.
         enable_local_policy(G, n)
-    # report_rib(G, 1)
-    # report_rib(G, 21)
-    # print(dict(G.node[1]['adj-ribs-in'][21]))
-    # print(G.node[1]['rib'].get("192.84.86.0/24"))
-    # print(G.node[1]['rib'].get("192.41.230.0/23"))
 
 
+# For DEBUG Use
 def report_rib(G, n=None):
     if n:
         print('>>>', n, dict(G.node[n]['rib']))
         return
     for n in G.nodes():
         print('>>>', n, dict(G.node[n]['rib']))
+
+
+def report_local_policy(G, n=None):
+    if n:
+        print('<<<', n, dict(G.node[n]['local_policy']))
+        return
+    for n in G.nodes():
+        print('<<<', n, dict(G.node[n]['local_policy']))
 
 
 def fp_bgp_convergence(G):
