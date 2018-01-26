@@ -1,5 +1,20 @@
 import networkx
 import yaml
+from pytricia import PyTricia
+
+
+"""
+adj-ribs-in = {
+"neighbor": rib,
+...
+}
+rib = PyTricia()
+rib["10.0.0.0/24"] = {
+  80: next_hop1,
+  2801: next_hop2,
+  0: next_hop0
+}
+"""
 
 
 def read_topo(filepath):
@@ -8,20 +23,31 @@ def read_topo(filepath):
     nodes = topo["nodes"]
     links = topo["links"]
     G = networkx.Graph()
+    G.ip_prefixes = PyTricia()
     for node_name in nodes:
         node = nodes[node_name]
-        G.add_node(node['id'])
-        node_obj = G.nodes[node['id']]
-        node_obj['id'] = node['id']
+        node_id = node['id']
+        G.add_node(node_id)
+        node_obj = G.nodes[node_id]
+        node_obj['id'] = node_id
         node_obj['type'] = node['type']
         node_obj['asn'] = node.get('asn', None)
-        node_obj['ip-prefixes'] = node.get('ip-prefix', None)
+        node_obj['ip-prefixes'] = node.get('ip-prefixes', set()) or set()
         node_obj['ip'] = node.get('ip', None)
-        node_obj['providers'] = set()
-        node_obj['customers'] = set()
-        node_obj['peers'] = set()
+        node_obj['providers'] = set(node.get('providers', []))
+        node_obj['customers'] = set(node.get('customers', []))
+        node_obj['peers'] = set(node.get('peers', []))
+        node_obj['name'] = node_name
+        for prefix in node_obj['ip-prefixes']:
+            G.ip_prefixes[prefix] = node_id
     for link in links:
         G.add_edge(*link)
+    for node_id in G.nodes():
+        node_obj = G.node[node_id]
+        node_obj['adj-ribs-in'] = {n: PyTricia() for n in G.neighbors(node_id)}
+        node_obj['rib'] = PyTricia()
+        node_obj['adj-ribs-out'] = {n: PyTricia() for n in G.neighbors(node_id)}
+        node_obj['local_policy'] = PyTricia()
     return G
 
 
@@ -34,7 +60,8 @@ def dump_topo(G, filepath):
         node_obj['providers'] = sorted(node_obj['providers'])
         node_obj['customers'] = sorted(node_obj['customers'])
         node_obj['peers'] = sorted(node_obj['peers'])
-        topo["nodes"]["net-%d" % G.nodes[node]['id']] = node_obj
+        node_obj['ip-prefixes'] = sorted(node_obj['ip-prefixes'])
+        topo["nodes"][node_obj["name"]] = node_obj
     for link in sorted(G.edges):
         topo["links"].append(list(link))
     yaml.dump(topo, open(filepath, 'w'))

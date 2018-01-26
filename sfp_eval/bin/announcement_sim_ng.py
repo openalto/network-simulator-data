@@ -8,7 +8,7 @@ if __name__ == '__main__':
         print(
             "Usage: %s topo_filepath flow_filepath relations_filepath [arg=value]\n"
         )
-        print("arg: policy_type")
+        print("arg: algorithm_type")
         exit(-1)
 
     topo_filepath = sys.argv[1]

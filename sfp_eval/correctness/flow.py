@@ -75,4 +75,5 @@ def read_flows(file_path, port_dist=DEFAULT_SERVICE_TYPES):
         if not d.get('dst_port', None):
             flow.dst_port = np.random.choice(
                 list(port_dist.keys()), p=list(port_dist.values()))
-    return data
+        flows.append(flow)
+    return flows
