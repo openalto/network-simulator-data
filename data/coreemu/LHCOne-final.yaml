@@ -90,515 +90,219 @@ links:
 - [75, 55]
 - [79, 57]
 nodes:
-  net-1:
-    asn: 999999
-    customers: []
-    id: 1
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-18:
-    asn: 3671
-    customers: []
-    id: 18
-    ip: null
-    ip-prefixes: [134.79.0.0/16]
-    peers: []
-    providers: []
-    type: edge
-  net-19:
-    asn: 26397
-    customers: []
-    id: 19
-    ip: null
-    ip-prefixes: [132.239.160.0/19]
-    peers: []
-    providers: []
-    type: edge
-  net-20:
-    asn: 2907
-    customers: []
-    id: 20
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-21:
-    asn: 32361
-    customers: []
-    id: 21
-    ip: null
-    ip-prefixes: [192.84.86.0/24, 198.32.43.0/24, 198.32.44.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-22:
-    asn: 131
-    customers: []
-    id: 22
-    ip: null
-    ip-prefixes: [128.111.120.96/28]
-    peers: []
-    providers: []
-    type: edge
-  net-23:
-    asn: 2603
-    customers: []
-    id: 23
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-24:
-    asn: 20965
-    customers: []
-    id: 24
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-25:
-    asn: 513
-    customers: []
-    id: 25
-    ip: null
-    ip-prefixes: [128.142.0.0/16, 188.184.128.0/17, 188.185.128.0/17, 188.185.48.0/20]
-    peers: []
-    providers: []
-    type: edge
-  net-26:
+  AARNET:
     asn: 7575
     customers: []
     id: 26
     ip: null
     ip-prefixes: []
-    peers: []
-    providers: []
+    name: AARNET
+    peers: [20, 21, 23, 27, 32, 57]
+    providers: [1]
     type: transit
-  net-27:
-    asn: 11537
-    customers: []
-    id: 27
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-28:
-    asn: 111
-    customers: []
-    id: 28
-    ip: null
-    ip-prefixes: [128.197.24.0/21]
-    peers: []
-    providers: []
-    type: edge
-  net-29:
-    asn: 43
-    customers: []
-    id: 29
-    ip: null
-    ip-prefixes: [130.199.185.0/24, 130.199.48.0/23, 192.12.15.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-30:
-    asn: 19782
-    customers: []
-    id: 30
-    ip: null
-    ip-prefixes: [80.158.104.0/21, 80.158.168.0/21, 80.158.20.0/23, 80.158.208.0/21,
-      80.158.238.0/24, 80.158.239.0/24, 80.158.247.0/24, 80.158.83.0/24, 80.48.100.0/24,
-      80.48.99.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-31:
-    asn: 683
-    customers: []
-    id: 31
-    ip: null
-    ip-prefixes: [140.221.68.0/24, 140.221.69.0/24, 140.221.96.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-32:
-    asn: 17579
-    customers: []
-    id: 32
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-33:
-    asn: 24167
-    customers: []
-    id: 33
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-34:
-    asn: 160
-    customers: []
-    id: 34
-    ip: null
-    ip-prefixes: [192.170.224.0/19]
-    peers: []
-    providers: []
-    type: edge
-  net-35:
-    asn: 3152
-    customers: []
-    id: 35
-    ip: null
-    ip-prefixes: [131.225.184.0/22, 131.225.188.0/22, 131.225.204.0/22, 131.255.160.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-36:
+  AGLT2:
     asn: 229
     customers: []
     id: 36
     ip: null
     ip-prefixes: [192.41.230.0/23, 192.41.236.0/23, 192.41.238.0/28]
+    name: AGLT2
     peers: []
-    providers: []
+    providers: [1]
     type: edge
-  net-37:
-    asn: 25776
+  ANL:
+    asn: 683
     customers: []
-    id: 37
+    id: 31
     ip: null
-    ip-prefixes: [129.15.40.0/23]
+    ip-prefixes: [140.221.68.0/24, 140.221.69.0/24, 140.221.96.0/24]
+    name: ANL
     peers: []
-    providers: []
+    providers: [1]
     type: edge
-  net-38:
-    asn: 59
+  ASGC:
+    asn: 24167
     customers: []
-    id: 38
-    ip: null
-    ip-prefixes: [128.104.227.0/24, 144.92.180.0/23]
-    peers: []
-    providers: []
-    type: edge
-  net-39:
-    asn: 7896
-    customers: []
-    id: 39
-    ip: null
-    ip-prefixes: [129.93.182.0/23, 129.93.239.128/26, 129.93.241.0/26, 129.93.244.192/26]
-    peers: []
-    providers: []
-    type: edge
-  net-40:
-    asn: 50
-    customers: []
-    id: 40
-    ip: null
-    ip-prefixes: [192.12.68.0/24, 192.188.182.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-41:
-    asn: 7212
-    customers: []
-    id: 41
-    ip: null
-    ip-prefixes: [129.59.177.96/27, 129.59.197.0/24, 192.111.108.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-42:
-    asn: 39590
-    customers: []
-    id: 42
-    ip: null
-    ip-prefixes: [109.105.124.0/22]
-    peers: []
-    providers: []
-    type: edge
-  net-43:
-    asn: 57383
-    customers: []
-    id: 43
+    id: 33
     ip: null
     ip-prefixes: []
-    peers: []
-    providers: []
+    name: ASGC
+    peers: [23, 25]
+    providers: [1]
     type: transit
-  net-44:
-    asn: 1916
+  BCNet:
+    asn: 271
     customers: []
-    id: 44
+    id: 79
     ip: null
-    ip-prefixes: []
+    ip-prefixes: [206.12.15.0/24, 206.199.185.0/24, 206.199.48.0/23]
+    name: BCNet
     peers: []
-    providers: []
-    type: transit
-  net-45:
-    asn: 8501
-    customers: []
-    id: 45
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-46:
-    asn: 766
-    customers: []
-    id: 46
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-47:
-    asn: 786
-    customers: []
-    id: 47
-    ip: null
-    ip-prefixes: [146.179.244.0/24]
-    peers: []
-    providers: []
+    providers: [57]
     type: edge
-  net-48:
-    asn: 680
-    customers: []
-    id: 48
-    ip: null
-    ip-prefixes: [90.169.160.0/21, 90.169.191.0/24, 90.169.192.0/24, 90.169.80.0/24,
-      90.169.98.0/24, 90.34.192.0/21, 90.34.200.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-49:
-    asn: 137
-    customers: []
-    id: 49
-    ip: null
-    ip-prefixes: []
-    peers: []
-    providers: []
-    type: transit
-  net-50:
-    asn: 1162
-    customers: []
-    id: 50
-    ip: null
-    ip-prefixes: [145.100.17.0/28, 145.100.32.0/22]
-    peers: []
-    providers: []
-    type: edge
-  net-51:
-    asn: 2852
-    customers: []
-    id: 51
-    ip: null
-    ip-prefixes: [195.113.219.0/25]
-    peers: []
-    providers: []
-    type: edge
-  net-52:
-    asn: 2614
-    customers: []
-    id: 52
-    ip: null
-    ip-prefixes: [81.180.86.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-53:
+  BELNET:
     asn: 2611
     customers: []
     id: 53
     ip: null
     ip-prefixes: [193.12.15.0/24, 193.199.185.0/24, 193.199.48.0/23]
-    peers: []
-    providers: []
+    name: BELNET
+    peers: [23]
+    providers: [24]
     type: edge
-  net-54:
-    asn: 8581
+  BNL:
+    asn: 43
     customers: []
-    id: 54
+    id: 29
     ip: null
-    ip-prefixes: [195.251.201.128/26]
+    ip-prefixes: [130.199.185.0/24, 130.199.48.0/23, 192.12.15.0/24]
+    name: BNL
     peers: []
-    providers: []
+    providers: [1]
     type: edge
-  net-55:
-    asn: 2091
+  BOSTONU:
+    asn: 111
     customers: []
-    id: 55
+    id: 28
     ip: null
-    ip-prefixes: []
+    ip-prefixes: [128.197.24.0/21]
+    name: BOSTONU
     peers: []
-    providers: []
-    type: transit
-  net-56:
-    asn: 2697
-    customers: []
-    id: 56
-    ip: null
-    ip-prefixes: [144.16.111.0/24, 144.16.112.0/24]
-    peers: []
-    providers: []
+    providers: [1]
     type: edge
-  net-57:
+  CANARIE:
     asn: 6509
-    customers: []
+    customers: [76, 77, 78, 79]
     id: 57
     ip: null
     ip-prefixes: [192.84.86.0/24, 198.32.43.0/24, 198.32.44.0/24]
-    peers: []
-    providers: []
+    name: CANARIE
+    peers: [20, 23, 25, 26, 27]
+    providers: [1]
     type: edge
-  net-58:
-    asn: 3
-    customers: []
-    id: 58
-    ip: null
-    ip-prefixes: [18.12.0.0/20]
-    peers: []
-    providers: []
-    type: edge
-  net-59:
-    asn: 17
-    customers: []
-    id: 59
-    ip: null
-    ip-prefixes: [128.211.128.0/19]
-    peers: []
-    providers: []
-    type: edge
-  net-60:
-    asn: 59624
-    customers: []
-    id: 60
-    ip: null
-    ip-prefixes: [144.206.224.0/24, 144.206.236.0/24, 144.206.237.0/24, 144.206.255.128/26]
-    peers: []
-    providers: []
-    type: edge
-  net-61:
-    asn: 2148
-    customers: []
-    id: 61
-    ip: null
-    ip-prefixes: [194.85.66.0/24, 194.85.68.0/23]
-    peers: []
-    providers: []
-    type: edge
-  net-62:
-    asn: 29493
-    customers: []
-    id: 62
-    ip: null
-    ip-prefixes: [144.206.131.0/24, 212.193.96.0/26]
-    peers: []
-    providers: []
-    type: edge
-  net-63:
-    asn: 2875
-    customers: []
-    id: 63
-    ip: null
-    ip-prefixes: [159.93.224.0/22, 159.93.228.0/22, 159.93.39.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-64:
-    asn: 2643
-    customers: []
-    id: 64
-    ip: null
-    ip-prefixes: [194.190.165.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-65:
+  CBPF-Brazil:
     asn: 2715
     customers: []
     id: 65
     ip: null
     ip-prefixes: [152.84.101.0/24]
+    name: CBPF-Brazil
     peers: []
-    providers: []
+    providers: [44]
     type: edge
-  net-66:
-    asn: 28571
+  CEA-IRFU:
+    asn: 777
     customers: []
-    id: 66
+    id: 75
     ip: null
-    ip-prefixes: [200.17.30.0/24]
+    ip-prefixes: [100.84.101.0/24]
+    name: CEA-IRFU
     peers: []
-    providers: []
+    providers: [55]
     type: edge
-  net-67:
+  CERN:
+    asn: 513
+    customers: []
+    id: 25
+    ip: null
+    ip-prefixes: [128.142.0.0/16, 188.184.128.0/17, 188.185.128.0/17, 188.185.48.0/20]
+    name: CERN
+    peers: [21, 23, 32, 33, 56, 57, 60, 69]
+    providers: [1, 27]
+    type: edge
+  CESNET:
+    asn: 2852
+    customers: [45]
+    id: 51
+    ip: null
+    ip-prefixes: [195.113.219.0/25]
+    name: CESNET
+    peers: []
+    providers: [24]
+    type: edge
+  Cyfronet-AGH:
     asn: 8267
     customers: []
     id: 67
     ip: null
     ip-prefixes: [149.156.5.192/27]
+    name: Cyfronet-AGH
     peers: []
-    providers: []
+    providers: [45]
     type: edge
-  net-68:
-    asn: 8664
-    customers: []
-    id: 68
-    ip: null
-    ip-prefixes: [213.135.54.0/26]
-    peers: []
-    providers: []
-    type: edge
-  net-69:
-    asn: 43115
-    customers: []
-    id: 69
-    ip: null
-    ip-prefixes: [193.109.172.0/24]
-    peers: []
-    providers: []
-    type: edge
-  net-70:
+  DE-KIT:
     asn: 58069
     customers: []
     id: 70
     ip: null
     ip-prefixes: [192.106.68.0/24, 192.108.45.0/24, 192.108.46.0/23]
+    name: DE-KIT
     peers: []
-    providers: []
+    providers: [48]
     type: edge
-  net-71:
+  DESY:
     asn: 1754
     customers: []
     id: 71
     ip: null
     ip-prefixes: [131.169.160.0/21, 131.169.191.0/24, 131.169.192.0/24, 131.169.80.0/24,
       131.169.98.0/24, 141.34.192.0/21, 141.34.200.0/24]
+    name: DESY
     peers: []
-    providers: []
+    providers: [48]
     type: edge
-  net-73:
-    asn: 1104
-    customers: []
-    id: 73
+  DFN:
+    asn: 680
+    customers: [70, 71]
+    id: 48
     ip: null
-    ip-prefixes: [194.171.96.128/25]
+    ip-prefixes: [90.169.160.0/21, 90.169.191.0/24, 90.169.192.0/24, 90.169.80.0/24,
+      90.169.98.0/24, 90.34.192.0/21, 90.34.200.0/24]
+    name: DFN
     peers: []
+    providers: [24]
+    type: edge
+  FNAL:
+    asn: 3152
+    customers: []
+    id: 35
+    ip: null
+    ip-prefixes: [131.225.184.0/22, 131.225.188.0/22, 131.225.204.0/22, 131.255.160.0/24]
+    name: FNAL
+    peers: []
+    providers: [1]
+    type: edge
+  GARR:
+    asn: 137
+    customers: []
+    id: 49
+    ip: null
+    ip-prefixes: []
+    name: GARR
+    peers: []
+    providers: [24]
+    type: transit
+  GEANT:
+    asn: 20965
+    customers: [20, 32, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+    id: 24
+    ip: null
+    ip-prefixes: []
+    name: GEANT
+    peers: [23]
+    providers: [1]
+    type: transit
+  IHEP:
+    asn: 2643
+    customers: []
+    id: 64
+    ip: null
+    ip-prefixes: [194.190.165.0/24]
+    name: IHEP
+    peers: [43]
     providers: []
     type: edge
-  net-74:
+  IN2P3:
     asn: 789
     customers: []
     id: 74
@@ -606,51 +310,410 @@ nodes:
     ip-prefixes: [134.158.104.0/21, 134.158.168.0/21, 134.158.20.0/23, 134.158.208.0/21,
       134.158.238.0/24, 134.158.239.0/24, 134.158.247.0/24, 134.158.83.0/24, 193.48.100.0/24,
       193.48.99.0/24]
+    name: IN2P3
     peers: []
-    providers: []
+    providers: [55]
     type: edge
-  net-75:
-    asn: 777
-    customers: []
-    id: 75
+  INDIANA-UNIV:
+    asn: 19782
+    customers: [59]
+    id: 30
     ip: null
-    ip-prefixes: [100.84.101.0/24]
+    ip-prefixes: [80.158.104.0/21, 80.158.168.0/21, 80.158.20.0/23, 80.158.208.0/21,
+      80.158.238.0/24, 80.158.239.0/24, 80.158.247.0/24, 80.158.83.0/24, 80.48.100.0/24,
+      80.48.99.0/24]
+    name: INDIANA-UNIV
     peers: []
-    providers: []
+    providers: [1]
     type: edge
-  net-76:
-    asn: 239
+  ITEP:
+    asn: 2148
     customers: []
-    id: 76
+    id: 61
     ip: null
-    ip-prefixes: [142.150.188.0/24]
-    peers: []
+    ip-prefixes: [194.85.66.0/24, 194.85.68.0/23]
+    name: ITEP
+    peers: [43]
     providers: []
     type: edge
-  net-77:
-    asn: 16462
+  Imperial-College:
+    asn: 786
     customers: []
-    id: 77
+    id: 47
     ip: null
-    ip-prefixes: [206.12.48.136/29, 206.12.48.224/27]
+    ip-prefixes: [146.179.244.0/24]
+    name: Imperial-College
     peers: []
+    providers: [24]
+    type: edge
+  Internet2:
+    asn: 11537
+    customers: [25, 58]
+    id: 27
+    ip: null
+    ip-prefixes: []
+    name: Internet2
+    peers: [23, 26, 44, 57]
+    providers: [1]
+    type: transit
+  JINR:
+    asn: 2875
+    customers: []
+    id: 63
+    ip: null
+    ip-prefixes: [159.93.224.0/22, 159.93.228.0/22, 159.93.39.0/24]
+    name: JINR
+    peers: [43]
     providers: []
     type: edge
-  net-78:
+  KREONET:
+    asn: 17579
+    customers: []
+    id: 32
+    ip: null
+    ip-prefixes: []
+    name: KREONET
+    peers: [23, 25, 26]
+    providers: [1, 24]
+    type: transit
+  MIT:
+    asn: 3
+    customers: []
+    id: 58
+    ip: null
+    ip-prefixes: [18.12.0.0/20]
+    name: MIT
+    peers: []
+    providers: [27]
+    type: edge
+  NDGF:
+    asn: 39590
+    customers: []
+    id: 42
+    ip: null
+    ip-prefixes: [109.105.124.0/22]
+    name: NDGF
+    peers: []
+    providers: [23]
+    type: edge
+  NIKHEF:
+    asn: 1104
+    customers: []
+    id: 73
+    ip: null
+    ip-prefixes: [194.171.96.128/25]
+    name: NIKHEF
+    peers: []
+    providers: [50]
+    type: edge
+  NL-SARA:
+    asn: 1162
+    customers: [73]
+    id: 50
+    ip: null
+    ip-prefixes: [145.100.17.0/28, 145.100.32.0/22]
+    name: NL-SARA
+    peers: []
+    providers: [24]
+    type: edge
+  NORDUNET:
+    asn: 2603
+    customers: [42, 60]
+    id: 23
+    ip: null
+    ip-prefixes: []
+    name: NORDUNET
+    peers: [20, 24, 25, 26, 27, 32, 33, 43, 53, 57]
+    providers: [1]
+    type: transit
+  OPTIPUTER:
+    asn: 26397
+    customers: []
+    id: 19
+    ip: null
+    ip-prefixes: [132.239.160.0/19]
+    name: OPTIPUTER
+    peers: []
+    providers: [1]
+    type: edge
+  ORNL:
+    asn: 50
+    customers: []
+    id: 40
+    ip: null
+    ip-prefixes: [192.12.68.0/24, 192.188.182.0/24]
+    name: ORNL
+    peers: []
+    providers: [1]
+    type: edge
+  Oklahoma-Univ:
+    asn: 25776
+    customers: []
+    id: 37
+    ip: null
+    ip-prefixes: [129.15.40.0/23]
+    name: Oklahoma-Univ
+    peers: []
+    providers: [1]
+    type: edge
+  PIC-IFAE:
+    asn: 43115
+    customers: []
+    id: 69
+    ip: null
+    ip-prefixes: [193.109.172.0/24]
+    name: PIC-IFAE
+    peers: [25]
+    providers: [46]
+    type: edge
+  PNPI:
+    asn: 29493
+    customers: []
+    id: 62
+    ip: null
+    ip-prefixes: [144.206.131.0/24, 212.193.96.0/26]
+    name: PNPI
+    peers: [43]
+    providers: []
+    type: edge
+  Pionier:
+    asn: 8501
+    customers: [67, 68]
+    id: 45
+    ip: null
+    ip-prefixes: []
+    name: Pionier
+    peers: []
+    providers: [24, 51]
+    type: transit
+  Purdue-CMS:
+    asn: 17
+    customers: []
+    id: 59
+    ip: null
+    ip-prefixes: [128.211.128.0/19]
+    name: Purdue-CMS
+    peers: []
+    providers: [30]
+    type: edge
+  RNP:
+    asn: 1916
+    customers: [65, 66]
+    id: 44
+    ip: null
+    ip-prefixes: []
+    name: RNP
+    peers: [27]
+    providers: [24]
+    type: transit
+  RRC-KI:
+    asn: 59624
+    customers: []
+    id: 60
+    ip: null
+    ip-prefixes: [144.206.224.0/24, 144.206.236.0/24, 144.206.237.0/24, 144.206.255.128/26]
+    name: RRC-KI
+    peers: [25, 43]
+    providers: [23]
+    type: edge
+  RU-VRF:
+    asn: 57383
+    customers: []
+    id: 43
+    ip: null
+    ip-prefixes: []
+    name: RU-VRF
+    peers: [23, 60, 61, 62, 63, 64]
+    providers: []
+    type: transit
+  RedIRIS:
+    asn: 766
+    customers: [69]
+    id: 46
+    ip: null
+    ip-prefixes: []
+    name: RedIRIS
+    peers: []
+    providers: [24]
+    type: transit
+  Renater:
+    asn: 2091
+    customers: [74, 75]
+    id: 55
+    ip: null
+    ip-prefixes: []
+    name: Renater
+    peers: []
+    providers: [24]
+    type: transit
+  RoEduNet:
+    asn: 2614
+    customers: []
+    id: 52
+    ip: null
+    ip-prefixes: [81.180.86.0/24]
+    name: RoEduNet
+    peers: []
+    providers: [24]
+    type: edge
+  SAMPA-Brazil:
+    asn: 28571
+    customers: []
+    id: 66
+    ip: null
+    ip-prefixes: [200.17.30.0/24]
+    name: SAMPA-Brazil
+    peers: []
+    providers: [44]
+    type: edge
+  SFU:
     asn: 11105
     customers: []
     id: 78
     ip: null
     ip-prefixes: [206.12.24.0/25]
+    name: SFU
     peers: []
-    providers: []
+    providers: [57]
     type: edge
-  net-79:
-    asn: 271
+  SINET:
+    asn: 2907
     customers: []
-    id: 79
+    id: 20
     ip: null
-    ip-prefixes: [206.12.15.0/24, 206.199.185.0/24, 206.199.48.0/23]
+    ip-prefixes: []
+    name: SINET
+    peers: [23, 26, 57]
+    providers: [1, 24]
+    type: transit
+  SLAC:
+    asn: 3671
+    customers: []
+    id: 18
+    ip: null
+    ip-prefixes: [134.79.0.0/16]
+    name: SLAC
+    peers: []
+    providers: [1]
+    type: edge
+  TIFR:
+    asn: 2697
+    customers: []
+    id: 56
+    ip: null
+    ip-prefixes: [144.16.111.0/24, 144.16.112.0/24]
+    name: TIFR
+    peers: [25]
+    providers: [24]
+    type: edge
+  Toronto-Univ:
+    asn: 239
+    customers: []
+    id: 76
+    ip: null
+    ip-prefixes: [142.150.188.0/24]
+    name: Toronto-Univ
+    peers: []
+    providers: [57]
+    type: edge
+  UCSB:
+    asn: 131
+    customers: []
+    id: 22
+    ip: null
+    ip-prefixes: [128.111.120.96/28]
+    name: UCSB
+    peers: []
+    providers: [1]
+    type: edge
+  UChicago:
+    asn: 160
+    customers: []
+    id: 34
+    ip: null
+    ip-prefixes: [192.170.224.0/19]
+    name: UChicago
+    peers: []
+    providers: [1]
+    type: edge
+  ULTRALIGHT:
+    asn: 32361
+    customers: []
+    id: 21
+    ip: null
+    ip-prefixes: [192.84.86.0/24, 198.32.43.0/24, 198.32.44.0/24]
+    name: ULTRALIGHT
+    peers: [25, 26]
+    providers: [1]
+    type: edge
+  UNIV-Warsaw:
+    asn: 8664
+    customers: []
+    id: 68
+    ip: null
+    ip-prefixes: [213.135.54.0/26]
+    name: UNIV-Warsaw
+    peers: []
+    providers: [45]
+    type: edge
+  UNL:
+    asn: 7896
+    customers: []
+    id: 39
+    ip: null
+    ip-prefixes: [129.93.182.0/23, 129.93.239.128/26, 129.93.241.0/26, 129.93.244.192/26]
+    name: UNL
+    peers: []
+    providers: [1]
+    type: edge
+  UVIC:
+    asn: 16462
+    customers: []
+    id: 77
+    ip: null
+    ip-prefixes: [206.12.48.136/29, 206.12.48.224/27]
+    name: UVIC
+    peers: []
+    providers: [57]
+    type: edge
+  Univ-Ioannina:
+    asn: 8581
+    customers: []
+    id: 54
+    ip: null
+    ip-prefixes: [195.251.201.128/26]
+    name: Univ-Ioannina
+    peers: []
+    providers: [24]
+    type: edge
+  Vanderbilt-UNIV:
+    asn: 7212
+    customers: []
+    id: 41
+    ip: null
+    ip-prefixes: [129.59.177.96/27, 129.59.197.0/24, 192.111.108.0/24]
+    name: Vanderbilt-UNIV
+    peers: []
+    providers: [1]
+    type: edge
+  WISC-MADISON:
+    asn: 59
+    customers: []
+    id: 38
+    ip: null
+    ip-prefixes: [128.104.227.0/24, 144.92.180.0/23]
+    name: WISC-MADISON
+    peers: []
+    providers: [1]
+    type: edge
+  core:
+    asn: 999999
+    customers: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+      35, 36, 37, 38, 39, 40, 41, 57]
+    id: 1
+    ip: null
+    ip-prefixes: []
+    name: core
     peers: []
     providers: []
-    type: edge
+    type: transit
