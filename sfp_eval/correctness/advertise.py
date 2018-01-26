@@ -125,8 +125,16 @@ def enable_local_policy(G, n):
     """
     local_policy = G.node[n]['local_policy']
     for prefix in local_policy:
-        if prefix in G.node[n]['rib']:
-            G.node[n]['rib'][prefix].update(local_policy[prefix])
+        if prefix not in G.node[n]['rib']:
+            continue
+        for port in local_policy[prefix]:
+            next_hop = local_policy[prefix][port]
+            if not next_hop:
+                G.node[n]['rib'][prefix][port] = None
+            rib_in = G.node[n]['adj-ribs-in'].get(next_hop, [])
+            if prefix in rib_in:
+                G.node[n]['rib'][prefix][port] = rib_in[prefix].get(port,
+                                                                    rib_in[prefix].get(0, None))
 
 
 def common_advertise(G, advertise=advertise):
@@ -159,7 +167,11 @@ def common_advertise(G, advertise=advertise):
         compose_ribs_in(G, n)
         # Check whether there are local policies can be activated.
         enable_local_policy(G, n)
-    report_rib(G, 63)
+    # report_rib(G, 1)
+    # report_rib(G, 21)
+    # print(dict(G.node[1]['adj-ribs-in'][21]))
+    # print(G.node[1]['rib'].get("192.84.86.0/24"))
+    # print(G.node[1]['rib'].get("192.41.230.0/23"))
 
 
 def report_rib(G, n=None):

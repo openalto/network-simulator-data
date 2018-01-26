@@ -1,7 +1,7 @@
 #!/usr/bin/env python{}{}
 # from sfp_eval.correctness.flow import read_flows
 from sfp_eval.bin.announcement_sim import read_flows
-# from sfp_eval.correctness.policies import generate_local_policies
+from sfp_eval.correctness.policies import generate_local_policies
 from sfp_eval.correctness.topology import read_topo, dump_topo, ASRelationsReader
 from sfp_eval.correctness.advertise import initiate_ribs, common_advertise
 from sfp_eval.correctness.route import check_reachability
@@ -15,7 +15,7 @@ def session_start(topo_filepath,
     G = read_topo(topo_filepath)
     F = read_flows(flow_filepath)
     # ASRelationsReader(relationship_filepath).augment_to_topology(G)
-    # generate_local_policies(G, **kwargs)
+    generate_local_policies(G, **kwargs)
 
     print(len(G.edges))
     # dump_topo(G, 'results.yaml')

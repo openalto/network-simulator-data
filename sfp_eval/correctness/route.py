@@ -28,6 +28,7 @@ def default_routing_policy(node,
         return None
     else:
         prefix_actions = node['rib'][dst_ip]
+        print(dst_ip, dst_port, prefix_actions)
         return get_last_hop(prefix_actions.get(dst_port,
                                                prefix_actions.get(0, None)))
 
