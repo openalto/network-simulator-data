@@ -299,8 +299,8 @@ nodes:
     ip: null
     ip-prefixes: [194.190.165.0/24]
     name: IHEP
-    peers: [43]
-    providers: []
+    peers: []
+    providers: [43]
     type: edge
   IN2P3:
     asn: 789
@@ -333,8 +333,8 @@ nodes:
     ip: null
     ip-prefixes: [194.85.66.0/24, 194.85.68.0/23]
     name: ITEP
-    peers: [43]
-    providers: []
+    peers: []
+    providers: [43]
     type: edge
   Imperial-College:
     asn: 786
@@ -363,8 +363,8 @@ nodes:
     ip: null
     ip-prefixes: [159.93.224.0/22, 159.93.228.0/22, 159.93.39.0/24]
     name: JINR
-    peers: [43]
-    providers: []
+    peers: []
+    providers: [43]
     type: edge
   KREONET:
     asn: 17579
@@ -418,12 +418,12 @@ nodes:
     type: edge
   NORDUNET:
     asn: 2603
-    customers: [42, 60]
+    customers: [42, 43, 60]
     id: 23
     ip: null
     ip-prefixes: []
     name: NORDUNET
-    peers: [20, 24, 25, 26, 27, 32, 33, 43, 53, 57]
+    peers: [20, 24, 25, 26, 27, 32, 33, 53, 57]
     providers: [1]
     type: transit
   OPTIPUTER:
@@ -473,8 +473,8 @@ nodes:
     ip: null
     ip-prefixes: [144.206.131.0/24, 212.193.96.0/26]
     name: PNPI
-    peers: [43]
-    providers: []
+    peers: []
+    providers: [43]
     type: edge
   Pionier:
     asn: 8501
@@ -513,18 +513,18 @@ nodes:
     ip: null
     ip-prefixes: [144.206.224.0/24, 144.206.236.0/24, 144.206.237.0/24, 144.206.255.128/26]
     name: RRC-KI
-    peers: [25, 43]
-    providers: [23]
+    peers: [25]
+    providers: [23, 43]
     type: edge
   RU-VRF:
-    asn: 57383
-    customers: []
+    asn: 57484
+    customers: [60, 61, 62, 63, 64]
     id: 43
     ip: null
     ip-prefixes: []
     name: RU-VRF
-    peers: [23, 60, 61, 62, 63, 64]
-    providers: []
+    peers: []
+    providers: [23]
     type: transit
   RedIRIS:
     asn: 766
