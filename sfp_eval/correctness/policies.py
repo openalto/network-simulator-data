@@ -84,6 +84,6 @@ def random_deflection(G, d, dest):
 
 
 def manual_policy(G):
-    for prefix in G.node[25]['ip-prefixes']:
+    for prefix in G.node[59]['ip-prefixes']:
         G.node[29]['local_policy'][prefix] = {8444: 30, 8445: 30, 21: 30, 80: 30, 2801: 30}
         G.node[30]['local_policy'][prefix] = {8444: 29, 8445: 29, 21: 29, 80: 29, 2801: 29}

@@ -6,45 +6,51 @@ ip_prefixes = PyTricia()
 global_policy = dict()  # type: dict[str, PyTricia]
 
 
-def update_initial_rib(rib, prefix):
+def update_initial_rib(rib, prefix, overwrite=True):
     """
     Update the initial the rib for a prefix
     """
-    if prefix not in rib:
+    if overwrite or prefix not in rib:
         rib[prefix] = {0: []}
     else:
         rib[prefix].update({0: []})
 
 
-def initiate_ribs(G):
+def initiate_ribs(G, overwrite=True):
     """
     Initiate ribs for each network in G.
     """
     for n in G.nodes():
         for prefix in G.node[n]['ip-prefixes']:
-            update_initial_rib(G.node[n]['rib'], prefix)
+            update_initial_rib(G.node[n]['rib'], prefix, overwrite)
             # out_ribs = G.node[n]['adj-ribs-out']
             # for d in out_ribs:
             #     update_initial_rib(out_ribs[d], prefix, n)
+        if overwrite:
+            G.node[n]['adj-ribs-in'] = {n: PyTricia() for n in G.neighbors(n)}
+            G.node[n]['adj-ribs-out'] = {n: PyTricia() for n in G.neighbors(n)}
 
 
-def read_local_rib(G, curr, prefix):
+def read_local_rib(G, curr, prefix, port=0):
     """
     Read local rib and return the next hop of a prefix. Return None if it doesn't have hop.
     """
+    # FIXME: This function is duplicate with default_routing_policy() in route.py
     local_rib = G.node[curr]['rib']
     ribs_in = G.node[curr]['adj-ribs-in']
     if prefix not in local_rib:
         return None
-    action = local_rib[prefix][0]
+    prefix_actions = local_rib[prefix]
+    action = prefix_actions.get(port, prefix_actions.get(0, None))
     if type(action) == list:
         return action
     if action in ribs_in:
-        return ribs_in[action][prefix].get(0, None)
+        rib_in_prefix_actions = ribs_in[action][prefix]
+        return rib_in_prefix_actions.get(port, rib_in_prefix_actions.get(0, None))
     return None
 
 
-def advertise(G, curr, post, prefix):
+def legacy_advertise(G, curr, post, prefix):
     """
     Make curr node advertise routing information accepted from pre node to post node.
 
@@ -62,12 +68,35 @@ def advertise(G, curr, post, prefix):
         # G.node[curr]['adj-ribs-out'][post][prefix] = {0: G.node[curr]['rib'][prefix] + [curr]}
         # print(read_local_rib(G, curr, prefix), curr, post, prefix)
         post_rib_in[prefix] = {0: read_local_rib(G, curr, prefix) + [curr]}
+    elif prefix not in G.node[curr]['rib']:
+        post_rib_in.delete(prefix)
     else:
-        if prefix not in G.node[curr]['rib']:
-            post_rib_in.delete(prefix)
-        else:
-            post_rib_in[prefix][0] = read_local_rib(G, curr, prefix) + [curr]
+        post_rib_in[prefix][0] = read_local_rib(G, curr, prefix) + [curr]
     # print(dict(post_rib_in))
+
+
+def is_all_block(actions):
+    """
+    Test if actions for all ports are block.
+    """
+    for port in actions:
+        if actions[port] is not None:
+            return False
+    return True
+
+
+def advertise(G, curr, post, prefix, port=0):
+    """
+    """
+    # TODO: Try to make it compatible with coarse-grained advertisement
+    post_rib_in = G.node[post]['adj-ribs-in'][curr]
+    action = read_local_rib(G, curr, prefix, port)
+    if prefix not in post_rib_in:
+        post_rib_in[prefix] = {}
+    post_rib_in[prefix][port] = action + [curr] if validate(action) else None
+
+    if is_all_block(post_rib_in[prefix]):
+        post_rib_in.delete(prefix)
 
 
 def withdraw(G, curr, post, prefix):
@@ -177,16 +206,37 @@ def sfp_advertise(G):
         Always advertise valid fine-grained routing information.
     """
     for n in G.nodes():
+        compose_ribs_in(G, n)
+        enable_local_policy(G, n)
         local_rib = G.node[n]['rib']
         for prefix in local_rib:
-            pass
+            for port in local_rib[prefix]:
+                if port == 0:
+                    # Advertise by following as relationship
+                    last_hop = local_rib[prefix][0] or None
+                    if local_rib[prefix][0] == []:
+                        for d in G.neighbors(n):
+                            advertise(G, n, d, prefix)
+                    if last_hop in G.node[n]['customers']:
+                        for d in G.neighbors(n):
+                            if d != last_hop:
+                                advertise(G, n, d, prefix)
+                    else:
+                        for c in G.node[n]['customers']:
+                            advertise(G, n, c, prefix)
+                else:
+                    # Do not follow as relationship
+                    for d in G.neighbors(n):
+                        advertise(G, n, d, prefix, port)
+    # report_rib(G, 29)
+    # report_rib(G, 30)
 
 
 def get_last_hop(path):
     return path[-1] if path else None
 
 
-def best_choice(G, n, *actions):
+def best_choice(G, n, port, *actions):
     best = 0
     customers = G.node[n]['customers']
     for i in range(1, len(actions)):
@@ -194,13 +244,49 @@ def best_choice(G, n, *actions):
         best_act = actions[best]
         if not act:
             continue
-        if (get_last_hop(act) in customers) > (get_last_hop(best_act) in customers):
-            best = i
-        elif (get_last_hop(act) in customers) == (get_last_hop(best_act) in customers):
-            if not best_act or len(act) < len(best_act):
+        if port == 0:
+            # Follow as-relationship
+            if (get_last_hop(act) in customers) > (get_last_hop(best_act) in customers):
                 best = i
+            elif (get_last_hop(act) in customers) == (get_last_hop(best_act) in customers):
+                if not best_act or len(act) < len(best_act):
+                    best = i
+        elif not best_act or len(act) < len(best_act):
+            # Do not follow as-relationship
+            best = i
     # print(actions, best)
     return best
+
+
+def validate(action, n=None):
+    """
+    Validate whether it is a valid non-block action
+    """
+    if action is None:
+        return False
+    else:
+        return n not in action
+
+
+def remove_invalid_local_rib(G, n):
+    """
+    """
+    local_rib = G.node[n]['rib']
+    ribs_in = G.node[n]['adj-ribs-in']
+    for prefix in local_rib:
+        prefix_actions = local_rib[prefix]
+        ports = list(prefix_actions.keys())
+        for port in ports:
+            action = prefix_actions[port]
+            if action:
+                if action not in ribs_in:
+                    del prefix_actions[port]
+                elif prefix not in ribs_in[action]:
+                    del prefix_actions[port]
+                elif ribs_in[action][prefix].get(port, ribs_in[action][prefix].get(0, None)) is None:
+                    del prefix_actions[port]
+        if is_all_block(prefix_actions):
+            local_rib.delete(prefix)
 
 
 def compose_ribs_in(G, n):
@@ -211,6 +297,7 @@ def compose_ribs_in(G, n):
         customer > provider/peer,
         shorter_as_path > longer_as_path.
     """
+    # TODO: How to handle invalid local rib entries?
     ribs_in = G.node[n]['adj-ribs-in']
     local_rib = G.node[n]['rib']
     for d in ribs_in:
@@ -219,13 +306,12 @@ def compose_ribs_in(G, n):
             if prefix not in local_rib:
                 local_rib[prefix] = {0: None}
             for port in curr_rib_in[prefix]:
-                # print(n, d)
-                # local_rib[prefix][port] = best_choice(G, n, curr_rib_in[prefix][port],
-                #                                       local_rib[prefix].get(port, None))
                 curr_act = curr_rib_in[prefix][port]
-                # print(n, d, prefix, port, curr_act)
-                if not best_choice(G, n, curr_act, read_local_rib(G, n, prefix)) and curr_act:
+                if best_choice(G, n, port, read_local_rib(G, n, prefix), curr_act) and validate(curr_act, n):
                     local_rib[prefix][port] = d
+    # Walk through local_rib to delete invalid entry?
+    # The invalid entry means the next_hop rib_in no longer has a route.
+    remove_invalid_local_rib(G, n)
     # report_rib(G, n)
 
 
@@ -242,7 +328,7 @@ def enable_local_policy(G, n):
             if not next_hop:
                 G.node[n]['rib'][prefix][port] = None
             rib_in = G.node[n]['adj-ribs-in'].get(next_hop, [])
-            if prefix in rib_in:
+            if prefix in rib_in and validate(rib_in[prefix].get(port, rib_in[prefix].get(0, None)), n):
                 G.node[n]['rib'][prefix][port] = next_hop
             #     G.node[n]['rib'][prefix][port] = rib_in[prefix].get(port,
             #                                                         rib_in[prefix].get(0, None))
@@ -279,12 +365,12 @@ def common_advertise(G, advertise=advertise):
 
 
 # For DEBUG Use
-def report_rib(G, n=None):
+def report_rib(G, n=None, table='rib', neigh=None):
     if n:
-        print('>>>', n, dict(G.node[n]['rib']))
+        print(table, '>>>', n, dict(G.node[n][table][neigh]) if neigh else dict(G.node[n][table]))
         return
     for n in G.nodes():
-        print('>>>', n, dict(G.node[n]['rib']))
+        print(table, '>>>', n, dict(G.node[n][table][neigh]) if neigh else dict(G.node[n][table]))
 
 
 def report_local_policy(G, n=None):
@@ -293,118 +379,3 @@ def report_local_policy(G, n=None):
         return
     for n in G.nodes():
         print('<<<', n, dict(G.node[n]['local_policy']))
-
-
-def fp_bgp_convergence(G):
-    """
-    False-positive BGP Convergence. node["routing"] is the table of  {ip-prefix -> next hop node}
-    """
-    paths = networkx.shortest_path(G)
-    for src in G.nodes:
-        for dst in G.nodes:
-            if src != dst:
-                try:
-                    path = paths[src].get(dst)
-                except KeyError:
-                    path = None
-                if path:
-                    prefixes = G.node[dst]['ip-prefix']
-                    for hop, next_hop in zip(path[:-1], path[1:]):
-                        for prefix in prefixes:
-                            G.node[hop]["routing"][prefix] = next_hop
-
-
-def all_fg_nodes(G, prefix):
-    """
-    Let's assume the local_policy is generated from the prefixes of nodes first.
-    """
-    # FIXME: If the granularity of prefixes in local_policy is different from ones in node, it will conduct error.
-    fg_nodes = []
-    for node in G.nodes:
-        local = get_local_policy(node)
-        if local.get(prefix):
-            fg_nodes.append(node)
-    return fg_nodes
-
-
-def correct_bgp_convergence(G):
-    """
-    Correct BGP Convergence
-    """
-    for dst in G.nodes:
-        prefixes = G.node[dst]['ip-prefix']
-        for prefix in prefixes:
-            H = G.copy()
-            for node in all_fg_nodes(G, prefix):
-                H.remove_node(node)
-            paths = networkx.shortest_path(H)
-            for src in H.nodes:
-                if src != dst:
-                    # path = paths[src][dst]
-                    path = paths[src].get(dst, [])
-                    for hop, next_hop in zip(path[:-1], path[1:]):
-                        G.node[hop]["routing"][prefix] = next_hop
-
-
-def find_fine_grained_routes(G, prefix_port):
-    for prefix, ports in prefix_port.items():
-        for port in ports:
-            delete_nodes = set()
-            delete_links = set()
-            H = G.copy()  # A copy of directed graph to modify links and nodes
-            # Step 1: Remove unused links for <prefix, port>
-            for node in H.nodes:
-                action = get_local_policy(node).get(prefix)
-                if action and (port in action):
-                    action = action[port]
-                    if action:
-                        for neig in H.neighbors(node):
-                            if action != neig:
-                                delete_links.add((node, neig))
-                    else:
-                        delete_nodes.add(node)
-            for edge in delete_links:
-                H.remove_edge(*edge)
-            for node in delete_nodes:
-                H.remove_node(node)
-            # Step 2: Find shortest path (Is it possible to be not found?)
-            dst = ip_prefixes[prefix]
-            paths = networkx.shortest_path(H, target=dst)
-            # Step 3: Traverse the shortest path
-            for src in H.nodes:
-                if src != dst:
-                    path = paths.get(src)
-                    if path:
-                        for hop, next_hop in zip(path[:-1], path[1:]):
-                            if prefix not in G.node[hop]["fine_grained"]:
-                                G.node[hop]["fine_grained"][prefix] = dict()
-                            G.node[hop]["fine_grained"][prefix][port] = next_hop
-
-    # Step 4: BGP shortest path in all nodes
-    fp_bgp_convergence(G)
-    return G
-
-
-def fine_grained_convergence(G):
-    # TODO
-    pass
-
-
-def fine_grained_announcement(G):
-    for node in G.nodes:
-        del G.node[node]["routing"]
-        del G.node[node]["fine_grained"]
-    G = G.to_directed()
-    for node in G.nodes:
-        G.node[node]["routing"] = PyTricia()
-        G.node[node]["fine_grained"] = PyTricia()
-    prefix_port = dict()  # type: dict[str, set[int]]
-    for node in G.nodes:
-        local = get_local_policy(node)
-        for prefix in local:
-            ports_actions = local[prefix]
-            if prefix not in prefix_port:
-                prefix_port[prefix] = set()
-            for port in ports_actions:
-                prefix_port[prefix].add(port)
-    return find_fine_grained_routes(G, prefix_port)

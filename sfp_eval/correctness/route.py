@@ -63,7 +63,7 @@ def check_path(flow, G, routing_policy=default_routing_policy, debug=False):
         loop_remover[d] = loop_remover.get(d, 0) + 1
         # print d, p, loop_remover
         if loop_remover[d] > 1:
-            print(loop_remover)
+            # print(loop_remover)
             if debug:
                 return math.inf, []
             return math.inf
@@ -103,10 +103,10 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
         as_length_dist[result] = as_length_dist.get(result, 0) + 1
         if type(result) == float:
             unsuccess_volume += f['volume']
-            if result == math.inf:
-                src = G.ip_prefixes[f['src_ip']]
-                dst = G.ip_prefixes[f['dst_ip']]
-                print(f, src, dst)
+            # if result == math.inf:
+            #     src = G.ip_prefixes[f['src_ip']]
+            #     dst = G.ip_prefixes[f['dst_ip']]
+            #     print(f, src, dst)
             # if cnt < 200:
             #     src = G.ip_prefixes[f['src_ip']]
             #     dst = G.ip_prefixes[f['dst_ip']]
