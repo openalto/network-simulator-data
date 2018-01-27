@@ -89,6 +89,28 @@ links:
 - [74, 55]
 - [75, 55]
 - [79, 57]
+- [29, 30]
+- [29, 57]
+- [29, 58]
+- [29, 59]
+- [23, 44]
+- [23, 45]
+- [23, 46]
+- [23, 47]
+- [23, 48]
+- [23, 49]
+- [23, 50]
+- [20, 42]
+- [20, 43]
+- [20, 23]
+- [27, 51]
+- [27, 52]
+- [27, 53]
+- [27, 54]
+- [27, 55]
+- [27, 56]
+- [24, 27]
+- [27, 29]
 nodes:
   AARNET:
     asn: 7575
@@ -148,16 +170,16 @@ nodes:
     ip-prefixes: [193.12.15.0/24, 193.199.185.0/24, 193.199.48.0/23]
     name: BELNET
     peers: [23]
-    providers: [24]
+    providers: [24, 27]
     type: edge
   BNL:
     asn: 43
-    customers: []
+    customers: [57, 58, 59]
     id: 29
     ip: null
     ip-prefixes: [130.199.185.0/24, 130.199.48.0/23, 192.12.15.0/24]
     name: BNL
-    peers: []
+    peers: [30, 27]
     providers: [1]
     type: edge
   BOSTONU:
@@ -177,8 +199,8 @@ nodes:
     ip: null
     ip-prefixes: []
     name: CANARIE
-    peers: [20, 23, 25, 26, 27]
-    providers: [1]
+    peers: [20, 23, 25, 26]
+    providers: [1, 27, 29]
     type: transit
   CBPF-Brazil:
     asn: 2715
@@ -218,7 +240,7 @@ nodes:
     ip-prefixes: [195.113.219.0/25]
     name: CESNET
     peers: []
-    providers: [24]
+    providers: [24, 27]
     type: edge
   Cyfronet-AGH:
     asn: 8267
@@ -260,7 +282,7 @@ nodes:
       90.169.98.0/24, 90.34.192.0/21, 90.34.200.0/24]
     name: DFN
     peers: []
-    providers: [24]
+    providers: [24, 23]
     type: edge
   FNAL:
     asn: 3152
@@ -280,7 +302,7 @@ nodes:
     ip-prefixes: []
     name: GARR
     peers: []
-    providers: [24]
+    providers: [24, 23]
     type: transit
   GEANT:
     asn: 20965
@@ -289,7 +311,7 @@ nodes:
     ip: null
     ip-prefixes: []
     name: GEANT
-    peers: [23]
+    peers: [23, 27]
     providers: [1]
     type: transit
   IHEP:
@@ -323,7 +345,7 @@ nodes:
       80.158.238.0/24, 80.158.239.0/24, 80.158.247.0/24, 80.158.83.0/24, 80.48.100.0/24,
       80.48.99.0/24]
     name: INDIANA-UNIV
-    peers: []
+    peers: [29]
     providers: [1]
     type: edge
   ITEP:
@@ -344,16 +366,16 @@ nodes:
     ip-prefixes: [146.179.244.0/24]
     name: Imperial-College
     peers: []
-    providers: [24]
+    providers: [24, 23]
     type: edge
   Internet2:
     asn: 11537
-    customers: [25, 58]
+    customers: [25, 58, 51, 52, 53, 54, 55, 56, 57]
     id: 27
     ip: null
     ip-prefixes: []
     name: Internet2
-    peers: [23, 26, 44, 57]
+    peers: [23, 26, 44, 24, 29]
     providers: [1]
     type: transit
   JINR:
@@ -384,7 +406,7 @@ nodes:
     ip-prefixes: [18.12.0.0/20]
     name: MIT
     peers: []
-    providers: [27]
+    providers: [27, 29]
     type: edge
   NDGF:
     asn: 39590
@@ -414,11 +436,11 @@ nodes:
     ip-prefixes: [145.100.17.0/28, 145.100.32.0/22]
     name: NL-SARA
     peers: []
-    providers: [24]
+    providers: [24, 23]
     type: edge
   NORDUNET:
     asn: 2603
-    customers: [42, 43, 60]
+    customers: [42, 43, 60, 44, 45, 46, 47, 48, 49, 50]
     id: 23
     ip: null
     ip-prefixes: []
@@ -484,7 +506,7 @@ nodes:
     ip-prefixes: []
     name: Pionier
     peers: []
-    providers: [24, 51]
+    providers: [24, 51, 23]
     type: transit
   Purdue-CMS:
     asn: 17
@@ -494,7 +516,7 @@ nodes:
     ip-prefixes: [128.211.128.0/19]
     name: Purdue-CMS
     peers: []
-    providers: [30]
+    providers: [30, 29]
     type: edge
   RNP:
     asn: 1916
@@ -504,7 +526,7 @@ nodes:
     ip-prefixes: []
     name: RNP
     peers: [27]
-    providers: [24]
+    providers: [24, 23]
     type: transit
   RRC-KI:
     asn: 59624
@@ -534,7 +556,7 @@ nodes:
     ip-prefixes: []
     name: RedIRIS
     peers: []
-    providers: [24]
+    providers: [24, 23]
     type: transit
   Renater:
     asn: 2091
@@ -544,7 +566,7 @@ nodes:
     ip-prefixes: []
     name: Renater
     peers: []
-    providers: [24]
+    providers: [24, 27]
     type: transit
   RoEduNet:
     asn: 2614
@@ -554,7 +576,7 @@ nodes:
     ip-prefixes: [81.180.86.0/24]
     name: RoEduNet
     peers: []
-    providers: [24]
+    providers: [24, 27]
     type: edge
   SAMPA-Brazil:
     asn: 28571
@@ -578,7 +600,7 @@ nodes:
     type: edge
   SINET:
     asn: 2907
-    customers: []
+    customers: [42, 43]
     id: 20
     ip: null
     ip-prefixes: []
@@ -604,7 +626,7 @@ nodes:
     ip-prefixes: [144.16.111.0/24, 144.16.112.0/24]
     name: TIFR
     peers: [25]
-    providers: [24]
+    providers: [24, 27]
     type: edge
   Toronto-Univ:
     asn: 239
@@ -684,7 +706,7 @@ nodes:
     ip-prefixes: [195.251.201.128/26]
     name: Univ-Ioannina
     peers: []
-    providers: [24]
+    providers: [24, 27]
     type: edge
   Vanderbilt-UNIV:
     asn: 7212
