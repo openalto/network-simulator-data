@@ -1,7 +1,8 @@
 import math
 import random
-from pytricia import PyTricia
+
 import networkx
+from pytricia import PyTricia
 
 DEFAULT_SERVICE_TYPES = {21: 0.1, 80: 0.1, 2801: 0.2, 8444: 0.3, 8445: 0.3}
 
@@ -17,7 +18,8 @@ def generate_random_policy(G,
                            prefix_ratio=0.2,
                            policy_place='transit',
                            policy_type='both',
-                           **args):
+                           triangle=None,
+                           **kwargs):
     """
     Randomly setup black-hole or deflection policies in transit network
 
@@ -33,6 +35,32 @@ def generate_random_policy(G,
     Returns:
         Topology with generated local policies.
     """
+    if not triangle:
+        generate_fully_random_policy(G,
+                                     service_types=service_types,
+                                     network_ratio=network_ratio,
+                                     prefix_ratio=prefix_ratio,
+                                     policy_place=policy_place,
+                                     policy_type=policy_type,
+                                     **kwargs)
+    else:
+        generate_triangle_based_random_policy(G,
+                                              triangle=triangle,
+                                              service_types=service_types,
+                                              network_ratio=network_ratio,
+                                              prefix_ratio=prefix_ratio,
+                                              policy_type=policy_type,
+                                              **kwargs)
+    return G
+
+
+def generate_fully_random_policy(G,
+                                 service_types=DEFAULT_SERVICE_TYPES,
+                                 network_ratio=0.5,
+                                 prefix_ratio=0.2,
+                                 policy_place='transit',
+                                 policy_type='both',
+                                 **kwargs):
     edge_networks = [
         n for n in G.nodes() if G.node[n].get('type', '') == 'edge'
     ]
@@ -60,6 +88,31 @@ def generate_random_policy(G,
                     port: gen_single_policy(G, d, dest, policy_type)
                     for port in random.sample(service_types.keys(),
                                               random.randint(1, 4))
+                }
+    return G
+
+
+def generate_triangle_based_random_policy(G,
+                                          triangle,
+                                          service_types=DEFAULT_SERVICE_TYPES,
+                                          network_ratio=0.5,
+                                          prefix_ratio=0.2,
+                                          policy_type='both',
+                                          **kwargs):
+    for tr in random.sample(triangle, math.ceil(len(triangle) * float(network_ratio))):
+        peer1, peer2, dests = tr
+        for dest in dests:
+            node_prefixes = G.node[dest]['ip-prefixes']
+            for prefix in random.sample(
+                    node_prefixes, math.ceil(
+                        len(node_prefixes) * float(prefix_ratio))):
+                G.node[peer1]['local_policy'][prefix] = {
+                    port: peer2 for port in random.sample(service_types.keys(),
+                                                          random.randint(1, 4))
+                }
+                G.node[peer2]['local_policy'][prefix] = {
+                    port: peer1 for port in random.sample(service_types.keys(),
+                                                          random.randint(1, 4))
                 }
     return G
 

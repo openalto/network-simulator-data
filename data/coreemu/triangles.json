@@ -1,0 +1,42 @@
+[
+  {
+    "peer1": 20,
+    "peer2": 23,
+    "customers": [42, 43]
+  },
+  {
+    "peer1": 23,
+    "peer2": 24,
+    "customers": [44, 45, 46, 47, 48, 49, 50]
+  },
+  {
+    "peer1": 24,
+    "peer2": 27,
+    "customers": [51, 52, 53, 54, 55, 56]
+  },
+  {
+    "peer1": 27,
+    "peer2": 29,
+    "customers": [57, 58]
+  },
+  {
+    "peer1": 30,
+    "peer2": 29,
+    "customers": [59]
+  },
+  {
+    "peer1": 43,
+    "peer2": 48,
+    "customers": [60, 61, 62, 63, 64]
+  },
+  {
+    "peer1": 44,
+    "peer2": 48,
+    "customers": [65, 66]
+  },
+  {
+    "peer1": 45,
+    "peer2": 48,
+    "customers": [67, 68]
+  }
+]

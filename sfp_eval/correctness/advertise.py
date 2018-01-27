@@ -1,4 +1,3 @@
-import networkx
 from pytricia import PyTricia
 
 # FIXME: They are global variable and need to be removed
@@ -45,7 +44,7 @@ def read_local_rib(G, curr, prefix, port=0):
     if type(action) == list:
         return action
     if action in ribs_in:
-        rib_in_prefix_actions = ribs_in[action][prefix]
+        rib_in_prefix_actions = ribs_in[action].get(prefix, {})
         return rib_in_prefix_actions.get(port, rib_in_prefix_actions.get(0, None))
     return None
 
@@ -133,7 +132,10 @@ def correct_bgp_advertise(G):
         # Scan whether prefix in cus tomer neighbors
         for prefix in local_rib:
             # If local_rib has internal fine-grained policy differ from port 0, withdraw.
-            if len(set([x if x != [] else () for x in local_rib[prefix].values()])) > 1:
+            actions = set([x if x != [] else () for x in local_rib[prefix].values()] +
+                          [x if x != [] else () for x
+                           in G.node[n]['local_policy'].get(prefix, {}).values()])
+            if len(actions) > 1:
                 for d in G.neighbors(n):
                     # if n == 29 or n == 30:
                     #     print("DEBUG:", n, d, prefix)

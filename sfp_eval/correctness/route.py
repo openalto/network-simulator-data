@@ -89,6 +89,7 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
     success_volume = 0
     unsuccess_volume = 0
     R_F = []
+    UR_F = []
     # cnt = 0
     for f in F:
         if debug:
@@ -103,6 +104,7 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
         as_length_dist[result] = as_length_dist.get(result, 0) + 1
         if type(result) == float:
             unsuccess_volume += f['volume']
+            UR_F.append(f)
             # if result == math.inf:
             #     src = G.ip_prefixes[f['src_ip']]
             #     dst = G.ip_prefixes[f['dst_ip']]
@@ -134,4 +136,4 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
     # Format: flow_num from 2 to max_len, inf, nan, success_volume, unsuccess_volume
     print(as_length_dist)
     print('\t'.join([str(a) for a in as_len_pdf]))
-    return R_F
+    return R_F, UR_F
