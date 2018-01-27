@@ -28,6 +28,14 @@ class Result:
             self.success_volume = int(data[MAX_PATH_LEN + 1])
             self.fail_volume = int(data[MAX_PATH_LEN + 2])
 
+    def avg_as_path(self):
+        hop = 0
+        sum_length = 0
+        while hop < MAX_PATH_LEN:
+            sum_length += (self.hop_count[hop] * hop)
+            hop += 1
+        return sum_length / sum(self.hop_count)
+
     def merge(self, other):
         """
         :type other: Result
