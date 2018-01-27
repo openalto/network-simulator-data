@@ -111,6 +111,18 @@ links:
 - [27, 56]
 - [24, 27]
 - [27, 29]
+- [43, 48]
+- [44, 48]
+- [45, 48]
+- [48, 60]
+- [48, 61]
+- [48, 62]
+- [48, 63]
+- [48, 64]
+- [48, 65]
+- [48, 66]
+- [48, 67]
+- [48, 68]
 nodes:
   AARNET:
     asn: 7575
@@ -210,7 +222,7 @@ nodes:
     ip-prefixes: [152.84.101.0/24]
     name: CBPF-Brazil
     peers: []
-    providers: [44]
+    providers: [44, 48]
     type: edge
   CEA-IRFU:
     asn: 777
@@ -250,7 +262,7 @@ nodes:
     ip-prefixes: [149.156.5.192/27]
     name: Cyfronet-AGH
     peers: []
-    providers: [45]
+    providers: [45, 48]
     type: edge
   DE-KIT:
     asn: 58069
@@ -275,13 +287,13 @@ nodes:
     type: edge
   DFN:
     asn: 680
-    customers: [70, 71]
+    customers: [70, 71, 60, 61, 62, 63, 64, 65, 66, 67, 68]
     id: 48
     ip: null
     ip-prefixes: [90.169.160.0/21, 90.169.191.0/24, 90.169.192.0/24, 90.169.80.0/24,
       90.169.98.0/24, 90.34.192.0/21, 90.34.200.0/24]
     name: DFN
-    peers: []
+    peers: [43, 44, 45]
     providers: [24, 23]
     type: edge
   FNAL:
@@ -322,7 +334,7 @@ nodes:
     ip-prefixes: [194.190.165.0/24]
     name: IHEP
     peers: []
-    providers: [43]
+    providers: [43, 48]
     type: edge
   IN2P3:
     asn: 789
@@ -356,7 +368,7 @@ nodes:
     ip-prefixes: [194.85.66.0/24, 194.85.68.0/23]
     name: ITEP
     peers: []
-    providers: [43]
+    providers: [43, 48]
     type: edge
   Imperial-College:
     asn: 786
@@ -386,7 +398,7 @@ nodes:
     ip-prefixes: [159.93.224.0/22, 159.93.228.0/22, 159.93.39.0/24]
     name: JINR
     peers: []
-    providers: [43]
+    providers: [43, 48]
     type: edge
   KREONET:
     asn: 17579
@@ -496,7 +508,7 @@ nodes:
     ip-prefixes: [144.206.131.0/24, 212.193.96.0/26]
     name: PNPI
     peers: []
-    providers: [43]
+    providers: [43, 48]
     type: edge
   Pionier:
     asn: 8501
@@ -505,7 +517,7 @@ nodes:
     ip: null
     ip-prefixes: []
     name: Pionier
-    peers: []
+    peers: [48]
     providers: [24, 51, 23]
     type: transit
   Purdue-CMS:
@@ -525,7 +537,7 @@ nodes:
     ip: null
     ip-prefixes: []
     name: RNP
-    peers: [27]
+    peers: [27, 48]
     providers: [24, 23]
     type: transit
   RRC-KI:
@@ -536,7 +548,7 @@ nodes:
     ip-prefixes: [144.206.224.0/24, 144.206.236.0/24, 144.206.237.0/24, 144.206.255.128/26]
     name: RRC-KI
     peers: [25]
-    providers: [23, 43]
+    providers: [23, 43, 48]
     type: edge
   RU-VRF:
     asn: 57484
@@ -545,7 +557,7 @@ nodes:
     ip: null
     ip-prefixes: []
     name: RU-VRF
-    peers: []
+    peers: [48]
     providers: [23]
     type: transit
   RedIRIS:
@@ -586,7 +598,7 @@ nodes:
     ip-prefixes: [200.17.30.0/24]
     name: SAMPA-Brazil
     peers: []
-    providers: [44]
+    providers: [44, 48]
     type: edge
   SFU:
     asn: 11105
@@ -676,7 +688,7 @@ nodes:
     ip-prefixes: [213.135.54.0/26]
     name: UNIV-Warsaw
     peers: []
-    providers: [45]
+    providers: [45, 48]
     type: edge
   UNL:
     asn: 7896

@@ -53,11 +53,14 @@ def main(files_path, replicas_path):
                     if src_node != dst_node:
                         flows.append((src_node, dst_node, start_time, end_time, size))
                         break
-    with open("flows.json", 'w') as f:
-        f.write(json.dumps(flows, indent=4, sort_keys=True))
+    return flows
 
 
 if __name__ == '__main__':
     files_path = sys.argv[1]
     replicas_path = sys.argv[2]
-    main(files_path, replicas_path)
+    flows = main(files_path, replicas_path)
+    for key, value in dict(zip(sys.argv[3::2], sys.argv[4::2])).items():
+        flows.extend(main(key, value))
+    with open("flows.json", 'w') as f:
+        f.write(json.dumps(flows, indent=4, sort_keys=True))
