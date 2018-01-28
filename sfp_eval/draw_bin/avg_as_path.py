@@ -15,7 +15,8 @@ colors = ['#003366', '#993300', '#800080']
 
 def file_info(file_path) -> (str, int):
     basename = os.path.basename(file_path)
-    scale = basename.split('.')[-2]
+    scale = basename.split('.')[-3]
+    print(scale)
     return int(scale)
 
 
@@ -25,7 +26,7 @@ if __name__ == '__main__':
         exit(-1)
 
     folder_path = sys.argv[1]
-    file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
+    file_paths = glob.glob(os.path.join(folder_path, "*.h.csv"))
 
     data_dict = {}  # type: dict[int, dict[str, list[int]]]
 
@@ -88,13 +89,13 @@ if __name__ == '__main__':
 
     # legend
     plt.figtext(0.17, 0.810, "CGFP-BGP", color='white', backgroundcolor=colors[0], weight='roman')
-    plt.figtext(0.17, 0.765, "CGC-BGP", color='white', backgroundcolor=colors[1], weight='roman')
-    plt.figtext(0.171, 0.720, "SFP", color='white', backgroundcolor=colors[2], weight='roman')
+    plt.figtext(0.17, 0.745, "CGC-BGP", color='white', backgroundcolor=colors[1], weight='roman')
+    plt.figtext(0.171, 0.680, "SFP", color='white', backgroundcolor=colors[2], weight='roman')
 
     plt.show()
-    # fig.set_size_inches(6, 3.8)
+    # fig.set_size_inches(7, 4.8)
     #
-    # output_filename = "reactive-ouverhead.pdf"
+    # output_filename = "average-as-path.pdf"
     # if len(sys.argv) > 2:
     #     output_filename = os.path.join(sys.argv[2], output_filename)
     # fig.savefig(output_filename)

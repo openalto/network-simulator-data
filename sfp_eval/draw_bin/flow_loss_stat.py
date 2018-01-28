@@ -63,6 +63,10 @@ class Result:
         # return sum(self.hop_count)
 
     def cdf(self, hop):
+        if self.sum_flows() == 0:
+            print(filename)
+            print("ZERO!!!!")
+            print(self.hop_count)
         return sum(self.hop_count[:hop + 1]) / self.sum_flows()
 
     def success_volume_ratio(self):

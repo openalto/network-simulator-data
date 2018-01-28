@@ -77,12 +77,13 @@ class Result:
 
 def generate_plots(drop_ratio_dict, loop_ratio_dict, filename):
     N = len(drop_ratio_dict)
-    cgfp_bgp_drop = tuple([drop_ratio_dict[i]['CGFP-BGP'] for i in drop_ratio_dict.keys()])
-    cgc_bgp_drop = tuple([drop_ratio_dict[i]['CGC-BGP'] for i in drop_ratio_dict.keys()])
-    sfp_drop = tuple([drop_ratio_dict[i]['SFP'] for i in drop_ratio_dict.keys()])
-    cgfp_bgp_loop = tuple([loop_ratio_dict[i]['CGFP-BGP'] for i in loop_ratio_dict.keys()])
-    cgc_bgp_loop = tuple([loop_ratio_dict[i]['CGC-BGP'] for i in loop_ratio_dict.keys()])
-    sfp_loop = tuple([loop_ratio_dict[i]['SFP'] for i in loop_ratio_dict.keys()])
+    sorted_ratio_keys = sorted(drop_ratio_dict.keys())
+    cgfp_bgp_drop = tuple([drop_ratio_dict[i]['CGFP-BGP'] for i in sorted_ratio_keys])
+    cgc_bgp_drop = tuple([drop_ratio_dict[i]['CGC-BGP'] for i in sorted_ratio_keys])
+    sfp_drop = tuple([drop_ratio_dict[i]['SFP'] for i in sorted_ratio_keys])
+    cgfp_bgp_loop = tuple([loop_ratio_dict[i]['CGFP-BGP'] for i in sorted_ratio_keys])
+    cgc_bgp_loop = tuple([loop_ratio_dict[i]['CGC-BGP'] for i in sorted_ratio_keys])
+    sfp_loop = tuple([loop_ratio_dict[i]['SFP'] for i in sorted_ratio_keys])
     # sfp_common = tuple([data[i]['SFP on CGFP-BGP Reachable Flows'] for i in data.keys()])
 
     ind = np.arange(N)
@@ -100,7 +101,7 @@ def generate_plots(drop_ratio_dict, loop_ratio_dict, filename):
     ax.set_ylabel('Loss ratio')
     ax.set_xlabel("Policy ratio")
     ax.set_xticks(ind + width / 2)
-    ax.set_xticklabels(tuple(drop_ratio_dict.keys()))
+    ax.set_xticklabels(sorted_ratio_keys)
     # ax.set_ylim([0, 1])
 
     ax.legend((rects_cgfp_bgp_drop[0], rects_cgfp_bgp_loop[0], rects_cgc_bgp_drop[0], rects_cgc_bgp_loop[0],
@@ -121,46 +122,46 @@ def judge_policy_ratio(filename):
 if __name__ == '__main__':
     folder_path = sys.argv[1]
 
-    policy_types = ["both", "blackhole", "deflection"]
+    # policy_types = ["both", "blackhole", "deflection"]
 
-    for policy_type in policy_types:
-        files = glob.glob(os.path.join(folder_path, "*.%s.csv" % policy_type))
-        filenames = [os.path.basename(file) for file in files]
+    # for policy_type in policy_types:
+    files = glob.glob(os.path.join(folder_path, "*.csv"))
+    filenames = [os.path.basename(file) for file in files]
 
-        drop_ratio_dict = {}
-        loop_ratio_dict = {}
-        final = {}
-        for filename in filenames:
-            ratio = judge_policy_ratio(filename)
-            final[filename] = dict()
-            final[filename]['CGFP-BGP'] = Result()
-            final[filename]['CGC-BGP'] = Result()
-            final[filename]['SFP'] = Result()
-            final[filename]['SFP on CGFP-BGP Reachable Flows'] = Result()
-            count = 0
-            with open(os.path.join(folder_path, filename)) as f:
-                reader = csv.reader(f, delimiter='\t')
-                for row in reader:
-                    if count % 4 == 0:
-                        obj = final[filename]['CGFP-BGP']  # type: Result
-                    elif count % 4 == 1:
-                        obj = final[filename]['CGC-BGP']  # type: Result
-                    elif count % 4 == 2:
-                        obj = final[filename]['SFP']  # type: Result
-                    else:
-                        obj = final[filename]['SFP on CGFP-BGP Reachable Flows']
-                    count += 1
-                    obj.merge(Result(row))
-            drop_ratio_dict[ratio] = dict()
-            drop_ratio_dict[ratio]['CGFP-BGP'] = final[filename]['CGFP-BGP'].drop_ratio()
-            drop_ratio_dict[ratio]['CGC-BGP'] = final[filename]['CGC-BGP'].drop_ratio()
-            drop_ratio_dict[ratio]['SFP'] = final[filename]['SFP'].drop_ratio()
-            drop_ratio_dict[ratio]['SFP on CGFP-BGP Reachable Flows'] = final[filename][
-                'SFP on CGFP-BGP Reachable Flows'].drop_ratio()
-            loop_ratio_dict[ratio] = dict()
-            loop_ratio_dict[ratio]['CGFP-BGP'] = final[filename]['CGFP-BGP'].loop_ratio()
-            loop_ratio_dict[ratio]['CGC-BGP'] = final[filename]['CGC-BGP'].loop_ratio()
-            loop_ratio_dict[ratio]['SFP'] = final[filename]['SFP'].loop_ratio()
-            loop_ratio_dict[ratio]['SFP on CGFP-BGP Reachable Flows'] = final[filename][
-                'SFP on CGFP-BGP Reachable Flows'].loop_ratio()
-        generate_plots(drop_ratio_dict, loop_ratio_dict, policy_type)
+    drop_ratio_dict = {}
+    loop_ratio_dict = {}
+    final = {}
+    for filename in filenames:
+        ratio = judge_policy_ratio(filename)
+        final[filename] = dict()
+        final[filename]['CGFP-BGP'] = Result()
+        final[filename]['CGC-BGP'] = Result()
+        final[filename]['SFP'] = Result()
+        final[filename]['SFP on CGFP-BGP Reachable Flows'] = Result()
+        count = 0
+        with open(os.path.join(folder_path, filename)) as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if count % 4 == 0:
+                    obj = final[filename]['CGFP-BGP']  # type: Result
+                elif count % 4 == 1:
+                    obj = final[filename]['CGC-BGP']  # type: Result
+                elif count % 4 == 2:
+                    obj = final[filename]['SFP']  # type: Result
+                else:
+                    obj = final[filename]['SFP on CGFP-BGP Reachable Flows']
+                count += 1
+                obj.merge(Result(row))
+        drop_ratio_dict[ratio] = dict()
+        drop_ratio_dict[ratio]['CGFP-BGP'] = final[filename]['CGFP-BGP'].drop_ratio()
+        drop_ratio_dict[ratio]['CGC-BGP'] = final[filename]['CGC-BGP'].drop_ratio()
+        drop_ratio_dict[ratio]['SFP'] = final[filename]['SFP'].drop_ratio()
+        drop_ratio_dict[ratio]['SFP on CGFP-BGP Reachable Flows'] = final[filename][
+            'SFP on CGFP-BGP Reachable Flows'].drop_ratio()
+        loop_ratio_dict[ratio] = dict()
+        loop_ratio_dict[ratio]['CGFP-BGP'] = final[filename]['CGFP-BGP'].loop_ratio()
+        loop_ratio_dict[ratio]['CGC-BGP'] = final[filename]['CGC-BGP'].loop_ratio()
+        loop_ratio_dict[ratio]['SFP'] = final[filename]['SFP'].loop_ratio()
+        loop_ratio_dict[ratio]['SFP on CGFP-BGP Reachable Flows'] = final[filename][
+            'SFP on CGFP-BGP Reachable Flows'].loop_ratio()
+    generate_plots(drop_ratio_dict, loop_ratio_dict, 'reachability')
