@@ -84,7 +84,7 @@ def check_path(flow, G, routing_policy=default_routing_policy, debug=False):
 debug_dict = {}
 
 
-def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
+def check_reachability(G, F, max_len=10, debug=False, debug_num=None, display=True):
     as_length_dist = {}
     success_volume = 0
     unsuccess_volume = 0
@@ -128,12 +128,13 @@ def check_reachability(G, F, max_len=10, debug=False, debug_num=None):
         print('\t'.join([str(as_length_dist[l]) for l in as_lens]))
     as_len_pdf = []
     for al in range(max_len - 1):
-        as_len_pdf.append(as_length_dist.get(al + 1, 0))
+        as_len_pdf.append(as_length_dist.get(al + 2, 0))
     as_len_pdf.append(as_length_dist.get(math.inf, 0))
     as_len_pdf.append(as_length_dist.get(math.nan, 0))
     as_len_pdf.append(success_volume)
     as_len_pdf.append(unsuccess_volume)
     # Format: flow_num from 2 to max_len, inf, nan, success_volume, unsuccess_volume
-    print(as_length_dist)
-    print('\t'.join([str(a) for a in as_len_pdf]))
+    # print(as_length_dist)
+    if display:
+        print('\t'.join([str(a) for a in as_len_pdf]))
     return R_F, UR_F

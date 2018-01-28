@@ -17,42 +17,66 @@ def session_start(topo_filepath,
                   **kwargs):
 
     if triangle:
-        triangle =  read_triangle(triangle)
+        triangle = read_triangle(triangle)
 
     G = read_topo(topo_filepath)
     F = read_flows(flow_filepath)
+    # print(len(F))
     # ASRelationsReader(relationship_filepath).augment_to_topology(G)
     generate_local_policies(G, triangle=triangle, **kwargs)
     # manual_policy(G)
 
     # dump_topo(G, 'results.yaml')
 
+    # Find common reachable flows
+    # H = G.copy()
+    # H.ip_prefixes = G.ip_prefixes
+    # initiate_ribs(H)
+    # for i in range(10):
+    #     fp_bgp_advertise(H)
+    # F, _ = check_reachability(H, F, display=False)
+    # H = G.copy()
+    # H.ip_prefixes = G.ip_prefixes
+    # initiate_ribs(H)
+    # for i in range(10):
+    #     correct_bgp_advertise(H)
+    # F, _ = check_reachability(H, F, display=False)
+    # H = G.copy()
+    # H.ip_prefixes = G.ip_prefixes
+    # initiate_ribs(H)
+    # for i in range(10):
+    #     sfp_advertise(H)
+    # F, _ = check_reachability(H, F, display=False)
+
     if '1' in algorithm_type:
-        print("CGFP-BGP Evaluation")
+        # print("CGFP-BGP Evaluation")
         # cgfp_bgp_eval(G.copy(), F)
         H = G.copy()
         H.ip_prefixes = G.ip_prefixes
         initiate_ribs(H)
-        for i in range(20):
+        for i in range(10):
             fp_bgp_advertise(H)
+            # correct_bgp_advertise(H)
         # print('============================== RIB ============================')
-        # report_rib(H, 29)
-        # report_rib(H, 30)
+        # report_rib(H, 23)
         # print('============================== LOCAL ============================')
         # report_local_policy(H, 29)
         # report_local_policy(H, 30)
         check_reachability(H, F)
     if '2' in algorithm_type:
-        print("CGC-BGP Evaluation")
+        # print("CGC-BGP Evaluation")
         # cgc_bgp_eval(G.copy(), F)
+        # manual_policy(G)
         H = G.copy()
         H.ip_prefixes = G.ip_prefixes
         initiate_ribs(H)
         for i in range(10):
             correct_bgp_advertise(H)
+        # print('============================== RIB ============================')
+        # report_rib(H, 23)
         R_F, _ = check_reachability(H, F)
     if '3' in algorithm_type:
-        print("SFP Evaluation")
+        # print("SFP Evaluation")
         # fg_sfp_eval(G.copy(), F)
         H = G.copy()
         H.ip_prefixes = G.ip_prefixes
@@ -62,12 +86,14 @@ def session_start(topo_filepath,
         for i in range(10):
             sfp_advertise(H)
         # print('============================== RIB ============================')
-        # report_rib(H)
-        # report_rib(H, 29)
-        # report_rib(H, 30)
-        # report_rib(H, 59)
+        # report_rib(H, 23)
+        # report_rib(H, 45)
+        # report_rib(H, 68)
         # print('============================== Adj-RIBs-In ============================')
-        # report_rib(H, 29, table='adj-ribs-in', neigh=30)
+        # report_rib(H, 23, table='adj-ribs-in', neigh=48)
+        # report_rib(H, 23, table='adj-ribs-in', neigh=45)
+        # report_rib(H, 45, table='adj-ribs-in', neigh=68)
+        # report_rib(H, 68, table='adj-ribs-in', neigh=45)
         # report_rib(H, 30, table='adj-ribs-in', neigh=29)
         # print('============================== AS 29 Read Local ============================')
         # print(read_local_rib(H, 29, '128.211.128.0/19', 80))
@@ -75,14 +101,16 @@ def session_start(topo_filepath,
         # print(read_local_rib(H, 30, '128.211.128.0/19', 80))
         # print('============================== LOCAL ============================')
         # report_local_policy(H)
-        check_reachability(H, F)
+        _, UR_F = check_reachability(H, F)
+        # for f in UR_F[:20]:
+        #     src = H.ip_prefixes[f['src_ip']]
+        #     dst = H.ip_prefixes[f['dst_ip']]
+        #     print(f, src, dst)
     if '4' in algorithm_type:
-        print("SFP Evaluation on CGC-BGP Reachable Flows")
+        # print("SFP Evaluation on CGC-BGP Reachable Flows")
         H = G.copy()
         H.ip_prefixes = G.ip_prefixes
         initiate_ribs(H)
         for i in range(10):
             sfp_advertise(H)
         _, UR_F = check_reachability(H, R_F)
-        # for f in UR_F:
-        #     print(f)

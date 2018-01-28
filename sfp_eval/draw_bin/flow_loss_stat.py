@@ -109,7 +109,7 @@ def generate_plots(data, name, location=None):
     ax.set_ylim([0, 1])
 
     ax.legend((rects_cgfp_bgp[0], rects_cgc_bgp[0], rects_sfp[0], rects_sfp_common[0]),
-              ('CGFG-BGP', 'CGC-BGP', 'SFP', 'SFP on CGC-BGP Reachable Flows'))
+              ('CGFP-BGP', 'CGC-BGP', 'SFP', 'SFP on CGC-BGP Reachable Flows'))
     # plt.show()
     fig.set_size_inches(6, 3.8)
     fig.savefig(name + ".pdf")

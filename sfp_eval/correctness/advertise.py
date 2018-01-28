@@ -92,7 +92,7 @@ def advertise(G, curr, post, prefix, port=0):
     action = read_local_rib(G, curr, prefix, port)
     if prefix not in post_rib_in:
         post_rib_in[prefix] = {}
-    post_rib_in[prefix][port] = action + [curr] if validate(action) else None
+    post_rib_in[prefix][port] = action + [curr] if action is not None else None
 
     if is_all_block(post_rib_in[prefix]):
         post_rib_in.delete(prefix)
@@ -265,7 +265,7 @@ def validate(action, n=None):
     Validate whether it is a valid non-block action
     """
     if action is None:
-        return False
+        return True
     else:
         return n not in action
 
@@ -307,9 +307,12 @@ def compose_ribs_in(G, n):
         for prefix in curr_rib_in:
             if prefix not in local_rib:
                 local_rib[prefix] = {0: None}
-            for port in curr_rib_in[prefix]:
-                curr_act = curr_rib_in[prefix][port]
-                if best_choice(G, n, port, read_local_rib(G, n, prefix), curr_act) and validate(curr_act, n):
+            ports = set(list(curr_rib_in[prefix].keys()) + list(local_rib[prefix].keys()))
+            for port in ports:
+                curr_act = curr_rib_in[prefix].get(port, curr_rib_in[prefix].get(0, None))
+                if port not in local_rib[prefix] and validate(curr_act, n):
+                    local_rib[prefix][port] = d
+                if best_choice(G, n, port, read_local_rib(G, n, prefix, port), curr_act) and validate(curr_act, n):
                     local_rib[prefix][port] = d
     # Walk through local_rib to delete invalid entry?
     # The invalid entry means the next_hop rib_in no longer has a route.
