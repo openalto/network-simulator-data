@@ -20,6 +20,7 @@ def initiate_ribs(G, overwrite=True):
     Initiate ribs for each network in G.
     """
     for n in G.nodes():
+        G.node[n]['rib'] = PyTricia()
         for prefix in G.node[n]['ip-prefixes']:
             update_initial_rib(G.node[n]['rib'], prefix, overwrite)
             # out_ribs = G.node[n]['adj-ribs-out']
