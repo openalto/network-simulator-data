@@ -18,6 +18,8 @@ class Result:
         self.drop_count = 0
         self.success_volume = 0
         self.fail_volume = 0
+        self.loop_volume = 0
+        self.drop_volume = 0
         for i in range(0, MAX_PATH_LEN + 1):
             self.hop_count.append(0)
         if data is not None:
@@ -27,6 +29,8 @@ class Result:
             self.drop_count = int(data[MAX_PATH_LEN])
             self.success_volume = int(data[MAX_PATH_LEN + 1])
             self.fail_volume = int(data[MAX_PATH_LEN + 2])
+            self.loop_volume = int(data[MAX_PATH_LEN + 3])
+            self.drop_volume = int(data[MAX_PATH_LEN + 4])
 
     def avg_as_path(self):
         hop = 0
@@ -46,6 +50,8 @@ class Result:
         self.drop_count += other.drop_count
         self.success_volume += other.success_volume
         self.fail_volume += other.fail_volume
+        self.loop_volume += other.loop_volume
+        self.drop_volume += other.drop_volume
 
     def to_dict(self):
         dic = dict()
@@ -69,8 +75,20 @@ class Result:
             print(self.hop_count)
         return sum(self.hop_count[:hop + 1]) / self.sum_flows()
 
+    def fail_flow_ratio(self):
+        return (self.drop_count + self.loop_count) / self.sum_flows()
+
     def success_volume_ratio(self):
         return self.success_volume / (self.success_volume + self.fail_volume)
+
+    def fail_volume_ratio(self):
+        return 1-self.success_volume_ratio()
+
+    def drop_volume_ratio(self):
+        return self.drop_volume / (self.success_volume + self.fail_volume)
+
+    def loop_volume_ratio(self):
+        return self.loop_volume / (self.success_volume + self.fail_volume)
 
 
 BLACKHOLE_3_3 = "results.0.5.0.5.blackhole.csv"
