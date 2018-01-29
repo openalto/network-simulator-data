@@ -202,11 +202,11 @@ nodes:
     customers: [76, 77, 78, 79]
     id: 57
     ip: null
-    ip-prefixes: [192.84.86.0/24, 198.32.43.0/24, 198.32.44.0/24]
+    ip-prefixes: []
     name: CANARIE
-    peers: [20, 23, 25, 26, 27]
-    providers: [8]
-    type: edge
+    peers: [20, 23, 25, 26]
+    providers: [8, 27]
+    type: transit
   CBPF-Brazil:
     asn: 2715
     customers: []
@@ -375,12 +375,12 @@ nodes:
     type: edge
   Internet2:
     asn: 11537
-    customers: [25, 58]
+    customers: [25, 57, 58]
     id: 27
     ip: null
     ip-prefixes: []
     name: Internet2
-    peers: [23, 26, 44, 57]
+    peers: [23, 26, 44]
     providers: [9]
     type: transit
   JINR:
