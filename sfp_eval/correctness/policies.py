@@ -211,24 +211,48 @@ def random_deflection(G, d, dest):
 
 
 def manual_policy(G):
-    # for prefix in G.node[59]['ip-prefixes']:
-    #     G.node[29]['local_policy'][prefix] = {8444: 30, 8445: 30, 21: 30, 80: 30, 2801: 30}
-    #     G.node[30]['local_policy'][prefix] = {8444: 29, 8445: 29, 21: 29, 80: 29, 2801: 29}
+    # for prefix in G.node[3]['ip-prefixes']:
+    # for prefix in G.ip_prefixes:
+        # G.node[3]['local_policy'][prefix] = {8444: None, 8445: None, 80: None, 21: None, 2801: None}
+        # G.node[1]['local_policy'][prefix] = {81: None}
+        # G.node[43]['local_policy'][prefix] = {81: None}
+        # G.node[23]['local_policy'][prefix] = {81: None}
+        # G.node[57]['local_policy'][prefix] = {81: None}
+        # G.node[24]['local_policy'][prefix] = {81: None}
+        # G.node[6]['local_policy'][prefix] = {8444: None, 8445: None}
+        # G.node[8]['local_policy'][prefix] = {8444: None, 8445: None}
+    for prefix in G.ip_prefixes:
+        # G.node[24]['local_policy'][prefix] = {port: 3 for port in DEFAULT_SERVICE_TYPES.keys()}
+        # G.node[23]['local_policy'][prefix] = {port: 27 for port in DEFAULT_SERVICE_TYPES.keys()}
+        # G.node[27]['local_policy'][prefix] = {port: 23 for port in DEFAULT_SERVICE_TYPES.keys()}
+        # G.node[3]['local_policy'][prefix] = {port: 1 for port in DEFAULT_SERVICE_TYPES.keys()}
+        # G.node[1]['local_policy'][prefix] = {port: 3 for port in DEFAULT_SERVICE_TYPES.keys()}
+        G.node[57]['local_policy'][prefix] = {port: 8 for port in DEFAULT_SERVICE_TYPES.keys()}
+        G.node[8]['local_policy'][prefix] = {port: 1 for port in DEFAULT_SERVICE_TYPES.keys()}
+        G.node[1]['local_policy'][prefix] = {port: 8 for port in DEFAULT_SERVICE_TYPES.keys()}
+    for prefix in (G.node[42]['ip-prefixes'] + G.node[60]['ip-prefixes'] + G.node[61]['ip-prefixes'] +
+                   G.node[62]['ip-prefixes'] + G.node[63]['ip-prefixes'] + G.node[64]['ip-prefixes']):
+        G.node[23]['local_policy'][prefix] = {port: 27 for port in DEFAULT_SERVICE_TYPES.keys()}
+        G.node[27]['local_policy'][prefix] = {port: 23 for port in DEFAULT_SERVICE_TYPES.keys()}
+    for prefix in (G.node[71]['ip-prefixes'] + G.node[70]['ip-prefixes']):
+        G.node[24]['local_policy'][prefix] = {port: 23 for port in DEFAULT_SERVICE_TYPES.keys()}
+        G.node[23]['local_policy'][prefix] = {port: 24 for port in DEFAULT_SERVICE_TYPES.keys()}
     # for prefix in (G.node[51]['ip-prefixes'] + G.node[52]['ip-prefixes'] + G.node[53]['ip-prefixes'] +
     #                G.node[54]['ip-prefixes'] + list(G.node[55]['ip-prefixes']) + list(G.node[56]['ip-prefixes'])):
     # G.node[24]['local_policy'][prefix] = {8444: 27, 8445: 27, 21: 27, 80: 27, 2801: 27}
     # G.node[24]['local_policy'][prefix] = {81: None}
-    policies = {24: {'81.180.86.0/24': {21: None, 80: None}, '144.16.112.0/24': {21: None, 2801: None},
-                     '193.12.15.0/24': {80: None, 21: None},
-                     '193.199.48.0/23': {80: None, 2801: None, 21: None, 8445: None}},
-                23: {'90.34.192.0/21': {8445: None, 2801: None, 21: None, 80: None}, '90.34.200.0/24': {21: None},
-                     '90.169.98.0/24': {8445: None, 21: None, 80: None, 2801: None},
-                     '90.169.160.0/21': {21: None, 8444: None, 2801: None},
-                     '145.100.32.0/22': {8444: None, 2801: None, 80: None, 21: None}},
-                48: {'159.93.39.0/24': {2801: None}, '194.85.66.0/24': {80: None, 8444: None, 8445: None, 21: None},
-                     '194.190.165.0/24': {80: None, 21: None, 8445: None},
-                     '213.135.54.0/26': {8444: None, 80: None, 21: None, 8445: None}
-                     }}
-    for n in policies:
-        for prefix in policies[n]:
-            G.node[n]['local_policy'][prefix] = policies[n][prefix]
+    # for n in policies:
+    #     for prefix in policies[n]:
+    #         G.node[n]['local_policy'][prefix] = policies[n][prefix]
+
+
+def dump_tables(G, filename):
+    big_table = {}
+    for n in G.nodes():
+        big_table[n] = {}
+        big_table[n]['local_policy'] = dict(G.node[n]['local_policy'])
+        big_table[n]['rib'] = dict(G.node[n]['rib'])
+        big_table[n]['adj-ribs-in'] = {d: dict(G.node[n]['adj-ribs-in'][d]) for d in G.node[n]['adj-ribs-in']}
+        big_table[n]['adj-ribs-out'] = {d: dict(G.node[n]['adj-ribs-out'][d]) for d in G.node[n]['adj-ribs-in']}
+    import json
+    json.dump(big_table, open(filename, 'w'), indent=2, sort_keys=True)
