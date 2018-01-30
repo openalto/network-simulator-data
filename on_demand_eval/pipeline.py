@@ -1,14 +1,21 @@
 #!/usr/bin/env thon
 
-from on_demand_eval.flow_space import Match, Register, Packet, MatchFailedException
+from enum import Enum
+
+from on_demand_eval.flow_space import Match, Register, Packet, MatchFailedException, FlowSpace
+
+
+class ACTION_TYPE(Enum):
+    DROP = 0
+    ON_DEMAND = -1
 
 
 class Action():
     """
-    Return a table id (int), an AS path (list) or a register modification (map).
+    Return a table id (int), an AS path (list), or an ACTION_TYPE
     """
 
-    def __init__(self, action=None, vars={}):
+    def __init__(self, action=ACTION_TYPE.DROP, vars={}):
         self.action = action
         self.vars = vars
 
@@ -29,10 +36,11 @@ class Rule():
     Priority | Match | Registers | Action
     """
 
-    def __init__(self, priority=0, match=None, action=None):
+    def __init__(self, priority=0, match=None, action=None, table=None):
         self.priority = priority
         self.match = match or Match()
         self.action = action or Action()
+        self.table = table
 
     def get_action(self, register):
         # type: (Register) -> Action
@@ -40,6 +48,10 @@ class Rule():
         According to the action, find the final action of the packet,
         """
         return self.action
+
+    def modify_action(self, action):
+        # TODO: make self.match read-only
+        return Rule(self.priority, self.match, action, self.table)
 
 
 class Table():
@@ -77,6 +89,7 @@ class Table():
                 break
             index += 1
         self.rules.insert(index, rule)
+        rule.table = self.id
         return True
 
 
@@ -87,11 +100,14 @@ class Pipeline():
     A pipeline of tables.
     """
 
-    def __init__(self, table=None):
-        if table:
-            self.tables = [table]
-        else:
-            self.tables = [Table()]  # type: list[Table]
+    def __init__(self, layout=1):
+        self.tables = []
+        if layout:
+            for i in range(layout):
+                self.tables.append(Table())
+
+    def layout():
+        return len(self.tables)
 
     def size(self):
         """
@@ -100,7 +116,13 @@ class Pipeline():
         """
         return sum([t.size() for t in self.tables])
 
-    def lookup(self, pkt):
+    def lookup(self, entry):
+        if type(entry) == Packet:
+            return self.lookup_pkt(entry)
+        elif type(entry) == FlowSpace:
+            return self.lookup_space(entry)
+
+    def lookup_pkt(self, pkt):
         """
         Lookup the action of the packet. The result could be a AS path or None.
         """
@@ -120,3 +142,9 @@ class Pipeline():
         except MatchFailedException as e:
             print("Match Failed")
             return None, execution
+
+    def lookup_space(self, flow_space):
+        """
+        Lookup actions of a flow space.
+        """
+        pass

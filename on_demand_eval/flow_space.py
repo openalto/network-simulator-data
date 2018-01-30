@@ -154,8 +154,9 @@ class FlowSpace():
     Flow Space
     """
 
-    def __init__(self):
-        self.matches = []
+    def __init__(self, matches=None):
+        self.matches = matches or set()
+        assert type(self.matches) == set
 
     def __contains__(self, match):
         if type(match) != Match:
@@ -167,4 +168,7 @@ class FlowSpace():
         """
         Return a subspace which matches match.
         """
-        return None
+        intersection = set()
+        for m in self.matches:
+            intersection.add(m.intersect(match))
+        return FlowSpace(intersection)
