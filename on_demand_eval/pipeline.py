@@ -39,6 +39,12 @@ class Table():
     def __init__(self):
         pass
 
+    def size(self):
+        """
+        Every table implements a size() function.
+        """
+        return 0
+
 
 class Pipeline():
     """
@@ -49,3 +55,10 @@ class Pipeline():
 
     def __init__(self):
         self.tables = []
+
+    def size(self):
+        """
+        Every pipeline abstract data structure should implement a size()
+        function to return its own size at least.
+        """
+        return sum([t.size() for t in self.tables])
