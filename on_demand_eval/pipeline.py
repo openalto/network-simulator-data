@@ -1,5 +1,5 @@
 #!/usr/bin/env thon
-
+from copy import deepcopy
 from enum import Enum
 
 from on_demand_eval.flow_space import Match, Register, Packet, MatchFailedException, FlowSpace
@@ -28,6 +28,10 @@ class Action():
             register[var] = self.vars[var]
         return self.action
 
+    def __eq__(self, other):
+        if other.action == self.action and other.vars == self.vars:
+            return True
+        return False
 
 class Rule():
     """
@@ -92,6 +96,19 @@ class Table():
         rule.table = self.id
         return True
 
+    def __contains__(self, item):
+        # type: (Rule) -> bool
+        for rule in self.rules:
+            if rule.action == item.action and rule.match == item.match and rule.priority == item.priority:
+                return True
+        return False
+
+    def merge(self, other):
+        # type: (Table) -> None
+        for rule in other:
+            if rule in self:
+                self.insert(deepcopy(rule))
+
 
 class Pipeline():
     """
@@ -106,7 +123,7 @@ class Pipeline():
             for i in range(layout):
                 self.tables.append(Table())
 
-    def layout():
+    def layout(self):
         return len(self.tables)
 
     def size(self):
@@ -148,3 +165,7 @@ class Pipeline():
         Lookup actions of a flow space.
         """
         pass
+
+    def merge(self, other):
+        for i in range(other.tables):
+            self.tables[i].merge(other.tables[i])

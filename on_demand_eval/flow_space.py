@@ -26,6 +26,13 @@ class Match():
         self.protocol = protocol
         self.register_checker = register_checker
 
+    def __eq__(self, other):
+        if self.src_ip == other.src_ip and self.dst_ip == other.dst_ip and self.src_port == other.dst_port and \
+                self.dst_port == other.dst_port and self.protocol == other.protocol and \
+                self.register_checker == other.register_checker:
+            return True
+        return False
+
     def __repr__(self):
         dic = {
             "src-ip": self.src_ip,
