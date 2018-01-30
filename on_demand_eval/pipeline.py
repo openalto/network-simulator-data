@@ -1,34 +1,45 @@
-#!/usr/bin/env python
+#!/usr/bin/env thon
+
+from on_demand_eval.flow_space import Match, Register, Packet, MatchFailedException
 
 
-class Match():
+class Action():
     """
-    A header field map. Each header field includes a prefix value.
+    Return a table id (int), an AS path (list) or a register modification (map).
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, action=None, vars={}):
+        self.action = action
+        self.vars = vars
 
-    def intersect(self):
-        pass
-
-    def compare(self):
-        pass
-
-    def to_header_space(self):
-        pass
-
-    def to_dict(self):
-        pass
+    def do(self, register):
+        """
+        return a int if the action indicate to another table.
+        return a list if the action indicate to an as path.
+        """
+        for var in self.vars.keys():
+            register[var] = self.vars[var]
+        return self.action
 
 
 class Rule():
     """
-    A single rule entry: Match -> Action
+    A single rule entry including:
+
+    Priority | Match | Registers | Action
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, priority=0, match=None, action=None):
+        self.priority = priority
+        self.match = match or Match()
+        self.action = action or Action()
+
+    def get_action(self, register):
+        # type: (Register) -> Action
+        """
+        According to the action, find the final action of the packet,
+        """
+        return self.action
 
 
 class Table():
@@ -37,13 +48,36 @@ class Table():
     """
 
     def __init__(self):
-        pass
+        self.id = 0
+        self.rules = []  # type: list[Rule]
+
+    def __iter__(self):
+        for rule in self.rules:
+            yield rule
 
     def size(self):
         """
         Every table implements a size() function.
         """
-        return 0
+        return len(self.rules)
+
+    def match(self, pkt, register):
+        # type: (Packet, Register) -> Rule
+        for rule in self.rules:
+            if rule.match.match(pkt, register):
+                return rule
+        raise MatchFailedException
+
+    def insert(self, rule):
+        # type: (Rule) -> bool
+        priority = rule.priority
+        index = 0
+        while index < len(self.rules):
+            if self.rules[index].priority <= priority:
+                break
+            index += 1
+        self.rules.insert(index, rule)
+        return True
 
 
 class Pipeline():
@@ -53,8 +87,11 @@ class Pipeline():
     A pipeline of tables.
     """
 
-    def __init__(self):
-        self.tables = []
+    def __init__(self, table=None):
+        if table:
+            self.tables = [table]
+        else:
+            self.tables = [Table()]  # type: list[Table]
 
     def size(self):
         """
@@ -62,3 +99,24 @@ class Pipeline():
         function to return its own size at least.
         """
         return sum([t.size() for t in self.tables])
+
+    def lookup(self, pkt):
+        """
+        Lookup the action of the packet. The result could be a AS path or None.
+        """
+        register = Register()
+        execution = []
+        try:
+            rule = self.tables[0].match(pkt, register)
+            execution.append(rule)
+            action = rule.get_action(register).do(register)
+            while True:
+                if action is None or type(action) == list:  # The action is drop or the action is a as path
+                    return action, execution
+                elif type(action) == int:  # The action is another table
+                    rule = self.tables[action].match(pkt, register)
+                    execution.append(rule)
+                    action = rule.get_action(register).do(register)
+        except MatchFailedException as e:
+            print("Match Failed")
+            return None, execution
