@@ -27,6 +27,8 @@ class Match():
         self.register_checker = register_checker
 
     def __eq__(self, other):
+        if type(other) is not Match:
+            return False
         if self.src_ip == other.src_ip and self.dst_ip == other.dst_ip and self.src_port == other.dst_port and \
                 self.dst_port == other.dst_port and self.protocol == other.protocol and \
                 self.register_checker == other.register_checker:
@@ -34,7 +36,17 @@ class Match():
         return False
 
     def __repr__(self):
-        dic = {
+        return str(self.to_dict())
+
+    def __hash__(self):
+        return hash(self.to_tuple())
+
+    def to_tuple(self):
+        return (self.src_ip, self.dst_ip, self.src_port, self.dst_port,
+                self.protocol, tuple(self.register_checker.items()))
+
+    def to_dict(self):
+        return {
             "src-ip": self.src_ip,
             "dst-ip": self.dst_ip,
             "src-port": self.src_port,
@@ -42,7 +54,6 @@ class Match():
             "protocol": self.protocol,
             "register": self.register_checker
         }
-        return str(dic)
 
     def intersect(self, other):
         # type: (Match) -> Match|None
@@ -68,7 +79,7 @@ class Match():
             intersect_src_ip = self.src_ip or other.src_ip
         else:
             try:
-                intersect_src_ip = str((IPSet([self.src_ip]) & IPSet(other.src_ip)).iter_cidr()[0])
+                intersect_src_ip = str((IPSet([self.src_ip]) & IPSet([other.src_ip])).iter_cidrs()[0])
             except IndexError:
                 raise MatchIntersectException
 
@@ -76,7 +87,7 @@ class Match():
             intersect_dst_ip = self.dst_ip or other.dst_ip
         else:
             try:
-                intersect_dst_ip = str((IPSet([self.dst_ip]) & IPSet(other.dst_ip)).iter_cidr()[0])
+                intersect_dst_ip = str((IPSet([self.dst_ip]) & IPSet([other.dst_ip])).iter_cidrs()[0])
             except IndexError:
                 raise MatchIntersectException
 
@@ -116,9 +127,6 @@ class Match():
         pass
 
     def to_header_space(self):
-        pass
-
-    def to_dict(self):
         pass
 
     def match(self, pkt, register):

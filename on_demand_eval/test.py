@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from on_demand_eval.pipeline import *
+from on_demand_eval.flow_space import FlowSpace
+from on_demand_eval.speaker import SFPSpeaker
 
 
 def single_match_test():
@@ -48,13 +50,11 @@ def match_intersection_test():
     print(match3)
 
 
-def multitable_test():
-    pipeline = Pipeline()
+def build_example_pipeline():
+    pipeline = Pipeline(layout=3)
     table0 = pipeline.tables[0]
-    table1 = Table()
-    pipeline.tables.append(table1)
-    table2 = Table()
-    pipeline.tables.append(table2)
+    table1 = pipeline.tables[1]
+    table2 = pipeline.tables[2]
 
     table0.insert(
         Rule(priority=2, match=Match(src_ip='202.113.17.0/25'), action=Action(1, vars={"var1": 2}))
@@ -87,12 +87,35 @@ def multitable_test():
         Rule(priority=1, match=Match(register_checker={"var1": 2, "var2": 2}), action=Action(['P1', 'D']))
     )
 
+    return pipeline
+
+
+def multitable_test():
+    pipeline = build_example_pipeline()
+
     pkt = Packet(src_ip='202.113.16.128', dst_ip='141.217.1.1', src_port=80, dst_port=80, protocol='tcp')
+    print(pkt)
     print(pipeline.lookup(pkt))
+
+
+def max_odi_test():
+    speaker = SFPSpeaker()
+
+    speaker.config_pipeline(build_example_pipeline())
+
+    flow_space = FlowSpace(matches={Match(src_ip='202.113.16.0/24'), Match(dst_ip='141.217.1.0/25')})
+    peer = '10.0.0.1'
+    speaker.receive_sub(flow_space, peer)
+
+    pkt = Packet(src_ip='202.113.16.128', dst_ip='141.217.1.1', src_port=80, dst_port=80, protocol='tcp')
+    print(pkt)
+    print(speaker.max_odi(pkt, peer))
+
 
 if __name__ == '__main__':
     single_match_test()
     multiple_match_test()
     match_intersection_test()
     multitable_test()
+    max_odi_test()
     exit(0)

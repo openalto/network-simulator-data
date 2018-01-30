@@ -18,7 +18,7 @@ class RuleDependencyGraph(DiGraph):
     """
 
     def __init__(self, table, flow_space):
-        super(DiGraph, self).__init__()
+        super(RuleDependencyGraph, self).__init__()
         self.raw_table = table
         self.flow_space = flow_space
         self.table = Table()
@@ -29,9 +29,14 @@ class RuleDependencyGraph(DiGraph):
             if self.flow_space.intersect(rule.match):
                 self.table.insert(rule)
 
-        for u in self.table:
-            for v in self.table:
-                if u is v:
+        for u in range(len(self.table.rules)):
+            self.add_node(u)
+
+        for u in range(len(self.table.rules)):
+            for v in range(len(self.table.rules)):
+                if u == v:
                     continue
-                if u.intersect(v) or u.priority > v.priority:
+                eu = self.table.rules[u]
+                ev = self.table.rules[v]
+                if eu.match.intersect(ev.match) and eu.priority > ev.priority:
                     self.add_edge(u, v)

@@ -19,6 +19,15 @@ class Action():
         self.action = action
         self.vars = vars
 
+    def __repr__(self):
+        return str(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'action': self.action,
+            'vars': self.vars
+        }
+
     def do(self, register):
         """
         return a int if the action indicate to another table.
@@ -46,6 +55,17 @@ class Rule():
         self.action = action or Action()
         self.table = table
 
+    def __repr__(self):
+        return str(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'priority': self.priority,
+            'match': self.match.to_dict(),
+            'action': self.action.to_dict(),
+            'table_id': self.table
+        }
+
     def get_action(self, register):
         # type: (Register) -> Action
         """
@@ -63,13 +83,22 @@ class Table():
     A priority ordered list of rules.
     """
 
-    def __init__(self):
-        self.id = 0
+    def __init__(self, tid=0):
+        self.id = tid
         self.rules = []  # type: list[Rule]
 
     def __iter__(self):
         for rule in self.rules:
             yield rule
+
+    def __repr__(self):
+        return str(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'rules': [r.to_dict() for r in self.rules]
+        }
 
     def size(self):
         """
@@ -77,11 +106,12 @@ class Table():
         """
         return len(self.rules)
 
-    def match(self, pkt, register):
+    def match(self, pkt, register, ret_index=False):
         # type: (Packet, Register) -> Rule
-        for rule in self.rules:
+        for i in range(len(self.rules)):
+            rule = self.rules[i]
             if rule.match.match(pkt, register):
-                return rule
+                return (rule, i) if ret_index else rule
         raise MatchFailedException
 
     def insert(self, rule):
@@ -106,7 +136,7 @@ class Table():
     def merge(self, other):
         # type: (Table) -> None
         for rule in other:
-            if rule in self:
+            if rule not in self:
                 self.insert(deepcopy(rule))
 
 
@@ -119,12 +149,19 @@ class Pipeline():
 
     def __init__(self, layout=1):
         self.tables = []
-        if layout:
+        self.layout = layout
+        if self.layout:
             for i in range(layout):
-                self.tables.append(Table())
+                self.tables.append(Table(i))
 
-    def layout(self):
-        return len(self.tables)
+    def __repr__(self):
+        return str(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'layout': self.layout,
+            'tables': [t.to_dict() for t in self.tables]
+        }
 
     def size(self):
         """
@@ -133,38 +170,41 @@ class Pipeline():
         """
         return sum([t.size() for t in self.tables])
 
-    def lookup(self, entry):
+    def lookup(self, entry, ret_index=False):
         if type(entry) == Packet:
-            return self.lookup_pkt(entry)
+            return self.lookup_pkt(entry, ret_index)
         elif type(entry) == FlowSpace:
-            return self.lookup_space(entry)
+            return self.lookup_space(entry, ret_index)
 
-    def lookup_pkt(self, pkt):
+    def lookup_pkt(self, pkt, ret_index=False):
         """
         Lookup the action of the packet. The result could be a AS path or None.
         """
         register = Register()
         execution = []
+        execution_idx = []
         try:
-            rule = self.tables[0].match(pkt, register)
+            rule, idx = self.tables[0].match(pkt, register, ret_index=True)
             execution.append(rule)
+            execution_idx.append((0, idx))
             action = rule.get_action(register).do(register)
             while True:
                 if action is None or type(action) == list:  # The action is drop or the action is a as path
-                    return action, execution
-                elif type(action) == int:  # The action is another table
-                    rule = self.tables[action].match(pkt, register)
+                    return (action, execution_idx) if ret_index else (action, execution)
+                elif type(action) in (int, ACTION_TYPE):  # The action is another table
+                    rule, idx = self.tables[action].match(pkt, register, ret_index=True)
                     execution.append(rule)
+                    execution_idx.append((action, idx))
                     action = rule.get_action(register).do(register)
         except MatchFailedException as e:
             print("Match Failed")
-            return None, execution
+            return (None, execution_idx) if ret_index else (None, execution)
 
-    def lookup_space(self, flow_space):
+    def lookup_space(self, flow_space, ret_index=False):
         """
         Lookup actions of a flow space.
         """
-        pass
+        raise "Unsupported feature in the current implementation."
 
     def merge(self, other):
         for i in range(other.tables):
