@@ -162,7 +162,7 @@ class Match():
 
 
 class Packet():
-    def __init__(self, src_ip, dst_ip, src_port, dst_port, protocol):
+    def __init__(self, src_ip, dst_ip, src_port, dst_port, protocol, **kwargs):
         self.src_ip = src_ip
         self.dst_ip = dst_ip
         self.src_port = src_port

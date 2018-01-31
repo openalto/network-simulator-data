@@ -14,8 +14,9 @@ class SFPSpeaker():
     """
     An implementation of SFP speaker.
     """
-    def __init__(self):
+    def __init__(self, peer='0.0.0.0'):
         self.subs = {}
+        self.peer
 
     def config_pipeline(self, pipeline):
         self.pipeline = pipeline

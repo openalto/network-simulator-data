@@ -167,15 +167,25 @@ class Table():
     def __contains__(self, item):
         # type: (Rule) -> bool
         for rule in self.rules:
-            if rule.action == item.action and rule.match == item.match and rule.priority == item.priority:
+            if rule.match == item.match and rule.priority == item.priority:
                 return True
         return False
+
+    def index_of(self, item):
+        for i in range(len(self.rules)):
+            rule = self.rules[i]
+            if rule.match == item.match and rule.priority == item.priority:
+                return i
+        return -1
 
     def merge(self, other):
         # type: (Table) -> None
         for rule in other:
-            if rule not in self:
+            idx = self.index_of(rule)
+            if idx < 0:
                 self.insert(deepcopy(rule))
+            elif rule.action.action is not ACTION_TYPE.ON_DEMAND:
+                self.rules[idx].action = rule.action
 
 
 class Pipeline():
