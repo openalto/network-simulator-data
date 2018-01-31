@@ -4,6 +4,8 @@ import json
 from copy import deepcopy
 from enum import Enum
 
+from networkx import DiGraph
+
 from on_demand_eval.flow_space import Match, Register, Packet, MatchFailedException, FlowSpace
 
 
@@ -89,6 +91,7 @@ class Rule():
         self.match = match or Match()
         self.action = action or Action()
         self.table = table
+        self.id = 0
 
     def __repr__(self):
         return str(self.to_dict())
@@ -128,6 +131,7 @@ class Table():
     def __init__(self, tid=0):
         self.id = tid
         self.rules = []  # type: list[Rule]
+        self.next_rid = 0
 
     def __iter__(self):
         for rule in self.rules:
@@ -174,8 +178,12 @@ class Table():
                 break
             index += 1
         self.rules.insert(index, rule)
+        rule.id = self.next_rid
+        self.next_rid += 1
         rule.table = self.id
-        return True
+        # for r in self.rules[index+1:]:
+        #     r.id += 1
+        return index
 
     def __contains__(self, item):
         # type: (Rule) -> bool
@@ -199,6 +207,60 @@ class Table():
                 self.insert(deepcopy(rule))
             elif rule.action.action is not ACTION_TYPE.ON_DEMAND:
                 self.rules[idx].action = rule.action
+
+
+class EfficientTable(DiGraph, Table):
+    """
+    """
+    def __init__(self, tid=0, table=None):
+        super(EfficientTable, self).__init__()
+        self.id = tid
+        self.rules = []
+        self.next_rid = 0
+        if table:
+            self.id = table.id
+            self.rules = table.rules
+
+        self.build()
+
+    def build(self):
+        for r in self.rules:
+            self.add_node(r.id, rule=r)
+
+        for u in range(len(self.rules)):
+            for v in range(u+1, len(self.rules)):
+                eu = self.rules[u]
+                ev = self.rules[v]
+                if eu.match.intersect(ev.match) and eu.priority > ev.priority:
+                    self.add_edge(eu.id, ev.id)
+
+    def insert(self, rule):
+        index = Table.insert(self, rule)
+        if index < 0:
+            return index
+        self.add_node(rule.id, rule=rule)
+        for eu in self.rules[:index]:
+            if eu.match.intersect(rule.match) and eu.priority > rule.priority:
+                if eu.id not in self.nodes():
+                    self.add_node(eu.id, rule=eu)
+                self.add_edge(eu.id, rule.id)
+        for eu in self.rules[index+1:]:
+            if eu.match.intersect(rule.match) and eu.priority < rule.priority:
+                if eu not in self.nodes():
+                    self.add_node(eu.id, rule=eu)
+                self.add_edge(rule.id, eu.id)
+        return index
+
+    def project(self, flow_space):
+        nset = []
+        for e in self.nodes():
+            rule = self.node[e]['rule']
+            if flow_space.intersect(rule.match):
+                nset.append(e)
+        sub_table = self.subgraph(nset)
+        sub_table.id = self.id
+        sub_table.rules = self.rules
+        return sub_table
 
 
 class Pipeline():
@@ -268,7 +330,7 @@ class Pipeline():
                 else:
                     raise MatchFailedException()
         except MatchFailedException as e:
-            print("Match Failed", type(action), action)
+            # print("Match Failed", type(action), action)
             return (None, execution_idx) if ret_index else (None, execution)
 
     def lookup_space(self, flow_space, ret_index=False):
@@ -278,5 +340,5 @@ class Pipeline():
         raise "Unsupported feature in the current implementation."
 
     def merge(self, other):
-        for i in range(other.tables):
+        for i in range(len(other.tables)):
             self.tables[i].merge(other.tables[i])

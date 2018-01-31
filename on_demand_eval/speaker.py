@@ -4,7 +4,7 @@ import io
 import json
 from copy import deepcopy
 
-from on_demand_eval.pipeline import Pipeline, Action, ACTION_TYPE, Table
+from on_demand_eval.pipeline import Pipeline, Action, ACTION_TYPE, Table, EfficientTable
 from on_demand_eval.pipeline import ActionEncoder, ActionDecoder
 from on_demand_eval.rule_dg import RuleDependencyGraph
 from on_demand_eval.flow_space import FlowSpace
@@ -21,7 +21,7 @@ class SFPSpeaker():
     def config_pipeline(self, pipeline):
         self.pipeline = pipeline
 
-    def config_pipeline_from_file(self, filename, table_cls=Table):
+    def config_pipeline_from_file(self, filename, table_cls=EfficientTable):
         if isinstance(filename, io.IOBase):
             self.pipeline = Pipeline.from_dict(json.load(filename, cls=ActionDecoder), cls=table_cls)
             return self.pipeline
@@ -49,12 +49,12 @@ class SFPSpeaker():
 
         for t, i in execution_idx:
             table = self.pipeline.tables[t]
+            rule = table.rules[i]
             odi_table = odi_pipeline.tables[t]
-            odi_table.insert(deepcopy(table.rules[i]))
-            rDAG = RuleDependencyGraph(table, flow_space)
-            for j in rDAG.predecessors(i):
-                if j != i:
-                    od_rule = table.rules[j]
-                    odi_table.insert(od_rule.modify_action(
-                        Action(action=ACTION_TYPE.ON_DEMAND)))
+            odi_table.insert(deepcopy(rule))
+            rDAG = table.project(flow_space)
+            for j in rDAG.predecessors(rule.id):
+                od_rule = rDAG.node[j]['rule']
+                odi_table.insert(od_rule.modify_action(
+                    Action(action=ACTION_TYPE.ON_DEMAND)))
         return odi_pipeline

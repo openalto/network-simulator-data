@@ -169,6 +169,9 @@ class Packet():
         self.dst_port = dst_port
         self.protocol = protocol
 
+    def __repr__(self):
+        return str(self.__dict__)
+
     def to_match(self):
         return Match()
 

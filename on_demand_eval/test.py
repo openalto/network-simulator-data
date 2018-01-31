@@ -50,8 +50,8 @@ def match_intersection_test():
     print(match3)
 
 
-def build_example_pipeline():
-    pipeline = Pipeline(layout=3)
+def build_example_pipeline(cls=Table):
+    pipeline = Pipeline(layout=3, cls=cls)
     table0 = pipeline.tables[0]
     table1 = pipeline.tables[1]
     table2 = pipeline.tables[2]
@@ -101,7 +101,7 @@ def multitable_test():
 def max_odi_test():
     speaker = SFPSpeaker()
 
-    speaker.config_pipeline(build_example_pipeline())
+    speaker.config_pipeline(build_example_pipeline(cls=EfficientTable))
 
     flow_space = FlowSpace(matches={Match(src_ip='202.113.16.0/24'), Match(dst_ip='141.217.1.0/25')})
     peer = '10.0.0.1'

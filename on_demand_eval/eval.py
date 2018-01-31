@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 from on_demand_eval.speaker import SFPSpeaker
-from on_demand_eval.pipeline import Action, Match, Rule, Pipeline, ACTION_TYPE
+from on_demand_eval.pipeline import Action, Match, Rule, Pipeline, ACTION_TYPE, EfficientTable
 from on_demand_eval.flow_space import Match, FlowSpace, Packet
-from on_demand_eval.rule_dg import EfficientTable
 
 from sfp_eval.bin.announcement_sim import read_flows
 
@@ -37,6 +36,7 @@ def max_odi_test(pipeline_db, traffic_db):
 
     # Step 2:
     #   Follow the time order of traffic trace data;
+    print('Sending traffic...')
     for f in flows:
         pkt = Packet(src_port=54321, protocol='TCP', **f)
         action, _ = SpeakerA.pipeline.lookup(pkt)
