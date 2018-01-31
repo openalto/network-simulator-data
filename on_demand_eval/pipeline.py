@@ -48,8 +48,17 @@ class Action():
         }
 
     @staticmethod
+    def decode(obj):
+        if type(obj) == str:
+            if obj == 'ACTION_TYPE.DROP':
+                return ACTION_TYPE.DROP
+            elif obj == 'ACTION_TYPE.ON_DEMAND':
+                return ACTION_TYPE.ON_DEMAND
+        return obj
+
+    @staticmethod
     def from_dict(action_dict):
-        return Action(action=action_dict['action'],
+        return Action(action=Action.decode(action_dict['action']),
                       vars=action_dict['vars'])
 
     def do(self, register):
@@ -245,15 +254,17 @@ class Pipeline():
             execution_idx.append((0, idx))
             action = rule.get_action(register).do(register)
             while True:
-                if action is None or type(action) == list:  # The action is drop or the action is a as path
+                if type(action) in (list, type(None), ACTION_TYPE):  # The action is drop or the action is a as path
                     return (action, execution_idx) if ret_index else (action, execution)
-                elif type(action) in (int, ACTION_TYPE):  # The action is another table
+                elif type(action) is int:  # The action is another table
                     rule, idx = self.tables[action].match(pkt, register, ret_index=True)
                     execution.append(rule)
                     execution_idx.append((action, idx))
                     action = rule.get_action(register).do(register)
+                else:
+                    raise MatchFailedException()
         except MatchFailedException as e:
-            print("Match Failed")
+            print("Match Failed", type(action), action)
             return (None, execution_idx) if ret_index else (None, execution)
 
     def lookup_space(self, flow_space, ret_index=False):

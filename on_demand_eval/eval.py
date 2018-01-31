@@ -6,6 +6,10 @@ from on_demand_eval.flow_space import Match, FlowSpace, Packet
 
 from sfp_eval.bin.announcement_sim import read_flows
 
+
+# RANDOM_PORT_DIST = {p: 0.001 for p in range(50000, 51000)}
+
+
 def max_odi_test(pipeline_db, traffic_db):
     """
     Input parameters:
@@ -33,12 +37,12 @@ def max_odi_test(pipeline_db, traffic_db):
     # Step 2:
     #   Follow the time order of traffic trace data;
     for f in flows:
-        pkt = Packet(**f)
-        action = Speaker.pipeline.lookup(pkt)
+        pkt = Packet(src_port=54321, protocol='TCP', **f)
+        action, _ = SpeakerA.pipeline.lookup(pkt)
 
         #   Speaker A query packet p from Speaker B,
         #   if A's pipeline return ON_DEMAND for packet p.
-        if not action or action is ACTION_TYPE.ON_DEMAND:
+        if action is ACTION_TYPE.ON_DEMAND:
             # Step 3:
             #   Speaker B run max_odi alg and return new pipeline to Speaker A;
             #   Speaker A merge the new pipeline into its own pipeline.

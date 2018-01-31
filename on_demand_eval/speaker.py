@@ -16,7 +16,7 @@ class SFPSpeaker():
     """
     def __init__(self, peer='0.0.0.0'):
         self.subs = {}
-        self.peer
+        self.peer = peer
 
     def config_pipeline(self, pipeline):
         self.pipeline = pipeline
