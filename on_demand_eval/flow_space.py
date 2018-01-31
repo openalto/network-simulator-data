@@ -55,6 +55,15 @@ class Match():
             "register": self.register_checker
         }
 
+    @staticmethod
+    def from_dict(match_dict):
+        return Match(src_ip=match_dict.get('src_ip', None),
+                     dst_ip=match_dict.get('dst_ip', None),
+                     src_port=match_dict.get('src_port', None),
+                     dst_port=match_dict.get('dst_port', None),
+                     protocol=match_dict.get('protocol', None),
+                     registers=match_dict.get('register_checker', {}))
+
     def intersect(self, other):
         # type: (Match) -> Match|None
         try:

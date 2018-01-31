@@ -1,4 +1,6 @@
 #!/usr/bin/env thon
+
+import json
 from copy import deepcopy
 from enum import Enum
 
@@ -8,6 +10,23 @@ from on_demand_eval.flow_space import Match, Register, Packet, MatchFailedExcept
 class ACTION_TYPE(Enum):
     DROP = 0
     ON_DEMAND = -1
+
+
+class ActionEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if type(obj) is ACTION_TYPE:
+            return str(obj)
+        return json.JSONEncoder.default(self, obj)
+
+class ActionDecoder(json.JSONDecoder):
+    def decode(self, s):
+        obj = json.JSONDecoder.decode(s)
+        if type(obj) == str:
+            if obj == 'ACTION_TYPE.DROP':
+                return ACTION_TYPE.DROP
+            elif obj == 'ACTION_TYPE.ON_DEMAND':
+                return ACTION_TYPE.ON_DEMAND
+        return obj
 
 
 class Action():
@@ -27,6 +46,11 @@ class Action():
             'action': self.action,
             'vars': self.vars
         }
+
+    @staticmethod
+    def from_dict(action_dict):
+        return Action(action=action_dict['action'],
+                      vars=action_dict['vars'])
 
     def do(self, register):
         """
@@ -66,6 +90,13 @@ class Rule():
             'table_id': self.table
         }
 
+    @staticmethod
+    def from_dict(rule_dict):
+        return Rule(priority=rule_dict['priority'],
+                    match=Match.from_dict(rule_dict['match']),
+                    action=Action.from_dict(rule_dict['action']),
+                    table=rule_dict['table_id'])
+
     def get_action(self, register):
         # type: (Register) -> Action
         """
@@ -99,6 +130,13 @@ class Table():
             'id': self.id,
             'rules': [r.to_dict() for r in self.rules]
         }
+
+    @staticmethod
+    def from_dict(table_dict):
+        tid = table_dict['id']
+        table = Table(tid)
+        table.rules = [Rule.from_dict(r) for r in table_dict['rules']]
+        return table
 
     def size(self):
         """
@@ -162,6 +200,14 @@ class Pipeline():
             'layout': self.layout,
             'tables': [t.to_dict() for t in self.tables]
         }
+
+    @staticmethod
+    def from_dict(pipeline_dict):
+        layout = pipeline_dict['layout']
+        pipeline = Pipeline(layout)
+        for t in range(layout):
+            pipeline.tables[t] = Table.from_dict(pipeline_dict['tables'][t])
+        return pipeline
 
     def size(self):
         """

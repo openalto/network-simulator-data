@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
+import json
 from copy import deepcopy
 
 from on_demand_eval.pipeline import Pipeline, Action, ACTION_TYPE
+from on_demand_eval.pipeline import ActionEncoder, ActionDecoder
 from on_demand_eval.rule_dg import RuleDependencyGraph
 from on_demand_eval.flow_space import FlowSpace
 
@@ -16,6 +18,17 @@ class SFPSpeaker():
 
     def config_pipeline(self, pipeline):
         self.pipeline = pipeline
+
+    def config_pipeline_from_file(self, filename):
+        with open(filename, 'r') as f:
+            self.pipeline = Pipeline.from_dict(json.load(f, cls=ActionDecoder))
+
+    def dump_pipeline(self):
+        print(json.dumps(self.pipeline, cls=ActionEncoder))
+
+    def dump_pipeline_to_file(self, filename):
+        with open(filename, 'w') as f:
+            json.dump(self.pipeline, f, cls=ActionEncoder)
 
     def receive_sub(self, flow_space, peer):
         self.subs[peer] = flow_space
