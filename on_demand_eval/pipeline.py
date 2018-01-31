@@ -205,8 +205,10 @@ class Table():
             idx = self.index_of(rule)
             if idx < 0:
                 self.insert(deepcopy(rule))
+                # print('Insert new rule', rule)
             elif rule.action.action is not ACTION_TYPE.ON_DEMAND:
                 self.rules[idx].action = rule.action
+                # print('Overwrite existing rule', rule)
 
 
 class EfficientTable(DiGraph, Table):
@@ -330,7 +332,7 @@ class Pipeline():
                 else:
                     raise MatchFailedException()
         except MatchFailedException as e:
-            # print("Match Failed", type(action), action)
+            # print("Match Failed")
             return (None, execution_idx) if ret_index else (None, execution)
 
     def lookup_space(self, flow_space, ret_index=False):

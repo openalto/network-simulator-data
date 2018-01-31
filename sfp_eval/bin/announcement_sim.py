@@ -335,8 +335,8 @@ def read_flows(filename, port_dist=DEFAULT_SERVICE_TYPES):
     data = json.load(open(filename))
     for d in data:
         if not d.get('dst_port', None):
-            d['dst_port'] = np.random.choice(
-                list(port_dist.keys()), p=list(port_dist.values()))
+            d['dst_port'] = int(np.random.choice(
+                list(port_dist.keys()), p=list(port_dist.values())))
         # (d['src_ip'], d['dst_ip']) = (d['dst_ip'], d['src_ip'])
     return data
 
