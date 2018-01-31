@@ -12,7 +12,7 @@ def convert_to_pipeline(filename, dirname):
         ribs = json.load(f)
 
     for n in ribs:
-        rib = ribs[n]
+        rib = ribs[n]['rib']
         pl = Pipeline()
         tbl0 = pl.tables[0]
         for prefix in rib:
@@ -23,7 +23,7 @@ def convert_to_pipeline(filename, dirname):
                     act = Action(action=['A', 'B', 'C'])
                 else:
                     act = Action(action=ACTION_TYPE.DROP)
-                if port > 0:
+                if int(port) > 0:
                     rule = Rule(priority=20, match=Match(dst_ip=prefix, dst_port=port),
                                 action=act)
                 else:
@@ -35,8 +35,8 @@ def convert_to_pipeline(filename, dirname):
                     Rule(priority=10, match=Match(dst_ip=prefix),
                          action=act)
                 )
-        with open(os.path.join(dirname, 'pipeline-%d' % n)) as f:
-            json.dump(pl.to_dict(), f)
+        with open(os.path.join(dirname, 'pipeline-%s.json' % n), 'w') as f:
+            json.dump(pl.to_dict(), f, cls=ActionEncoder, indent=2, sort_keys=True)
 
 
 if __name__ == '__main__':
