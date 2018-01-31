@@ -3,6 +3,7 @@
 from on_demand_eval.speaker import SFPSpeaker
 from on_demand_eval.pipeline import Action, Match, Rule, Pipeline, ACTION_TYPE
 from on_demand_eval.flow_space import Match, FlowSpace, Packet
+from on_demand_eval.rule_dg import EfficientTable
 
 from sfp_eval.bin.announcement_sim import read_flows
 
@@ -28,7 +29,7 @@ def max_odi_test(pipeline_db, traffic_db):
     #   Speaker B returns ON_DEMAND action for the whole flow space.
     flow_space = FlowSpace(matches={Match()})
     SpeakerB.receive_sub(flow_space, SpeakerA.peer)
-    all_on_demand = Pipeline(layout=SpeakerB.pipeline.layout)
+    all_on_demand = Pipeline(layout=SpeakerB.pipeline.layout, cls=EfficientTable)
     all_on_demand.tables[0].insert(
         Rule(priority=100, match=Match(), action=Action(action=ACTION_TYPE.ON_DEMAND))
     )

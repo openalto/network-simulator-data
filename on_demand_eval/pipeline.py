@@ -18,6 +18,7 @@ class ActionEncoder(json.JSONEncoder):
             return str(obj)
         return json.JSONEncoder.default(self, obj)
 
+
 class ActionDecoder(json.JSONDecoder):
     def decode(self, s):
         obj = json.JSONDecoder.decode(self, s)
@@ -74,6 +75,7 @@ class Action():
         if other.action == self.action and other.vars == self.vars:
             return True
         return False
+
 
 class Rule():
     """
@@ -140,11 +142,13 @@ class Table():
             'rules': [r.to_dict() for r in self.rules]
         }
 
-    @staticmethod
-    def from_dict(table_dict):
+    @classmethod
+    def from_dict(cls, table_dict):
         tid = table_dict['id']
-        table = Table(tid)
-        table.rules = [Rule.from_dict(r) for r in table_dict['rules']]
+        table = cls(tid)
+        # table.rules = [Rule.from_dict(r) for r in table_dict['rules']]
+        for r in table_dict['rules']:
+            table.insert(Rule.from_dict(r))
         return table
 
     def size(self):
@@ -204,12 +208,12 @@ class Pipeline():
     A pipeline of tables.
     """
 
-    def __init__(self, layout=1):
+    def __init__(self, layout=1, cls=Table):
         self.tables = []
         self.layout = layout
         if self.layout:
             for i in range(layout):
-                self.tables.append(Table(i))
+                self.tables.append(cls(i))
 
     def __repr__(self):
         return str(self.to_dict())
@@ -221,11 +225,11 @@ class Pipeline():
         }
 
     @staticmethod
-    def from_dict(pipeline_dict):
+    def from_dict(pipeline_dict, cls=Table):
         layout = pipeline_dict['layout']
         pipeline = Pipeline(layout)
         for t in range(layout):
-            pipeline.tables[t] = Table.from_dict(pipeline_dict['tables'][t])
+            pipeline.tables[t] = cls.from_dict(pipeline_dict['tables'][t])
         return pipeline
 
     def size(self):
