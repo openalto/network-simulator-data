@@ -20,7 +20,7 @@ class ActionEncoder(json.JSONEncoder):
 
 class ActionDecoder(json.JSONDecoder):
     def decode(self, s):
-        obj = json.JSONDecoder.decode(s)
+        obj = json.JSONDecoder.decode(self, s)
         if type(obj) == str:
             if obj == 'ACTION_TYPE.DROP':
                 return ACTION_TYPE.DROP

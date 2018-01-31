@@ -52,17 +52,17 @@ class Match():
             "src-port": self.src_port,
             "dst-port": self.dst_port,
             "protocol": self.protocol,
-            "register": self.register_checker
+            "register-checker": self.register_checker
         }
 
     @staticmethod
     def from_dict(match_dict):
-        return Match(src_ip=match_dict.get('src_ip', None),
-                     dst_ip=match_dict.get('dst_ip', None),
-                     src_port=match_dict.get('src_port', None),
-                     dst_port=match_dict.get('dst_port', None),
+        return Match(src_ip=match_dict.get('src-ip', None),
+                     dst_ip=match_dict.get('dst-ip', None),
+                     src_port=match_dict.get('src-port', None),
+                     dst_port=match_dict.get('dst-port', None),
                      protocol=match_dict.get('protocol', None),
-                     registers=match_dict.get('register_checker', {}))
+                     register_checker=match_dict.get('register-checker', {}))
 
     def intersect(self, other):
         # type: (Match) -> Match|None

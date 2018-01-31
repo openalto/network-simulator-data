@@ -109,7 +109,28 @@ def max_odi_test():
 
     pkt = Packet(src_ip='202.113.16.128', dst_ip='141.217.1.1', src_port=80, dst_port=80, protocol='tcp')
     print(pkt)
-    print(speaker.max_odi(pkt, peer))
+    odi = speaker.max_odi(pkt, peer)
+    print(odi)
+    return odi
+
+
+def config_dump_test():
+    print('SFP Speaker Pipeline Config/Dump Test:')
+    speaker = SFPSpeaker()
+
+    pipeline = max_odi_test()
+    speaker.config_pipeline(pipeline)
+    # pipeline_s = speaker.dump_pipeline()
+    import json
+    pipeline_s = json.dumps(speaker.pipeline.to_dict(), cls=ActionEncoder)
+    print('Dump current pipeline to string:')
+    print(pipeline_s)
+
+    from io import StringIO
+    pipeline_f = StringIO(pipeline_s)
+    speaker.config_pipeline_from_file(pipeline_f)
+    print('Config pipeline from an IO stream:')
+    print(speaker.pipeline)
 
 
 if __name__ == '__main__':
@@ -118,4 +139,5 @@ if __name__ == '__main__':
     match_intersection_test()
     multitable_test()
     max_odi_test()
+    config_dump_test()
     exit(0)
