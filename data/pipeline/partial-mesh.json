@@ -10003,6 +10003,22 @@
             "vars": {}
           },
           "table_id": 0
+        },
+        {
+          "priority": 0,
+          "match": {
+            "src-ip": null,
+            "dst-ip": null,
+            "src-port": null,
+            "dst-port": null,
+            "protocol": null,
+            "register-checker": {}
+          },
+          "action": {
+            "action": "ACTION_TYPE.DROP",
+            "vars": {}
+          },
+          "table_id": 0
         }
       ]
     }
