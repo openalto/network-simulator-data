@@ -15,87 +15,7 @@
           },
           "match": {
             "dst-ip": "90.34.200.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.34.200.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.34.200.0/24",
             "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.34.200.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.34.200.0/24",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -155,26 +75,6 @@
           },
           "match": {
             "dst-ip": "90.34.192.0/21",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.34.192.0/21",
             "dst-port": "80",
             "protocol": null,
             "register-checker": {},
@@ -214,186 +114,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "90.169.98.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.98.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.98.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.98.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.98.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.80.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.80.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.80.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.80.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "90.169.80.0/24",
             "dst-port": "21",
             "protocol": null,
@@ -415,107 +135,7 @@
           },
           "match": {
             "dst-ip": "90.169.192.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.192.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.192.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.192.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.192.0/24",
             "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.191.0/24",
-            "dst-port": "8445",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -574,86 +194,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "90.169.191.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.191.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.160.0/21",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.160.0/21",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "90.169.160.0/21",
             "dst-port": "2801",
             "protocol": null,
@@ -676,26 +216,6 @@
           "match": {
             "dst-ip": "90.169.160.0/21",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "90.169.160.0/21",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -894,326 +414,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "80.48.99.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.48.100.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.48.100.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.48.100.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.48.100.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.48.100.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.83.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.83.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.83.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.83.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.83.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.247.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.247.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.247.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.247.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.247.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "80.158.239.0/24",
             "dst-port": "8445",
             "protocol": null,
@@ -1375,126 +575,6 @@
           },
           "match": {
             "dst-ip": "80.158.238.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.238.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.208.0/21",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.208.0/21",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.208.0/21",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.208.0/21",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.208.0/21",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -1575,126 +655,6 @@
           },
           "match": {
             "dst-ip": "80.158.20.0/23",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.20.0/23",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.168.0/21",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.168.0/21",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.168.0/21",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.168.0/21",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.168.0/21",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -1786,31 +746,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "80.158.104.0/21",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -1846,11 +782,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -1896,26 +828,6 @@
           "match": {
             "dst-ip": "213.135.54.0/26",
             "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "212.193.96.0/26",
-            "dst-port": "8445",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -2046,11 +958,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -2076,26 +984,6 @@
           "match": {
             "dst-ip": "206.199.48.0/23",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "206.199.48.0/23",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -2206,11 +1094,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -2246,11 +1130,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -2295,106 +1175,6 @@
           },
           "match": {
             "dst-ip": "206.12.48.224/27",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "206.12.48.136/29",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "206.12.48.136/29",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "206.12.48.136/29",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "206.12.48.136/29",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "206.12.48.136/29",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -2714,106 +1494,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "198.32.44.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "198.32.44.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "198.32.44.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "198.32.44.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "198.32.44.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "198.32.43.0/24",
             "dst-port": "8445",
             "protocol": null,
@@ -2966,11 +1646,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -2986,11 +1662,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -3146,11 +1818,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -3166,31 +1834,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "194.85.68.0/23",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -3336,26 +1980,6 @@
           "match": {
             "dst-ip": "194.190.165.0/24",
             "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "194.190.165.0/24",
-            "dst-port": "2801",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -3614,128 +2238,8 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "193.48.100.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.48.100.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.48.100.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.48.100.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.48.100.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "193.199.48.0/23",
             "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.48.0/23",
-            "dst-port": "8444",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -3786,231 +2290,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.48.0/23",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.185.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.185.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.185.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.185.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.199.185.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.12.15.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.12.15.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.12.15.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.12.15.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "193.12.15.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -4235,67 +2515,7 @@
           },
           "match": {
             "dst-ip": "192.41.238.0/28",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.41.238.0/28",
             "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.41.238.0/28",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.41.238.0/28",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -4535,46 +2755,6 @@
           },
           "match": {
             "dst-ip": "192.188.182.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.188.182.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.188.182.0/24",
             "dst-port": "80",
             "protocol": null,
             "register-checker": {},
@@ -4614,106 +2794,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "192.170.224.0/19",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.170.224.0/19",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.170.224.0/19",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.170.224.0/19",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.170.224.0/19",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "192.12.68.0/24",
             "dst-port": "8445",
             "protocol": null,
@@ -4906,111 +2986,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.111.108.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.111.108.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.111.108.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.111.108.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.111.108.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -5026,31 +3002,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.108.46.0/23",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -5086,176 +3038,12 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
             "dst-ip": "192.108.46.0/23",
             "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.108.45.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.108.45.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.108.45.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.108.45.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.108.45.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.106.68.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.106.68.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "192.106.68.0/24",
-            "dst-port": "2801",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -5296,26 +3084,6 @@
           "match": {
             "dst-ip": "192.106.68.0/24",
             "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.185.48.0/20",
-            "dst-port": "8445",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -5394,128 +3162,8 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "188.185.48.0/20",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.185.128.0/17",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "188.185.128.0/17",
             "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.185.128.0/17",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.185.128.0/17",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.185.128.0/17",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.184.128.0/17",
-            "dst-port": "8445",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -5555,47 +3203,7 @@
           },
           "match": {
             "dst-ip": "188.184.128.0/17",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.184.128.0/17",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "188.184.128.0/17",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -5726,11 +3334,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -5786,11 +3390,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -5855,26 +3455,6 @@
           },
           "match": {
             "dst-ip": "159.93.228.0/22",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "159.93.228.0/22",
             "dst-port": "80",
             "protocol": null,
             "register-checker": {},
@@ -5914,106 +3494,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "159.93.224.0/22",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "159.93.224.0/22",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "159.93.224.0/22",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "159.93.224.0/22",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "159.93.224.0/22",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "152.84.101.0/24",
             "dst-port": "8445",
             "protocol": null,
@@ -6106,11 +3586,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -6214,188 +3690,8 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "146.179.244.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "146.179.244.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "146.179.244.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "146.179.244.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "146.179.244.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "145.100.32.0/22",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "145.100.32.0/22",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "145.100.32.0/22",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "145.100.32.0/22",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "145.100.32.0/22",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -6494,26 +3790,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "145.100.17.0/28",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "144.92.180.0/23",
             "dst-port": "8445",
             "protocol": null,
@@ -6576,26 +3852,6 @@
           "match": {
             "dst-ip": "144.92.180.0/23",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.92.180.0/23",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -6835,26 +4091,6 @@
           },
           "match": {
             "dst-ip": "144.206.236.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.206.236.0/24",
             "dst-port": "2801",
             "protocol": null,
             "register-checker": {},
@@ -6975,26 +4211,6 @@
           },
           "match": {
             "dst-ip": "144.206.224.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.206.224.0/24",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -7026,11 +4242,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -7046,11 +4258,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -7095,106 +4303,6 @@
           },
           "match": {
             "dst-ip": "144.206.131.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.16.112.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.16.112.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.16.112.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.16.112.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "144.16.112.0/24",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -7346,11 +4454,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -7414,128 +4518,8 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "141.34.200.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "141.34.200.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "141.34.200.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "141.34.200.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "141.34.200.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "141.34.192.0/21",
             "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "141.34.192.0/21",
-            "dst-port": "8444",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -7606,211 +4590,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.96.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.96.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.96.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.96.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.96.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.69.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.69.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.69.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.69.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.69.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -7826,11 +4606,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -7846,31 +4622,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "140.221.68.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -8014,106 +4766,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "134.158.83.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.83.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.83.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.83.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.83.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "134.158.247.0/24",
             "dst-port": "8445",
             "protocol": null,
@@ -8136,26 +4788,6 @@
           "match": {
             "dst-ip": "134.158.247.0/24",
             "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.247.0/24",
-            "dst-port": "2801",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -8215,67 +4847,7 @@
           },
           "match": {
             "dst-ip": "134.158.239.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.239.0/24",
             "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.239.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.239.0/24",
-            "dst-port": "80",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -8375,326 +4947,6 @@
           },
           "match": {
             "dst-ip": "134.158.238.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.238.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.208.0/21",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.208.0/21",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.208.0/21",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.208.0/21",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.208.0/21",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.20.0/23",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.20.0/23",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.20.0/23",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.20.0/23",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.20.0/23",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.168.0/21",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.168.0/21",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.168.0/21",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.168.0/21",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "134.158.168.0/21",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -8906,91 +5158,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.255.160.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.255.160.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.255.160.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.255.160.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -9026,31 +5194,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.225.204.0/22",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -9066,11 +5210,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -9086,11 +5226,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -9176,26 +5312,6 @@
           "match": {
             "dst-ip": "131.225.188.0/22",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.225.188.0/22",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -9394,26 +5510,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "131.169.98.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "131.169.80.0/24",
             "dst-port": "8445",
             "protocol": null,
@@ -9495,306 +5591,6 @@
           },
           "match": {
             "dst-ip": "131.169.80.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.192.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.192.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.192.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.192.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.192.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.191.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.191.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.191.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.191.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.191.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.160.0/21",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.160.0/21",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.160.0/21",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.160.0/21",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "131.169.160.0/21",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -9915,26 +5711,6 @@
           },
           "match": {
             "dst-ip": "130.199.185.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "130.199.185.0/24",
             "dst-port": "8444",
             "protocol": null,
             "register-checker": {},
@@ -9974,46 +5750,6 @@
             "vars": {}
           },
           "match": {
-            "dst-ip": "130.199.185.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "130.199.185.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
             "dst-ip": "129.93.244.192/26",
             "dst-port": "8445",
             "protocol": null,
@@ -10095,506 +5831,6 @@
           },
           "match": {
             "dst-ip": "129.93.244.192/26",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.241.0/26",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.241.0/26",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.241.0/26",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.241.0/26",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.241.0/26",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.239.128/26",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.239.128/26",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.239.128/26",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.239.128/26",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.239.128/26",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.182.0/23",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.182.0/23",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.182.0/23",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.182.0/23",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.93.182.0/23",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.197.0/24",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.197.0/24",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.197.0/24",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.197.0/24",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.197.0/24",
-            "dst-port": "21",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.177.96/27",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.177.96/27",
-            "dst-port": "8444",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.177.96/27",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.177.96/27",
-            "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "129.59.177.96/27",
             "dst-port": "21",
             "protocol": null,
             "register-checker": {},
@@ -10915,26 +6151,6 @@
           },
           "match": {
             "dst-ip": "128.142.0.0/16",
-            "dst-port": "8445",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "128.142.0.0/16",
             "dst-port": "8444",
             "protocol": null,
             "register-checker": {},
@@ -10955,47 +6171,7 @@
           },
           "match": {
             "dst-ip": "128.142.0.0/16",
-            "dst-port": "2801",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "128.142.0.0/16",
             "dst-port": "80",
-            "protocol": null,
-            "register-checker": {},
-            "src-ip": null,
-            "src-port": null
-          },
-          "priority": 20,
-          "table_id": 0
-        },
-        {
-          "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
-            "vars": {}
-          },
-          "match": {
-            "dst-ip": "128.142.0.0/16",
-            "dst-port": "21",
             "protocol": null,
             "register-checker": {},
             "src-ip": null,
@@ -11206,11 +6382,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -11226,11 +6398,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -11246,11 +6414,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -11286,11 +6450,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
@@ -11346,11 +6506,7 @@
         },
         {
           "action": {
-            "action": [
-              "A",
-              "B",
-              "C"
-            ],
+            "action": "ACTION_TYPE.DROP",
             "vars": {}
           },
           "match": {
