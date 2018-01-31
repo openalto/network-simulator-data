@@ -4,6 +4,60 @@ from networkx import DiGraph
 from on_demand_eval.pipeline import Table
 
 
+class EfficientTable(DiGraph, Table):
+    """
+    """
+    def __init__(self, tid=0, table=None):
+        super(EfficientTable, self).__init__()
+        self.id = tid
+        if table:
+            self.id = table.id
+            self.rules = table.rules
+
+        self.build()
+
+    def build(self):
+        for u in range(len(self.rules)):
+            self.add_node(u)
+
+        for u in range(len(self.rules)):
+            for v in range(u+1, len(self.rules)):
+                eu = self.rules[u]
+                ev = self.rules[v]
+                if eu.match.intersect(ev.match) and eu.priority > ev.priority:
+                    self.add_edge(u, v)
+
+    def insert(self, rule):
+        priority = rule.priority
+        index = 0
+        while index < len(self.rules):
+            if self.rules[index].priority <= priority:
+                break
+            index += 1
+        self.rules.insert(index, rule)
+        self.add_node(index)
+        rule.table = self.id
+        for u in range(len(self.rules)):
+            if u == v:
+                continue
+            eu = self.rules[u]
+            if eu.match.intersect(rule.match):
+                if eu.priority > rule.priority:
+                    self.add_edge(u, index)
+                elif eu.priority < rule.priority:
+                    self.add_edge(index, u)
+
+    def project(self, flow_space):
+        nset = []
+        for e in self.nodes():
+            if flow_space.intersect(rule.match):
+                nset.append(e)
+        sub_table = self.subgraph(nset)
+        sub_table.id = self.id
+        sub_table.rules = self.rules
+        return sub_table
+
+
 class RuleDependencyGraph(DiGraph):
     """
     Data structure for the rule dependency graph.
