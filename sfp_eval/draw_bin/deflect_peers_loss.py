@@ -7,6 +7,7 @@ import sys
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 
 
 def generate_plots(data, filename):
@@ -22,30 +23,36 @@ def generate_plots(data, filename):
     drop_sfp_vol= 100*np.array([0, 0, 0])
     # drop_vol_vec = (data['CGFP-BGP'].drop_volume_ratio(), data['CGC-BGP'].drop_volume_ratio(), data['SFP'].drop_volume_ratio())
 
+    matplotlib.rc('font', size=16)
+
     ind = np.arange(N)
     width = 0.1
 
-    plt.axes([0, 0, N, 100])
+    plt.axes([0, 0, N, 50])
     # plt.rc('font', family='sans-serif', weight='bold', size=10)
     fig, ax = plt.subplots()
 
-    rect1 = ax.bar(ind, drop_cbgp_flow, width, color='r', label='C-BGP (Flows)')
-    rect3 = ax.bar(ind+2*width, drop_fbgp_flow, width, color='c', label='F-BGP (Flows)')
-    rect5 = ax.bar(ind+4*width, drop_sfp_flow, width, color='m', label='SFP (Flows)')
-    rect2 = ax.bar(ind+width, drop_cbgp_vol, width, color='g', label='C-BGP (Volume)')
-    rect4 = ax.bar(ind+3*width, drop_fbgp_vol, width, color='y', label='F-BGP (Volume)')
-    rect6 = ax.bar(ind+5*width, drop_sfp_vol, width, color='b', label='SFP (Volume)')
+    fig.subplots_adjust(bottom=0.15)
+    fig.subplots_adjust(left=0.15)
 
-    ax.set_ylim([0, 100])
-    ax.set_ylabel('Fraction of failed flows/volume (%)')
+    ax.set_ylim([0, 50])
+    # rect1 = ax.bar(ind, drop_cbgp_flow, width, color='r', label='C-BGP (Flows)')
+    rect3 = ax.bar(ind, drop_fbgp_flow, width, color='r', label='F-BGP (Flows)')
+    rect5 = ax.bar(ind+2*width, drop_sfp_flow, width, color='m', label='SFP (Flows)')
+    # rect2 = ax.bar(ind+width, drop_cbgp_vol, width, color='g', label='C-BGP (Volume)')
+    rect4 = ax.bar(ind+width, drop_fbgp_vol, width, color='g', label='F-BGP (Volume)')
+    rect6 = ax.bar(ind+3*width, drop_sfp_vol, width, color='b', label='SFP (Volume)')
+
+    # ax.set_ylim([0, 100])
+    ax.set_ylabel('Fraction of failed flows/volume (%)', fontsize=16)
     # ax.set_title('Loss when deflect traffic between neighboring peers')
-    ax.set_xticks(ind + 2.5*width)
+    ax.set_xticks(ind + 1.5*width)
     ax.set_xticklabels(('1', '2', '3'))
     # ax.set_xlabel('number of peers applied the deflection policies')
-    ax.set_xlabel('Number of pair of peers deploying fine-grained deflections')
+    ax.set_xlabel('Number of pair of peers in deflection', fontsize=16)
 
     # ax.legend((rect1[0], rect2[0], rect3[0]), ("F-BGP" ,"C-BGP", "SFP"))
-    ax.legend(ncol=2)
+    ax.legend(ncol=1)
     # plt.show()
 
     fig.set_size_inches(4.5, 4.5)

@@ -33,6 +33,7 @@ def generate_plots(data, filename):
     fig.set_size_inches(6, 3.8)
     fig.savefig(filename)
 
+
 if __name__ == '__main__':
     filename = sys.argv[1]
 

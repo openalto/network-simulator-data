@@ -7,6 +7,7 @@ import sys
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 
 
 def generate_plots(data, filename):
@@ -25,23 +26,27 @@ def generate_plots(data, filename):
     width = 0.3
 
     plt.axes([0, 0, N, 100])
-    plt.rc('font', size=14)
+    # plt.rc('font', size=14)
     fig, ax = plt.subplots()
+    fig.subplots_adjust(bottom=0.15)
+    fig.subplots_adjust(left=0.15)
+
+    matplotlib.rc('font', size=16)
 
     ax.bar(ind, affected_fbgp_flows, width, color='r', label='Affected Flows')
-    ax.bar(ind+width, affected_fbgp_vol, width, color='c', label='Affected Volume')
+    ax.bar(ind+width, affected_fbgp_vol, width, color='g', label='Affected Volume')
     # rect5 = ax.bar(ind+4*width, drop_sfp_flow, width, color='m', label='SFP (Flows)')
     # rect2 = ax.bar(ind+width, drop_cbgp_vol, width, color='g', label='C-BGP (Volume)')
     # rect4 = ax.bar(ind+3*width, drop_fbgp_vol, width, color='y', label='F-BGP (Volume)')
     # rect6 = ax.bar(ind+5*width, drop_sfp_vol, width, color='b', label='SFP (Volume)')
 
-    ax.set_ylim([0, 100])
-    ax.set_ylabel('Fraction of affected F-BGP flows/volume (%)')
+    ax.set_ylim([0, 50])
+    ax.set_ylabel('Fraction of affected flows/volume (%)', fontsize=15)
     # ax.set_title('Loss when deflect traffic between neighboring peers')
     ax.set_xticks(ind + .5*width)
     ax.set_xticklabels(('1', '2', '3'))
     # ax.set_xlabel('number of peers applied the deflection policies')
-    ax.set_xlabel('Number of pair of peers deploying fine-grained deflections')
+    ax.set_xlabel('Number of pair of peers in deflections', fontsize=15)
 
     # ax.legend((rect1[0], rect2[0], rect3[0]), ("F-BGP" ,"C-BGP", "SFP"))
     ax.legend()
