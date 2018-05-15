@@ -8,6 +8,9 @@ Comparison: SFP v.s. dummy fine-grained advertisement (what’s that?) v.s. BGP
 
 Settings: A real federation topology (e.g., LHCONE)
 
+> TODO: approach to simulate the convergence performance of the inter-domain
+> protocol.
+
 Figures:
 
 - Y-axis: Convergence Time
@@ -31,6 +34,8 @@ Settings: In a real federation topology (e.g., LHCONE), considering the initial
 state where each domain only has the route to their own hosts.
 
 Comparison: On-Demand v.s. Non On-Demand
+
+> TODO: Approach to simulate the latency as real as possible?
 
 Figures:
 
