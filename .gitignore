@@ -90,3 +90,6 @@ ENV/
 .ropeproject
 
 .idea
+
+# Temp files
+.DS_Store

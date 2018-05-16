@@ -38,6 +38,10 @@ Description:
 
 References: D-BGP (SIGCOMM'18), SWIFT (SIGCOMM'18)
 
+Candidate simulation tools:
+
+- https://github.com/dfialho/bgp-simulator
+
 ## On-Demand Latency
 
 Metric: latency to stabilize the routes
