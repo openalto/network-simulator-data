@@ -7,27 +7,31 @@ from multiprocessing import Pool
 import requests
 
 
-def get_all_replicas(filenames):
+def get_all_replicas(filenames, start=0):
     count = 0
     sum = len(filenames)
     replicas = []
 
     results = Pool(200).imap_unordered(fetch_replica, filenames)
     for filename, part_replicas, error in results:
+        count += 1
+
+        if count <= start:
+            continue
+
         if error is None:
             replicas.extend(part_replicas)
 
-            count += 1
             print("File names: %d/%d" % (count, sum))
         else:
-            count += 1
             print("error fetching file name: %s" % filename)
             print(error)
 
         if count % 10000 == 0:
             s = json.dumps(replicas, indent=4, sort_keys=True)
-            with open("replicas-temp-%d.json" % int(count / 10000), 'w') as f:
+            with open("replicas-part-%d.json" % int(count / 10000), 'w') as f:
                 f.write(s)
+            replicas = []
 
         if count == sum:
             break
@@ -51,9 +55,9 @@ def main(filename):
     filenames = set(filenames)
     print("File names: %d" % len(filenames))
 
-    replicas = get_all_replicas(filenames)
+    replicas = get_all_replicas(filenames, start=0 if len(sys.argv) < 3 else int(sys.argv[2]))
 
-    with open("replicas.json", 'w') as f:
+    with open("replicas-rest.json", 'w') as f:
         f.write(json.dumps(replicas, indent=4, sort_keys=True))
 
 
