@@ -16,10 +16,10 @@ def load_files_replicas(basedir):
 
             for r in os.listdir(d):
                 if r.startswith('replicas') and r.endswith('.json'):
-                replicas_path = os.path.join(d, r)
-                with open(replicas_path) as fr:
-                    new_replicas = json.load(fr)
-                    replicas.extend(new_replicas)
+                    replicas_path = os.path.join(d, r)
+                    with open(replicas_path) as fr:
+                        new_replicas = json.load(fr)
+                        replicas.extend(new_replicas)
     return files, replicas
 
 if __name__ == '__main__':
